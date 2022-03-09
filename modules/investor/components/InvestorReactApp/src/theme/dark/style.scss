@@ -1,0 +1,21 @@
+@import 'import';
+
+body {
+    @extend %body;
+}
+
+.wrapper {
+    @extend %wrapper;
+}
+
+header {
+    @extend %header;
+}
+
+main {
+    @extend %main;
+}
+
+footer {
+    @extend %footer;
+}
