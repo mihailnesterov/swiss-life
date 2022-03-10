@@ -14,8 +14,6 @@ const NewsList = () => {
         fetchNews();
     },[]);
 
-    console.log(news);
-
     return (
         <div className='news-list'>
             <div>

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useActions } from '../hooks/useActions';
 import PageLayout from '../layouts/PageLayout';
 import NewsItem from '../components/news/NewsItem';
+import Spinner from '../components/common/loader/Spinner';
 
 const NewsItemPage = () => {
     
@@ -17,7 +18,13 @@ const NewsItemPage = () => {
         fetchNewsById(parseInt(id));
     },[id]);
 
-    console.log(1, news, parseInt(id));
+    if(loading) {
+        return(
+            <div className='m-1'>
+                <Spinner size={2} />
+            </div>
+        );
+    }
 
     return (
         news && 
