@@ -1,15 +1,13 @@
 import React from 'react';
+import PageLayout from '../layouts/PageLayout';
+import DocumentsPage from '../components/documents';
 
 const Documents = () => {
     return (
-        <div className='page'>
-            <h1>Документы</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Документы'>
+            <DocumentsPage />
+        </PageLayout>
     )
 }
-
 
 export default Documents;

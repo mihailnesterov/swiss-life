@@ -274,6 +274,7 @@
         @extend %page-homepage;
         @extend %page-transactions;
         @extend %page-news;
+        @extend %page-documents;
     }
 }
 
@@ -666,6 +667,59 @@
             &:nth-child(3) {
                 & small {
                     color: $purple-light;
+                }
+            }
+        }
+    }
+}
+
+%page-documents {
+    .page-documents {
+        @extend %documents-list;
+    }
+}
+
+%documents-list {
+    .documents-list {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        & > * {
+            flex: 0 1 20%;
+            @media (max-width: 991.98px) {
+                flex: 0 1 50%;
+            }
+            @media (max-width: 767.98px) {
+                flex: 1 1 100%;
+            }
+            & > * {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            & a {
+                background-color: $purple;
+                color: $light;
+                text-decoration: none;
+                border-radius: 6px;
+                padding: 0.25rem 0.75rem;
+                font-size: 12px;
+                &:hover {
+                    opacity: 0.85;
+                }
+                & svg {
+                    margin-right: 0.35rem;
                 }
             }
         }
