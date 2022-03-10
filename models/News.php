@@ -67,17 +67,11 @@ class News extends \yii\db\ActiveRecord
 
         unset($fields['company_id']);
 
-        return $fields;
-    }
-
-    /** 
-     * {@inheritdoc} 
-     */ 
-    public function extraFields()
-    {
-        return [
-            'newsFiles',
-        ];
+        return array_merge($fields, [
+            'newsFiles' => function () {
+                return $this->newsFiles;
+            }
+        ]);
     }
 
     /**
@@ -97,7 +91,7 @@ class News extends \yii\db\ActiveRecord
      */
     public function getNewsFiles()
     {
-        return $this->hasMany(Category::className(), ['id' => 'news_id'])->viaTable('news_file', ['file_id' => 'id']);
+        return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('news_file', ['news_id' => 'id']);
         //return $this->hasMany(NewsFile::className(), ['news_id' => 'id']);
     }
 }
