@@ -1,2 +1,2 @@
-# swiss-life
-Swiss Life investor's CRM system
+# Swiss Life
+CRM system
