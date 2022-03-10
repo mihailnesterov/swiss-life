@@ -1,13 +1,12 @@
 import React from 'react';
+import NewsPage from '../components/news';
+import PageLayout from '../layouts/PageLayout';
 
 const News = () => {
     return (
-        <div className='page'>
-            <h1>Новости</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Новости'>
+            <NewsPage />
+        </PageLayout>
     )
 }
 

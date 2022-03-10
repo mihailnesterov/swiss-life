@@ -92,6 +92,5 @@ class News extends \yii\db\ActiveRecord
     public function getNewsFiles()
     {
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('news_file', ['news_id' => 'id']);
-        //return $this->hasMany(NewsFile::className(), ['news_id' => 'id']);
     }
 }

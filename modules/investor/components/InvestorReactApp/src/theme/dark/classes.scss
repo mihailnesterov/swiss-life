@@ -56,3 +56,12 @@
         margin-right: 0.75rem;
     }
 }
+.btn-more {
+    color: $light;
+    transition: .3s;
+    text-decoration: none;
+    padding: 0.45rem 0.65rem;
+    border: 2px $purple solid;
+    border-radius: 4px;
+    font-size: 14px;
+}

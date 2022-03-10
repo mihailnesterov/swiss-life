@@ -7,6 +7,7 @@ import Documents from '../pages/Documents';
 import Investment from '../pages/Investment';
 import Messages from '../pages/Messages';
 import News from '../pages/News';
+import NewsItemPage from '../pages/NewsItemPage';
 import Profile from '../pages/Profile';
 import Transactions from '../pages/Transactions';
 import Withdrawals from '../pages/Withdrawals';
@@ -22,6 +23,7 @@ export const RouteNames = Enum({
     INVESTMENT: `${BASE_URL}/investment`,
     MESSAGES: `${BASE_URL}/messages`,
     NEWS: `${BASE_URL}/news`,
+    NEWS_ITEM_PAGE: `${BASE_URL}/news/:id`,
     PROFILE: `${BASE_URL}/profile`,
     TRANSACTIONS: `${BASE_URL}/transactions`,
     WITHDRAWALS: `${BASE_URL}/withdrawals`,
@@ -40,4 +42,5 @@ export const investorRoutes = [
     {id: 8, path: RouteNames.DOCUMENTS, element: Documents, navbar: true, icon: <FontAwesomeIcon icon={solid('folder-open')} />, title: "Документы"},
     {id: 9, path: RouteNames.PROFILE, element: Profile, navbar: false, icon: <FontAwesomeIcon icon={solid('user-tie')} />, title: "Мой профиль"},
     {id: 10, path: RouteNames.ERROR404, element: Error404, navbar: false, title: "404 ошибка"},
+    {id: 11, path: RouteNames.NEWS_ITEM_PAGE, element: NewsItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('newspaper')} />, exact: true, title: "Новость"},
 ];
