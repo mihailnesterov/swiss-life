@@ -2,8 +2,7 @@
 import {assetActionTypes} from "../../types/asset";
 import {
     getAsset,
-    getAssets,
-    getAssetsCategories
+    getAssets
 } from '../../api/asset';
 
 const {
@@ -64,30 +63,3 @@ export const fetchAsset = (id) => {
         }
     }
 }
-
-export const fetchAssetsCategories = (id) => {
-    return async (dispatch) => {
-        try {
-            dispatch({
-                type: FETCH_ASSET
-            });
-            
-            setTimeout(() => {
-                getAssetsCategories(id)
-                    .then(res => dispatch({
-                        type: FETCH_ASSET_SUCCESS,
-                        payload: res.data
-                    }))
-                    .catch(err => console.log('dispatch assets categories error', err));
-            }, 100);
-            
-
-        } catch (error) {
-            dispatch({
-                type: FETCH_ASSET_ERROR,
-                payload: 'Ошибка при загрузке категорий активов!'
-            });
-        }
-    }
-}
-
