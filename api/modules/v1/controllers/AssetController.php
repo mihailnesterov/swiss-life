@@ -22,10 +22,9 @@ class AssetController extends BaseApiController
 
     public function prepareAssetDataProvider() 
     {
-        $model = new Asset();  
-        $queryParams = Yii::$app->request->queryParams;
         
-        if( !empty($queryParams) ) {
+        if( !empty(Yii::$app->request->queryParams) ) {
+            $model = new Asset(); 
             return $model->search(Yii::$app->request->queryParams);
         }
 
