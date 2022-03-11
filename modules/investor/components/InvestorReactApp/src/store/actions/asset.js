@@ -2,19 +2,18 @@
 import {assetActionTypes} from "../../types/asset";
 import {
     getAsset,
-    getAssetExpanded,
     getAssets,
-    getAssetsExpanded,
     getAssetsCategories
 } from '../../api/asset';
 
 const {
     FETCH_ASSET,
     FETCH_ASSET_SUCCESS,
+    FETCH_ASSET_ITEM_SUCCESS,
     FETCH_ASSET_ERROR
 } = assetActionTypes;
 
-export const fetchAssets = () => {
+export const fetchAssets = (params) => {
     return async (dispatch) => {
         try {
             dispatch({
@@ -22,38 +21,12 @@ export const fetchAssets = () => {
             });
             
             setTimeout(() => {
-                getAssets()
+                getAssets(params)
                     .then(res => dispatch({
                         type: FETCH_ASSET_SUCCESS,
                         payload: res.data
                     }))
                     .catch(err => console.log('dispatch assets error', err));
-            }, 100);
-            
-
-        } catch (error) {
-            dispatch({
-                type: FETCH_ASSET_ERROR,
-                payload: 'Ошибка при загрузке списка активов!'
-            });
-        }
-    }
-}
-
-export const fetchAssetsExpanded = () => {
-    return async (dispatch) => {
-        try {
-            dispatch({
-                type: FETCH_ASSET
-            });
-            
-            setTimeout(() => {
-                getAssetsExpanded()
-                    .then(res => dispatch({
-                        type: FETCH_ASSET_SUCCESS,
-                        payload: res.data
-                    }))
-                    .catch(err => console.log('dispatch assets expanded error', err));
             }, 100);
             
 
@@ -76,36 +49,10 @@ export const fetchAsset = (id) => {
             setTimeout(() => {
                 getAsset(id)
                     .then(res => dispatch({
-                        type: FETCH_ASSET_SUCCESS,
+                        type: FETCH_ASSET_ITEM_SUCCESS,
                         payload: res.data
                     }))
                     .catch(err => console.log('dispatch asset error', err));
-            }, 100);
-            
-
-        } catch (error) {
-            dispatch({
-                type: FETCH_ASSET_ERROR,
-                payload: 'Ошибка при загрузке актива!'
-            });
-        }
-    }
-}
-
-export const fetchAssetExpanded = (id) => {
-    return async (dispatch) => {
-        try {
-            dispatch({
-                type: FETCH_ASSET
-            });
-            
-            setTimeout(() => {
-                getAssetExpanded(id)
-                    .then(res => dispatch({
-                        type: FETCH_ASSET_SUCCESS,
-                        payload: res.data
-                    }))
-                    .catch(err => console.log('dispatch asset expanded error', err));
             }, 100);
             
 

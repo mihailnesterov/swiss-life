@@ -3,6 +3,7 @@ import {assetActionTypes} from '../../types/asset';
 const {
     FETCH_ASSET,
     FETCH_ASSET_SUCCESS,
+    FETCH_ASSET_ITEM_SUCCESS,
     FETCH_ASSET_ERROR
 } = assetActionTypes;
 
@@ -23,6 +24,12 @@ export const assetReducer = (state = initialState, action) => {
         case FETCH_ASSET_SUCCESS:
             return {
                 assets: action.payload,
+                loading: false,
+                error: null
+            }
+        case FETCH_ASSET_ITEM_SUCCESS:
+            return {
+                assets: [action.payload],
                 loading: false,
                 error: null
             }

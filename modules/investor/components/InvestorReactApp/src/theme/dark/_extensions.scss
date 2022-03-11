@@ -275,6 +275,7 @@
         @extend %page-transactions;
         @extend %page-news;
         @extend %page-documents;
+        @extend %page-investment;
     }
 }
 
@@ -610,6 +611,7 @@
                                 object-fit: cover;
                                 width: 100%;
                                 height: 180px;
+                                margin-bottom: -0.5rem;
                                 @media (max-width: 991.98px) {
                                     height: 160px;
                                 }
@@ -720,6 +722,188 @@
                 }
                 & svg {
                     margin-right: 0.35rem;
+                }
+            }
+        }
+    }
+}
+
+%page-investment {
+    .page-investment {
+        @extend %user-investments;
+        @extend %investment-list;
+        @extend %investment-item;
+    }
+}
+
+%user-investments {
+    .user-investments {
+        margin-bottom: 2rem;
+        & h2 {
+            color: $gold-light;
+        }
+        & p {
+            &:last-child {
+                padding: 0;
+                margin: 0;
+            }
+        }
+        & b {
+            color: $gold-light;
+        }
+        & > * {
+            &:first-child {
+                margin-bottom: 1rem;
+            }
+            &:last-child {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                & > * {
+                    background-color: $black;
+                    padding: 1.5rem;
+                    border: 2px $purple solid;
+                    border-radius: 6px;
+                }
+            }
+            
+        }
+    }
+}
+
+%investment-list {
+    .investment-list {
+        & h2 {
+            color: $gold-light;
+        }
+        & > * {
+            &:first-child {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            &:last-child {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 2rem;
+                & > * {
+                    flex: 0 1 23%;
+                    @media (max-width: 991.98px) {
+                        flex: 1 0 45%;
+                    }
+                    @media (max-width: 767.98px) {
+                        flex: 1 0 100%;
+                    }
+                    & > * {
+                        
+                        &:first-child {
+                            & a {
+                                margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                            }
+                            & img {
+                                object-fit: cover;
+                                width: 100%;
+                                height: 220px;
+                                margin-bottom: -0.5rem;
+                                @media (max-width: 991.98px) {
+                                    height: 180px;
+                                }
+                                @media (max-width: 767.98px) {
+                                    height: 160px;
+                                }
+                                &:hover {
+                                    opacity: 0.85;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            background-color: $black;
+                            padding: 1rem;
+                            color: $gold-light;
+                            & h3 {
+                                line-height: 1.4;
+                                margin-bottom: 1rem;
+                            }
+                            & b {
+                                color: $gold-light;
+                            }
+                            & p {
+                                margin-bottom: 1rem;
+                            }
+                            & > *:nth-child(2) {
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 5;
+                                        line-clamp: 5; 
+                                -webkit-box-orient: vertical;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+%investment-item {
+    .investment-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        & > * {
+            &:nth-child(1) {
+                padding: 0;
+                margin: 0;
+            }
+            &:nth-child(2) {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                & > * {
+                    flex: 0 1 50%;
+                    @media (max-width: 991.98px) {
+                        flex: 1 0 100%;
+                    }
+                    & img {
+                        width: 100%;
+                    }
+                }
+            }
+            &:nth-child(3) {
+                & b {
+                   color: $gold; 
+                }
+                & p {
+                    &:last-child {
+                        margin-bottom: 1rem;
+                    }
+                }
+                & a {
+                    display: inline-block;
+                    background-color: $red;
+                    color: $light;
+                    padding: 1rem 2rem;
+                    font-size: 18px;
+                    border: 0;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.85;
+                    }
                 }
             }
         }

@@ -1,15 +1,13 @@
 import React from 'react';
+import PageLayout from '../layouts/PageLayout';
+import InvestmentPage from '../components/investment';
 
 const Investment = () => {
     return (
-        <div className='page'>
-            <h1>Инвестирование</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Инвестирование'>
+            <InvestmentPage />
+        </PageLayout>
     )
 }
-
 
 export default Investment;

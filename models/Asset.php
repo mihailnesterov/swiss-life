@@ -93,7 +93,6 @@ class Asset extends \yii\db\ActiveRecord
     public function getAssetFiles()
     {
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('asset_file', ['asset_id' => 'id']);
-        //return $this->hasMany(AssetFile::className(), ['asset_id' => 'id']);
     }
 
     /**
