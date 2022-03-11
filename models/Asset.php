@@ -114,4 +114,12 @@ class Asset extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserAsset::className(), ['asset_id' => 'id']);
     }
+
+    public function search($params)
+    {
+        $key = array_keys($params)[0];
+        $values = array_values($params)[0];
+        
+        return Asset::find()->where([$key => $values])->all();
+    }
 }

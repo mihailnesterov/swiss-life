@@ -11,6 +11,30 @@ class AssetController extends BaseApiController
 {
     public $modelClass = 'app\models\Asset';
 
+    public function actions()
+    {
+        $actions = parent::actions();
+        
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareAssetDataProvider'];
+        
+        return $actions;
+    }
+
+    public function prepareAssetDataProvider() 
+    {
+        $model = new Asset();  
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if( !empty($queryParams) ) {
+            return $model->search(Yii::$app->request->queryParams);
+        }
+
+        return Yii::createObject([
+            'class' => \yii\data\ActiveDataProvider::className(),
+            'query' => Asset::find(),
+        ]);
+    }
+
     public function actionCategories()
     {
         $categories = Asset::find()
