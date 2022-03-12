@@ -1,13 +1,12 @@
 import React from 'react';
+import MessagesPage from '../components/messages';
+import PageLayout from '../layouts/PageLayout';
 
 const Messages = () => {
     return (
-        <div className='page'>
-            <h1>Сообщения</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Сообщения'>
+            <MessagesPage />
+        </PageLayout>
     )
 }
 
