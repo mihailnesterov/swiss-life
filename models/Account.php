@@ -91,6 +91,26 @@ class Account extends \yii\db\ActiveRecord
             'transactions' => function () {
                 return $this->getTransactions()->orderBy(['created' => SORT_DESC])->all();
             },
+            'transactionsStat' => function () {
+                
+                $countAll = $this->getTransactions()
+                    ->count();
+                $sumAll = $this->getTransactions()
+                    ->sum('sum');
+                $countAccepted = $this->getTransactions()
+                    ->where('accepted IS NOT NULL')
+                    ->count();
+                $sumAccepted = $this->getTransactions()
+                    ->where('accepted IS NOT NULL')
+                    ->sum('sum');
+                
+                return compact( 
+                    'countAll', 
+                    'sumAll', 
+                    'countAccepted', 
+                    'sumAccepted'
+                );
+            }
         ]);
     }
 
