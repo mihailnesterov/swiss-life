@@ -166,7 +166,7 @@
     height: calc(100vh - 60px - 60px);
     & > * {
         &.aside {
-            width: 400px;
+            width: auto;
             background: $black;
             height: calc(100vh - 60px - 60px);
             border-right: 2px $purple solid;
@@ -214,6 +214,7 @@
                 text-decoration: none;
                 font-size: 20px;
                 transition: .3s;
+                white-space: nowrap;
                 &:hover {
                     text-decoration: underline;
                 }

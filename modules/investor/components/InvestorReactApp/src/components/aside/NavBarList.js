@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
+import { useSelector } from "react-redux";
 import { Link, useLocation } from 'react-router-dom';
 import { investorRoutes } from '../../routes';
 import {getInitialItemActive, setPageTitle} from '../../utils/navbar';
 
 const NavBarList = () => {
+
+    const {navbar} = useSelector( state => state.navbar);
     
     const location = useLocation();
 
@@ -26,7 +29,12 @@ const NavBarList = () => {
                         className={isItemActive === item.id ? 'active' : null} 
                         onClick={() => itemActiveHandler(item)}
                     >
-                        <Link to={item.path}>{item.icon}{item.title}</Link>
+                        <Link 
+                            to={item.path} 
+                            title={!navbar && item.title}
+                        >
+                            {item.icon}{navbar && item.title}
+                        </Link>
                     </li>
                 )
             }
