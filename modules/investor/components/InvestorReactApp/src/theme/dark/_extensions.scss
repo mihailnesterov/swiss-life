@@ -509,6 +509,7 @@
 %page-transactions {
     .page-transactions {
         @extend %transactions-list;
+        @extend %transactions-stat;
     }
 }
 
@@ -603,6 +604,42 @@
         }
         &:nth-child(10) {
             flex: 3;
+        }
+    }
+}
+
+%transactions-stat {
+    .transactions-stat {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        & h4 {
+            color: $light;
+            margin-bottom: 0.3rem;
+        }
+        & p {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+        & b {
+            color: $gold-light;
+        }
+        & small {
+            color: $purple-light;
+        }
+        & hr {
+            border: 1px $dark solid;
+            margin: 0.5rem 0;
+        }
+        & > * {
+            background-color: $black;
+            padding: 1rem 1.5rem;
+            border: 2px $purple solid;
+            border-radius: 6px;
+            min-width: 300px;
         }
     }
 }
@@ -988,7 +1025,6 @@
         align-items: flex-start;
         justify-content: flex-start;
         flex-wrap: wrap;
-        //gap: 0.5rem;
     }
 
     @extend %messages-list-item;
@@ -1006,7 +1042,6 @@
         background-color: $black;
         padding: 1rem 1.5rem;
         border-bottom: 1px $purple solid;
-        //border-radius: 8px;
         box-shadow: $box-shadow;
 
         &:last-child {
