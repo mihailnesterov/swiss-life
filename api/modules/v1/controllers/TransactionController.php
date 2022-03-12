@@ -39,10 +39,7 @@ class TransactionController extends BaseApiController
                 ->orderBy(['created' => SORT_DESC])
                 ->joinWith('account')
                 ->where(['user_id' => $id]),
-            'pagination' => [
-                'defaultPageSize' => 20,
-                'pageSizeLimit' => [0, 20],
-            ],
+            'pagination' => $this->pagination,
         ]);
         
         return $activeData;

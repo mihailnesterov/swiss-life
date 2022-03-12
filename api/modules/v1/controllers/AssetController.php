@@ -24,7 +24,7 @@ class AssetController extends BaseApiController
     {
         
         if( !empty(Yii::$app->request->queryParams) ) {
-            $model = new Asset(); 
+            $model = new $this->modelClass; 
             return $model->search(Yii::$app->request->queryParams);
         }
 
