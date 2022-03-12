@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import TransactionsList from './TransactionsList';
+import TransactionsStat from './TransactionsStat';
 
 const TransactionsPage = () => {
 
@@ -10,7 +11,11 @@ const TransactionsPage = () => {
         <div className='page-transactions'>
             {
                 user && user.id &&
-                <TransactionsList user={user} />
+                <>
+                    <TransactionsStat user={user} />
+                    <TransactionsList user={user} />
+                </>
+                
             }
         </div>
     )

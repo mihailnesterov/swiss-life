@@ -20,9 +20,6 @@ const TransactionsList = (props) => {
             'page': '1'
         });
     },[user]);
-    /**/
-
-    //console.log(transactions, links, meta);
 
     return (
         <div className='transactions-list'>

@@ -51,11 +51,10 @@ const TransactionItem = (props) => {
                 {getDateTimeToString(item.created)}
             </div>
             <div>
-                {getDateTimeToString(item.accepted)}
+                {item.accepted && getDateTimeToString(item.accepted)}
             </div>
         </div>
     )
 }
-
 
 export default TransactionItem;
