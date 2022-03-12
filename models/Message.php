@@ -92,4 +92,31 @@ class Message extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    /**
+     * Search by query params for [[Message]].
+     *
+     * @param Object $params
+     * @return \yii\db\ActiveQuery
+     */
+    public function search($params)
+    {
+        $query = $this::find();
+        
+        foreach ($params as $param => $value) {
+            $query->andFilterWhere([
+                $param => $value,
+            ]);
+        }
+        
+        $activeData = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [0, 20],
+            ],
+        ]);
+        
+        return $activeData;
+    }
 }
