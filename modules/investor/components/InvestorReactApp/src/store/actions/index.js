@@ -5,6 +5,7 @@ import * as AssetActionCreators from './asset';
 import * as AssetCategoriesActionCreators from './assetCategories';
 import * as NewsActionCreators from './news';
 import * as TransactionActionCreators from './transaction';
+import * as NavbarActionCreators from './navbar';
 
 // собираем вместе все action creators
 const ActionCreators = {
@@ -14,7 +15,8 @@ const ActionCreators = {
     ...AssetActionCreators,
     ...AssetCategoriesActionCreators,
     ...NewsActionCreators,
-    ...TransactionActionCreators
+    ...TransactionActionCreators,
+    ...NavbarActionCreators
 }
 
 export default ActionCreators;

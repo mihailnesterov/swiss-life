@@ -6,6 +6,7 @@ import { assetReducer } from "./assetReducer";
 import { assetCategoriesReducer } from "./assetCategoriesReducer";
 import { newsReducer } from "./newsReducer";
 import { transactionReducer } from "./transactionReducer";
+import { navbarReducer } from "./navbarReducer";
 
 export const rootReducer = combineReducers({
     company: companyReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
     assetCategories: assetCategoriesReducer,
     news: newsReducer,
     transactions: transactionReducer,
+    navbar: navbarReducer
 });
