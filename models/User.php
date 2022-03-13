@@ -160,7 +160,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getUserAssets()
     {
-        //return $this->hasMany(Asset::className(), ['id' => 'asset_id'])->viaTable('user_asset', ['user_id' => 'id']);
         return $this->hasMany(UserAsset::className(), ['user_id' => 'id']);
     }
 
@@ -172,7 +171,6 @@ class User extends \yii\db\ActiveRecord
     public function getUserCategories()
     {
         return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('user_category', ['user_id' => 'id']);
-        //return $this->hasMany(UserCategory::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -183,7 +181,6 @@ class User extends \yii\db\ActiveRecord
     public function getUserDocuments()
     {
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('user_document', ['user_id' => 'id']);
-        //return $this->hasMany(UserDocument::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -193,7 +190,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getUserPhotos()
     {
-        //return $this->hasMany(UserPhoto::className(), ['user_id' => 'id']);
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('user_photo', ['user_id' => 'id']);
     }
 }
