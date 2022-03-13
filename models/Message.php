@@ -63,6 +63,20 @@ class Message extends \yii\db\ActiveRecord
         ];
     }
 
+    /** 
+     * {@inheritdoc} 
+     */ 
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        return array_merge($fields, [
+            'messageFiles' => function () {
+                return $this->messageFiles;
+            }
+        ]);
+    }
+
     /**
      * Gets query for [[Manager]].
      *
@@ -80,7 +94,8 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getMessageFiles()
     {
-        return $this->hasMany(MessageFile::className(), ['message_id' => 'id']);
+        //return $this->hasMany(MessageFile::className(), ['message_id' => 'id']);
+        return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('message_file', ['message_id' => 'id']);
     }
 
     /**
