@@ -15,8 +15,6 @@ const MessagesList = () => {
         }
     },[user]);
 
-    console.log(messages);
-
     return (
         <div className='messages-list'>
             {
