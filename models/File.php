@@ -81,7 +81,7 @@ class File extends \yii\db\ActiveRecord
          */
         return array_merge($fields, [
             'url' => function () use ($base, $datePath) {
-                return "$base/uploads/$datePath/$this->name.$this->extention";
+                return "$base/uploads$datePath/$this->name.$this->extention";
             },
         ]);
     }
