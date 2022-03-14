@@ -36,7 +36,7 @@ const InvestmentItem = (props) => {
             <div>
                 <p>{item.description}</p>
                 <p>Стоимость: <b>{item.calculation}</b></p>
-                <Link to={`${BASE_URL}/investment`}>Инвестировать</Link>
+                <Link to={`${BASE_URL}/invest/${item.id}`}>Инвестировать</Link>
             </div>
         </div>
     )

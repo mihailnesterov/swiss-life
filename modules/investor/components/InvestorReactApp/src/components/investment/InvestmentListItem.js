@@ -23,7 +23,7 @@ const InvestmentListItem = (props) => {
                 <p>{item.excerpt}</p>
                 <p>Стоимость: <b>{item.calculation}</b></p>
                 <Link className='btn btn-more mr-1' to={`${BASE_URL}/investment/${item.id}`}>Подробнее...</Link>
-                <Link className='btn btn-red' to={`${BASE_URL}/investment/${item.id}`}>Инвестировать</Link>
+                <Link className='btn btn-red' to={`${BASE_URL}/invest/${item.id}`}>Инвестировать</Link>
             </div>
         </div>
     )
