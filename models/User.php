@@ -204,8 +204,8 @@ class User extends \yii\db\ActiveRecord
         $query = $this::find();
         
         foreach ($params as $param => $value) {
-            $query->andFilterWhere([
-                $param => $value,
+            $query->orFilterWhere([
+                'like', $param, $value
             ]);
         }
         
