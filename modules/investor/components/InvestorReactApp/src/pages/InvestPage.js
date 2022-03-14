@@ -26,11 +26,11 @@ const InvestPage = () => {
         );
     }
 
-    console.log('объект',assets[0]);
-
     return (
-        <PageLayout title={`Инвестировать в объект "${assets[0].name}"`}>
-            <InvestForm />
+        <PageLayout title={`Инвестировать в актив: "${assets[0].name}"`}>
+            <div className='page-invest'>
+                <InvestForm asset={assets[0]} />
+            </div>
         </PageLayout>
     )
 }

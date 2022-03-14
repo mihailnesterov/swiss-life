@@ -308,6 +308,7 @@
         @extend %page-messages;
         @extend %page-withdrawals;
         @extend %page-transfer;
+        @extend %page-invest;
     }
 }
 
@@ -1103,6 +1104,42 @@
     .page-transfer {
         @extend %form-container;
         @extend %form-sent;
+    }
+}
+
+%page-invest {
+    .page-invest {
+        @extend %invest-info;
+        @extend %form-container;
+        @extend %form-sent;
+    }
+}
+
+%invest-info {
+    .invest-info {
+        & > * {
+            margin: 1rem 0;
+            & b {
+                color: $gold-light;
+            }
+            &:first-child {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                gap: 1.5rem;
+                & img {
+                    width: 350px;
+                    @media (max-width: 991.98px) {
+                        width: 40%;
+                    }
+                    @media (max-width: 767.98px) {
+                        flex-wrap: wrap;
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 }
 
