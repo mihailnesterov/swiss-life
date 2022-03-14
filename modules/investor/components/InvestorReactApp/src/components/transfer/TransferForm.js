@@ -4,7 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
-import {getUsers, getUser} from '../../api/user';
+import {getUsers} from '../../api/user';
 
 const TransferForm = () => {
 
