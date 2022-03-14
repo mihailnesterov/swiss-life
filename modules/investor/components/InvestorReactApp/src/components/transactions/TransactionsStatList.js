@@ -22,17 +22,17 @@ const TransactionsStatList = (props) => {
                 }
             </div>
             <div>
-                <h4>Закрытых операций</h4>
+                <h4>На рассмотрении</h4>
                 {
                     stat.map(item => 
-                        <p><b>{item.stat.countAccepted}</b> <small>({item.currency.shortName})</small></p>
+                        <p><b>{item.stat.countNotAccepted}</b> <small>({item.currency.shortName})</small></p>
                     )
                 }
                 <hr />
                 <h4>На сумму</h4>
                 {
                     stat.map(item => 
-                        <p><b>{item.currency.sign} {item.stat.sumAccepted}</b></p>
+                        <p><b>{item.currency.sign} {item.stat.sumNotAccepted}</b></p>
                     )
                 }
             </div>
