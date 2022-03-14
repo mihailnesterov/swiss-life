@@ -307,6 +307,7 @@
         @extend %page-investment;
         @extend %page-messages;
         @extend %page-withdrawals;
+        @extend %page-transfer;
     }
 }
 
@@ -1098,6 +1099,13 @@
     }
 }
 
+%page-transfer {
+    .page-transfer {
+        @extend %form-container;
+        @extend %form-sent;
+    }
+}
+
 %form-container {
     .form-container {
         & h3 {
@@ -1134,6 +1142,7 @@
             border-radius: 6px;
             padding: 2rem;
             margin: 1rem 0;
+            & input[type="text"],
             & input[type="number"],
             & select {
                 background-color: $white;
@@ -1143,18 +1152,46 @@
                 padding: 0.5rem 0.75rem;
                 border-radius: 6px;
                 font-size: 20px;
-                font-weight: 900;
-                &:hover {
-                    cursor: pointer;
-                }
                 &.text-red {
                     color: $red !important;
                     background-color: blanchedalmond;
                 }
             }
+            & select {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             & label {
                 & span {
                     margin-right: 0.75rem;
+                }
+                &.autocomplete {
+                    position: relative;
+                    .autocomplete-items {
+                        position: absolute;
+                        top: 50px;
+                        right: 0;
+                        left: 0;
+                        z-index: 99;
+                        background-color: $white;
+                        border: 1px $black solid;
+                        box-shadow: $box-shadow;
+                        color: $black;
+                        width: 100%;
+                        & ul {
+                            list-style-type: none;
+                            & > li {
+                                padding: 1rem;
+                                width: 100%;
+                                &:hover {
+                                    background-color: $light;
+                                    cursor: pointer;
+                                    color: $purple;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             & button[type="submit"] {

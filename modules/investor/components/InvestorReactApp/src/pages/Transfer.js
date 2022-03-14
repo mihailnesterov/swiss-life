@@ -1,13 +1,12 @@
 import React from 'react';
+import PageLayout from '../layouts/PageLayout';
+import TransferPage from '../components/transfer';
 
 const Transfer = () => {
     return (
-        <div className='page'>
-            <h1>Перевод средств</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Перевод средств'>
+            <TransferPage />
+        </PageLayout>
     )
 }
 
