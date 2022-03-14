@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useActions } from '../hooks/useActions';
@@ -25,8 +25,6 @@ const InvestmentItemPage = () => {
             </div>
         );
     }
-
-    console.log("page-investment", assets);
 
     return (
         assets && 
