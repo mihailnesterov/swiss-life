@@ -15,7 +15,7 @@ const {
     FETCH_USER_ERROR
 } = userActionTypes;
 
-export const fetchUsers = () => {
+export const fetchUsers = (params) => {
     return async (dispatch) => {
         try {
             dispatch({
@@ -23,7 +23,7 @@ export const fetchUsers = () => {
             });
             
             setTimeout(() => {
-                getUsers()
+                getUsers(params)
                     .then(res => dispatch({
                         type: FETCH_USER_SUCCESS,
                         payload: res.data
@@ -41,7 +41,7 @@ export const fetchUsers = () => {
     }
 }
 
-export const fetchUsersExpanded = () => {
+export const fetchUsersExpanded = (params) => {
     return async (dispatch) => {
         try {
             dispatch({
@@ -49,7 +49,7 @@ export const fetchUsersExpanded = () => {
             });
             
             setTimeout(() => {
-                getUsersExpanded()
+                getUsersExpanded(params)
                     .then(res => dispatch({
                         type: FETCH_USER_SUCCESS,
                         payload: res.data
