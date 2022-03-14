@@ -16,7 +16,11 @@ class UserController extends BaseApiController
 
     public function actions()
     {
-        return parent::actions();
+        $actions = parent::actions();
+        
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareBaseApiDataProvider'];
+        
+        return $actions;
     }
 
     public function actionToken()
