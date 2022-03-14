@@ -306,6 +306,7 @@
         @extend %page-documents;
         @extend %page-investment;
         @extend %page-messages;
+        @extend %page-withdrawals;
     }
 }
 
@@ -1086,6 +1087,128 @@
         }
         & p {
             margin-bottom: 0;
+        }
+    }
+}
+
+%page-withdrawals {
+    .page-withdrawals {
+        @extend %withdrawal-form;
+        @extend %withdrawal-sent;
+    }
+}
+%withdrawal-form {
+    .withdrawal-form {
+        & h3 {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            color: $gold-light;
+            & > small {
+                color: $purple;
+            }
+        }
+        & fieldset {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            border: 0;
+            outline: 0;
+            margin-bottom: 1rem;
+        }
+        & > form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            width: auto;
+            background-color: $black;
+            border: 2px $purple solid;
+            border-radius: 6px;
+            padding: 2rem;
+            margin: 1rem 0;
+            & input[type="number"],
+            & select {
+                background-color: $white;
+                color: $black;
+                border: 2px $purple solid;
+                outline: 0;
+                padding: 0.5rem 0.75rem;
+                border-radius: 6px;
+                font-size: 20px;
+                font-weight: 900;
+                &:hover {
+                    cursor: pointer;
+                }
+                &.text-red {
+                    color: $red !important;
+                    background-color: blanchedalmond;
+                }
+            }
+            & label {
+                & span {
+                    margin-right: 0.75rem;
+                }
+            }
+            & button[type="submit"] {
+                border: 0;
+                outline: 0;
+                border-radius: 6px;
+                background-color: $red;
+                color: $white;
+                padding: 0.75rem 1.5rem;
+                box-shadow: $box-shadow;
+                &:hover {
+                    opacity: 0.85;
+                    cursor: pointer;
+                }
+                &:disabled {
+                    opacity: 0.5;
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+            }
+            & hr {
+                border: 0.5px $purple solid;
+                margin: 0.25rem 0 1.5rem 0;
+                width: 100%;
+            }
+        }
+    }
+}
+
+%withdrawal-sent {
+    .withdrawal-sent {
+        display: inline-block;
+        background-color: $black;
+        border: 2px $purple solid;
+        border-radius: 6px;
+        padding: 2rem;
+        & h3 {
+            color: $gold-light;
+        }
+        & p {
+            margin: 2rem 0;
+        }
+        & button {
+            border: 2px $purple solid;
+            outline: 0;
+            border-radius: 6px;
+            background-color: $dark;
+            color: $white;
+            padding: 0.5rem 1.5rem;
+            box-shadow: $box-shadow;
+            &:hover {
+                opacity: 0.85;
+                cursor: pointer;
+            }
         }
     }
 }

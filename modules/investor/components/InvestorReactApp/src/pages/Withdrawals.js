@@ -1,15 +1,13 @@
 import React from 'react';
+import PageLayout from '../layouts/PageLayout';
+import WithdrawalsPage from '../components/withdrawals';
 
 const Withdrawals = () => {
     return (
-        <div className='page'>
-            <h1>Вывод средств</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Вывод средств'>
+            <WithdrawalsPage />
+        </PageLayout>
     )
 }
-
 
 export default Withdrawals;
