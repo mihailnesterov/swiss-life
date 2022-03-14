@@ -15,12 +15,12 @@ const AddAccountForm = () => {
     const [sending, setSending] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
+    const [currenciesSelected, setCurrenciesSelected] = useState([]);
     const [userAccounts, setUserAccounts] = useState(null);
 
     useEffect(() => {
         getCurrencies()
             .then(res => {
-                console.log('get currencies success',res.data);
                 setCurrencies(res.data);
             })
             .catch(err => {
@@ -31,7 +31,7 @@ const AddAccountForm = () => {
             setCurrencies(null);
         }
     }, []);
-
+    
     useEffect(() => {
         if(user.accounts && user.accounts.length > 0) {
             setUserAccounts(user.accounts);
@@ -40,22 +40,43 @@ const AddAccountForm = () => {
         return () => {
             setUserAccounts(null);
         }
-    }, [user,currencies]);
+    }, [user]);
 
-    const checkIfAccountExcists = (currency) => {
-        console.log(user.accounts.filter(item => 
-            item.currency.code === currencies[0].code
-        ).length > 0 ? true : false);
+    useEffect(() => {
+        if(userAccounts && userAccounts.length > 0) {                         
+            userAccounts.forEach(item => {
+                setTimeout(() => {
+                    const checkbox = document.querySelector(`#account-${item.currency.shortName}`);
+                    const label = document.querySelector(`label[for="account-${item.currency.shortName}"]`);
+                    
+                    if(checkbox) {
+                        checkbox.checked = checkbox.disabled = true;
+                    }
 
-        return userAccounts.filter(item => 
-                item.currency.code === currency.code
-            ).length > 0 ? true : false;
-    }
+                    if(label) {
+                        label.textContent = `${label.textContent} (счет № ${item.number})`;
+                    }
+                }, 1000);  
+            });
+        }
+    }, [userAccounts]);
 
-
-    const onCurrencySelectHandler = (e) => {
-        // доработать, т.к. не тестировалось
-        console.log(e);
+    const onSelectCurrencyHandler = (item, e) => {
+        const checked = e.target.checked;
+        
+        if(checked) {
+            if(currenciesSelected.length > 0) {
+                setCurrenciesSelected([...new Set([...currenciesSelected, item.shortName])]);
+            } else {
+                setCurrenciesSelected([item.shortName]);
+            }
+        } else {
+            if(currenciesSelected.length > 0) {
+                setCurrenciesSelected(currenciesSelected.filter(curr => curr !== item.shortName));
+            } else {
+                setCurrenciesSelected([]);
+            }
+        }
     }
 
     const onSubmitHandler = (e) => {
@@ -66,7 +87,7 @@ const AddAccountForm = () => {
                 user_id: user.id,
                 manager_id: user.manager.id,
                 theme: 'Заявка на открытие счета',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, валюта: `
+                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, валюта: ${currenciesSelected. join(',')}`
             })
                 .then(res => {
                     fetchUserAuthorizedExpanded();
@@ -95,11 +116,7 @@ const AddAccountForm = () => {
 
     const onIsSentHandler = () => {
         setIsSent(false);
-    }
-
-    //console.log(currencies, userAccounts);
-
-    
+    }    
 
     if(isSent) {
         return(
@@ -113,7 +130,7 @@ const AddAccountForm = () => {
 
     return (
         <div className='form-container'>
-            <h3>Выберите валюту счета и отправьте заявку</h3>
+            <h3>Выберите валюту и отправьте заявку</h3>
             {
                 (loading || sending) ?
                 <Spinner size={2} /> :
@@ -129,15 +146,12 @@ const AddAccountForm = () => {
                                         key={item.id}
                                         type="checkbox" 
                                         id={`account-${item.shortName}`}
-                                        defaultChecked={() => checkIfAccountExcists(item)}
-                                        disabled={() => checkIfAccountExcists(item)}
-                                        onLoad={() => checkIfAccountExcists(item)}
+                                        onChange={(e) => onSelectCurrencyHandler(item, e)}
                                     />
                                     <label for={`account-${item.shortName}`}>{item.shortName}</label>
                                 </div>
                             )
                         }
-                        
                         
                     </fieldset>
 
@@ -145,7 +159,7 @@ const AddAccountForm = () => {
 
                     <button 
                         type='submit' 
-                        //disabled={((inputValue === '' || inputValue === 0) || (inputValue > balance)) ? true : false}
+                        disabled={currenciesSelected.length > 0 ? false : true}
                     >Отправить заявку</button>
 
                 </form>

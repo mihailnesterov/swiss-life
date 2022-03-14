@@ -309,6 +309,7 @@
         @extend %page-withdrawals;
         @extend %page-transfer;
         @extend %page-invest;
+        @extend %page-add-account;
     }
 }
 
@@ -1143,6 +1144,13 @@
     }
 }
 
+%page-add-account {
+    .page-add-account {
+        @extend %form-container;
+        @extend %form-sent;
+    }
+}
+
 %form-container {
     .form-container {
         & h3 {
@@ -1197,6 +1205,26 @@
             & select {
                 &:hover {
                     cursor: pointer;
+                }
+            }
+            & .checkbox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+                & input[type="checkbox"] {
+                    width: 20px;
+                    height: 20px;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                & label {
+                    color: $gold;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
             & label {
