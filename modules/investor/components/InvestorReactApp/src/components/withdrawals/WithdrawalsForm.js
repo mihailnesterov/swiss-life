@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
+import FormSent from '../common/form/FormSent';
 
 const WithdrawalsForm = () => {
 
@@ -67,12 +68,16 @@ const WithdrawalsForm = () => {
                 .catch(err => {
                     console.log('message create error',err);
                     return(
-                        <div className='withdrawal-sent'>
-                            <h3>Ошибка при подаче заявки!</h3>
-                            <p>Попробуйте оформить заявку еще раз.</p>
-                            <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
-                            <button onClick={onIsSentHandler}>Ок</button>
-                        </div>
+                        <FormSent 
+                            header='Ошибка при подаче заявки!'
+                            text={
+                                <>
+                                    <p>Попробуйте оформить заявку еще раз.</p>
+                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                </>
+                            }
+                            onOk={onIsSentHandler}
+                        />
                     );
                 })
                 .finally(() => {
@@ -89,16 +94,16 @@ const WithdrawalsForm = () => {
 
     if(isSent) {
         return(
-            <div className='withdrawal-sent'>
-                <h3>Заявка отправлена</h3>
-                <p>В ближайшее время наш менеджер свяжется с Вами</p>
-                <button onClick={onIsSentHandler}>Ок</button>
-            </div>
+            <FormSent 
+                header='Заявка отправлена'
+                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                onOk={onIsSentHandler}
+            />
         );
     }
 
     return (
-        <div className='withdrawal-form'>
+        <div className='form-container'>
             <h3>Заявка на вывод средств</h3>
             {
                 (loading || sending) ?
