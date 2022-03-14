@@ -97,18 +97,18 @@ class Account extends \yii\db\ActiveRecord
                     ->count();
                 $sumAll = $this->getTransactions()
                     ->sum('sum');
-                $countAccepted = $this->getTransactions()
-                    ->where('accepted IS NOT NULL')
+                $countNotAccepted = $this->getTransactions()
+                    ->where('accepted IS NULL')
                     ->count();
-                $sumAccepted = $this->getTransactions()
-                    ->where('accepted IS NOT NULL')
+                $sumNotAccepted = $this->getTransactions()
+                    ->where('accepted IS NULL')
                     ->sum('sum');
                 
                 return compact( 
                     'countAll', 
                     'sumAll', 
-                    'countAccepted', 
-                    'sumAccepted'
+                    'countNotAccepted', 
+                    'sumNotAccepted'
                 );
             }
         ]);
