@@ -14,6 +14,7 @@ import Profile from '../pages/Profile';
 import Transactions from '../pages/Transactions';
 import Withdrawals from '../pages/Withdrawals';
 import Transfer from '../pages/Transfer';
+import AddAccountPage from '../pages/AddAccountPage';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -32,6 +33,7 @@ export const RouteNames = Enum({
     TRANSACTIONS: `${BASE_URL}/transactions`,
     WITHDRAWALS: `${BASE_URL}/withdrawals`,
     TRANSFER: `${BASE_URL}/transfer`,
+    ADD_ACCOUNT: `${BASE_URL}/add-account`,
     LOGOUT: `${BASE_URL}/logout`,
 });
 
@@ -49,4 +51,5 @@ export const investorRoutes = [
     {id: 11, path: RouteNames.NEWS_ITEM_PAGE, element: NewsItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('newspaper')} />, exact: true, title: "Новость"},
     {id: 12, path: RouteNames.INVESTMENT_ITEM_PAGE, element: InvestmentItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('briefcase')} />, exact: true, title: "Объект инвестирования"},
     {id: 13, path: RouteNames.INVEST_PAGE, element: InvestPage, navbar: false, icon: <FontAwesomeIcon icon={solid('briefcase')} />, exact: true, title: "Инвестировать в объект"},
+    {id: 14, path: RouteNames.ADD_ACCOUNT, element: AddAccountPage, navbar: false, icon: <FontAwesomeIcon icon={solid('coins')} />, title: "Открыть счет"},
 ];
