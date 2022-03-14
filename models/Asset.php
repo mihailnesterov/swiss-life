@@ -115,11 +115,30 @@ class Asset extends \yii\db\ActiveRecord
         return $this->hasMany(UserAsset::className(), ['asset_id' => 'id']);
     }
 
+    /**
+     * Search by query params for [[Asset]].
+     *
+     * @param Object $params
+     * @return \yii\db\ActiveQuery
+     */
     public function search($params)
     {
-        $key = array_keys($params)[0];
-        $values = array_values($params)[0];
+        $query = $this::find();
         
-        return Asset::find()->where([$key => $values])->all();
+        foreach ($params as $param => $value) {
+            $query->andFilterWhere([
+                $param => $value,
+            ]);
+        }
+        
+        $activeData = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [0, 20],
+            ],
+        ]);
+        
+        return $activeData;
     }
 }

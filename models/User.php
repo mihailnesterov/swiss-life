@@ -192,4 +192,31 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('user_photo', ['user_id' => 'id']);
     }
+
+    /**
+     * Search by query params for [[User]].
+     *
+     * @param Object $params
+     * @return \yii\db\ActiveQuery
+     */
+    public function search($params)
+    {
+        $query = $this::find();
+        
+        foreach ($params as $param => $value) {
+            $query->andFilterWhere([
+                $param => $value,
+            ]);
+        }
+        
+        $activeData = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [0, 20],
+            ],
+        ]);
+        
+        return $activeData;
+    }
 }
