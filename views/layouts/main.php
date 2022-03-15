@@ -4,13 +4,6 @@
     use app\assets\AppAsset;
     
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->homeUrl.'web');
-
-    /*$company = Yii::$app->controller->getCompany('company');
-    $services = Yii::$app->controller->getServices('services');
-    $complexes = Yii::$app->controller->getComplexes('complexes');
-    $footerServices = Yii::$app->controller->getFooterServices('footerServices');
-    $footerComplexes = Yii::$app->controller->getFooterComplexes('footerComplexes');
-    $metrika = Yii::$app->controller->getYandexMetrika('metrika');*/
     
     $this->beginPage();
 ?>
@@ -43,9 +36,7 @@
         
         <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => $directoryAsset . 'favicon.ico']) ?>
         
-        <?php            
-            AppAsset::register($this);
-        ?>
+        <?php AppAsset::register($this); ?>
         
     </head>
     <body>

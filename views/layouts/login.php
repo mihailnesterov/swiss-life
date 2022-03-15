@@ -2,13 +2,24 @@
     use yii\helpers\Html;
     use app\assets\AppAsset;
     
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('zgrboard/web');
+    $directoryAsset = Yii::$app->assetManager->getPublishedUrl(Yii::$app->homeUrl.'web');
     $this->beginPage();
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="<?= Yii::$app->request->url ?>" />
+        <meta property="og:title" content="<?= $this->title ?> | <?= Yii::$app->name ?>" />
+        <meta property="og:description" content="<?= $this->title ?>" />
+        <meta property="og:image" content="<?= Yii::$app->homeUrl ?>web/images/logo.png" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="<?= $this->title ?> | <?= Yii::$app->name ?>" />
+        <meta name="twitter:image:src" content="<?= Yii::$app->homeUrl ?>web/images/logo.png" />
+        <meta name="twitter:description" content="<?= $this->title ?>" />
+        <link rel="image_src" href="<?= Yii::$app->homeUrl ?>web/images/logo.png" />
 
         <base href="<?= Yii::$app->homeUrl ?>">
 
@@ -21,19 +32,17 @@
         
         <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => $directoryAsset . 'favicon.ico']) ?>
         
-        <?php            
-            AppAsset::register($this);
-        ?>
+        <?php AppAsset::register($this); ?>
         
     </head>
     <body>
         <?php $this->beginBody(); ?>
         
-        <div id="login-wrapper" style="margin-top:8%;">
+        <div class="wrapper">
 
              <?= $content ?>               
 
-        </div> 	<!-- end wrapper-->
+        </div>
 
         
         <?php $this->endBody(); ?>
