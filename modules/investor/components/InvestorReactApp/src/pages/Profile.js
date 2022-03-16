@@ -1,15 +1,13 @@
 import React from 'react';
+import PageLayout from '../layouts/PageLayout';
+import ProfilePage from '../components/profile';
 
 const Profile = () => {
     return (
-        <div className='page'>
-            <h1>Мой профиль</h1>
-            <div>
-                <p>Контент...</p>
-            </div>
-        </div>
+        <PageLayout title='Мой профиль'>
+            <ProfilePage />
+        </PageLayout>
     )
 }
-
 
 export default Profile;
