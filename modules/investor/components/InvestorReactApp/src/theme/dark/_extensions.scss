@@ -310,6 +310,7 @@
         @extend %page-transfer;
         @extend %page-invest;
         @extend %page-add-account;
+        @extend %page-profile;
     }
 }
 
@@ -1151,6 +1152,26 @@
     }
 }
 
+%page-profile {
+    .page-profile {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        @extend %form-container;
+        @extend %load-image-file;
+        & > * {
+            &:first-child {
+                flex: 1;
+            }
+            &:last-child {
+                flex: 3;                
+            }
+        }
+    }
+}
+
 %form-container {
     .form-container {
         & h3 {
@@ -1189,6 +1210,7 @@
             margin: 1rem 0;
             & input[type="text"],
             & input[type="number"],
+            & input[type="password"],
             & select {
                 background-color: $white;
                 color: $black;
@@ -1283,6 +1305,25 @@
                 margin: 0.25rem 0 1.5rem 0;
                 width: 100%;
             }
+            & .input-change-password {
+                position: relative;
+                & > button[type="button"] {
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                    z-index: 99;
+                    border: 0;
+                    outline: 0;
+                    background-color: transparent;
+                    margin: 0;
+                    padding: 0;
+                    color: $purple;
+                    &:hover {
+                        opacity: 0.85;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
     }
 }
@@ -1363,6 +1404,20 @@
                     }
                 }
             }
+        }
+    }
+}
+
+%load-image-file {
+    .load-image-file {
+        & img {
+            &:hover {
+                opacity: 0.85;
+                cursor: pointer;
+            }
+        }
+        & input[type="file"] {
+            display: none;
         }
     }
 }
