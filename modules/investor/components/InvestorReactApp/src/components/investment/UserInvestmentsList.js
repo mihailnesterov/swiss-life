@@ -22,7 +22,7 @@ const UserInvestmentsList = () => {
             <h2>Мои инвестиции</h2>
             <div>
                 {
-                    userAssets.map(item => <UserInvestmentItem item={item} />)
+                    userAssets.map(item => <UserInvestmentItem key={item.id} item={item} />)
                 }
             </div>
         </div>

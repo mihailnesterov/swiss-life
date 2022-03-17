@@ -21,7 +21,7 @@ const DocumentsList = () => {
                 loading ?
                 <Spinner size={2} /> :
                 userDocuments && 
-                userDocuments.map(item => <DocumentsListItem item={item} />)
+                userDocuments.map(item => <DocumentsListItem key={item.id} item={item} />)
             }
         </div>
     )

@@ -31,7 +31,7 @@ const InvestmentList = () => {
                 {
                     loading ?
                     <Spinner size={2} /> :
-                    assets.map(item => <InvestmentListItem item={item} />)
+                    assets.map(item => <InvestmentListItem key={item.id} item={item} />)
                 }
             </div>
         </div>

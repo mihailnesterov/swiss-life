@@ -20,7 +20,7 @@ const NewsList = () => {
                 {
                     loading ?
                     <Spinner size={2} /> :
-                    news.map(item => <NewsListItem item={item} />)
+                    news.map(item => <NewsListItem key={item.id} item={item} />)
                 }
             </div>
         </div>

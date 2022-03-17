@@ -33,7 +33,7 @@ const Partners = () => {
                 {
                     partnersList &&
                     partnersList.map(item => 
-                        <div>
+                        <div key={item.id}>
                             <h4>{item.name}</h4>
                             <p><small>{item.description}</small></p>
                             <a 

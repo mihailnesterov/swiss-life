@@ -16,7 +16,15 @@ const MessagesListItem = (props) => {
                 {
                     item.messageFiles &&
                     item.messageFiles.length > 0 &&
-                    item.messageFiles.map(item => <a href={item.url} target="_blank"><img src={item.url} alt={item.name} /></a>)
+                    item.messageFiles.map(item => 
+                        <a 
+                            key={item.id}
+                            href={item.url} 
+                            target="_blank"
+                        >
+                            <img src={item.url} alt={item.name} />
+                        </a>
+                    )
                 }
             </div>
             <div><small>{getDateTimeToString(item.created)}</small></div>

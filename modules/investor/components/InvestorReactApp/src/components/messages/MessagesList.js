@@ -21,7 +21,7 @@ const MessagesList = () => {
                 loading ?
                 <Spinner size={2} /> :
                 messages &&
-                messages.map(item => <MessagesListItem item={item} />)
+                messages.map(item => <MessagesListItem key={item.id} item={item} />)
             }
     </div>
     )
