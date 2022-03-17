@@ -31,7 +31,7 @@ const NavBarList = () => {
                     >
                         <Link 
                             to={item.path} 
-                            title={!navbar && item.title}
+                            title={!navbar ? item.title : undefined}
                         >
                             {item.icon}{navbar && item.title}
                         </Link>
