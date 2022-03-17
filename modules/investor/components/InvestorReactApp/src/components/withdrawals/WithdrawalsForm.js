@@ -111,7 +111,7 @@ const WithdrawalsForm = () => {
                 <form onSubmit={onSubmitHandler}>
 
                     <fieldset>
-                        <label for="withdrawal-sum">
+                        <label htmlFor="withdrawal-sum">
                             <span>Сумма</span>
                             <input 
                                 id="withdrawal-sum"
@@ -126,7 +126,7 @@ const WithdrawalsForm = () => {
                         {
                             currencies &&
                             currencies.length > 0 &&
-                                <label for="withdrawal-currency-sign">
+                                <label htmlFor="withdrawal-currency-sign">
                                     <span>Валюта</span>
                                     <select 
                                         id="withdrawal-currency-sign"

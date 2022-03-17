@@ -128,7 +128,7 @@ const InvestForm = (props) => {
                 <form onSubmit={onSubmitHandler}>
 
                     <fieldset>
-                        <label for="invest-sum">
+                        <label htmlFor="invest-sum">
                             <span>Сумма инвестиций</span>
                             <input 
                                 id="invest-sum"
@@ -143,7 +143,7 @@ const InvestForm = (props) => {
                         {
                             currencies &&
                             currencies.length > 0 &&
-                                <label for="invest-currency-sign">
+                                <label htmlFor="invest-currency-sign">
                                     <span>Валюта</span>
                                     <select 
                                         id="invest-currency-sign"

@@ -224,7 +224,7 @@ const TransferForm = () => {
                                 }
                         </label>
 
-                        <label for="transfer-sum">
+                        <label htmlFor="transfer-sum">
                             <span>Сумма</span>
                             <input 
                                 id="transfer-sum"
@@ -239,7 +239,7 @@ const TransferForm = () => {
                         {
                             currencies &&
                             currencies.length > 0 &&
-                                <label for="transfer-currency-sign">
+                                <label htmlFor="transfer-currency-sign">
                                     <span>Валюта</span>
                                     <select 
                                         id="transfer-currency-sign"

@@ -148,7 +148,7 @@ const AddAccountForm = () => {
                                         id={`account-${item.shortName}`}
                                         onChange={(e) => onSelectCurrencyHandler(item, e)}
                                     />
-                                    <label for={`account-${item.shortName}`}>{item.shortName}</label>
+                                    <label htmlFor={`account-${item.shortName}`}>{item.shortName}</label>
                                 </div>
                             )
                         }
