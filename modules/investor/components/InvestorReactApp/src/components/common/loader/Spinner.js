@@ -8,10 +8,10 @@ const Spinner = (props) => {
 
     return (
         <FontAwesomeIcon 
-            spin='true' 
+            spin={true}
             className='text-gold'
             size={size ? `${size}x` : '1x'}
-            icon={solid('spinner')} 
+            icon={solid('spinner')}
         />
     )
 }
