@@ -19,7 +19,7 @@ class DefaultController extends Controller
     public static function allowedDomains() {
         return [
             '*',
-            'http://localhost:80'
+            //'http://localhost:80'
         ];
     } 
     

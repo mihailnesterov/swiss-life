@@ -31,7 +31,7 @@ class Module extends \yii\base\Module
     public static function allowedDomains() {
         return [
             '*',
-            'http://localhost:80'
+            //'http://localhost:80'
         ];
     } 
     
