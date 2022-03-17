@@ -150,7 +150,7 @@ const TransferForm = () => {
     }
 
     const onDropdownListClickOutsideHandler = e => {
-        if (!dropdownListRef.current.contains(e.target)) {
+        if (dropdownListRef.current && !dropdownListRef.current.contains(e.target)) {
             setClickedOutside(true);
         }
     };
@@ -160,7 +160,7 @@ const TransferForm = () => {
     useEffect(() => {
         document.addEventListener('mousedown', onDropdownListClickOutsideHandler);
         return () => document.removeEventListener('mousedown', onDropdownListClickOutsideHandler);
-    });
+    }, []);
 
     if(isSent) {
         return(
