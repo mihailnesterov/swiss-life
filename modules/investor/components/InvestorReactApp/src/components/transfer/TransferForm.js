@@ -162,8 +162,6 @@ const TransferForm = () => {
         return () => document.removeEventListener('mousedown', onDropdownListClickOutsideHandler);
     });
 
-    console.log(isDropdownListOpen, users);
-
     if(isSent) {
         return(
             <FormSent 
