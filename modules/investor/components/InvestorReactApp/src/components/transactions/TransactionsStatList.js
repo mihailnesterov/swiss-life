@@ -25,14 +25,14 @@ const TransactionsStatList = (props) => {
                 <h4>На рассмотрении</h4>
                 {
                     stat.map(item => 
-                        <p><b>{item.stat.countNotAccepted}</b> <small>({item.currency.shortName})</small></p>
+                        <p key={item.id}><b>{item.stat.countNotAccepted}</b> <small>({item.currency.shortName})</small></p>
                     )
                 }
                 <hr />
                 <h4>На сумму</h4>
                 {
                     stat.map(item => 
-                        <p><b>{item.currency.sign} {item.stat.sumNotAccepted}</b></p>
+                        <p key={item.id}><b>{item.currency.sign} {item.stat.sumNotAccepted}</b></p>
                     )
                 }
             </div>
