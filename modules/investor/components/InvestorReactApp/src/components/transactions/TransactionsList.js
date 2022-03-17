@@ -29,7 +29,7 @@ const TransactionsList = (props) => {
                 {
                     loading ?
                     <Spinner size={2} /> :
-                    transactions.map(item => <TransactionItem item={item} />)
+                    transactions.map(item => <TransactionItem key={item.id} item={item} />)
                 }
             </div>
             <Pagination userId={user.id} links={links} meta={meta} />
