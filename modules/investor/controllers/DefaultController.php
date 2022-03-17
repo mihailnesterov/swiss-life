@@ -19,8 +19,7 @@ class DefaultController extends Controller
     public static function allowedDomains() {
         return [
             '*',
-            //'http://localhost:80',
-            //'https://blablabla.ru:80',
+            'http://localhost:80'
         ];
     } 
     
@@ -51,16 +50,13 @@ class DefaultController extends Controller
                     'logout' => ['post'],
                 ],
             ],*/
-
-            // For cross-domain AJAX request
             'corsFilter'  => [
                 'class' => \yii\filters\Cors::className(),
                 'cors'  => [
-                    // restrict access to domains:
                     'Origin'                           => static::allowedDomains(),
-                    'Access-Control-Request-Method'    => ['POST'],
+                    'Access-Control-Request-Method'    => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
                     'Access-Control-Allow-Credentials' => true,
-                    'Access-Control-Max-Age'           => 3600, // Cache (seconds)
+                    'Access-Control-Max-Age'           => 3600,
 
                 ],
             ],
