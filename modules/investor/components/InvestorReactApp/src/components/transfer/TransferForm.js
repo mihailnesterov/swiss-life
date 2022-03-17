@@ -185,7 +185,7 @@ const TransferForm = () => {
                     <fieldset>
 
                         <label 
-                            for="transfer-user" 
+                            htmlFor="transfer-user" 
                             className='autocomplete'
                         >
                             <input 
