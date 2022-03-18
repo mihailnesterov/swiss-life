@@ -18,8 +18,9 @@ const InvestmentList = () => {
     },[]);
 
     return (
-        assets &&
-        assets.length > 0 &&
+        loading ?
+        <Spinner size={2} /> :
+        
         <div className='investment-list'>
             <h2>Объекты инвестирования</h2>
             {
@@ -29,8 +30,8 @@ const InvestmentList = () => {
             }
             <div>
                 {
-                    loading ?
-                    <Spinner size={2} /> :
+                    assets &&
+                    assets.length > 0 &&
                     assets.map(item => <InvestmentListItem key={item.id} item={item} />)
                 }
             </div>
