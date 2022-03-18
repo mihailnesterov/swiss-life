@@ -24,6 +24,7 @@ const UploadImageFile = (props) => {
             <label>
                 <input 
                     type="file"
+                    accept="image/*"
                     onChange={handleFileUpload} 
                 />
                 <img 
