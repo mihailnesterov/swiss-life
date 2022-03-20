@@ -2,7 +2,7 @@
 import API, {setHeaders, credentials} from './index';
 
 const URL = `/users`;
-const EXPAND = `expand=userAssets,manager,accounts,userDocuments,userPhotos,messages,userCategories`;
+const EXPAND = `expand=userAssets,manager,accounts,userDocuments,userPhotos,messages,userCategories,userStatus`;
 
 export const getUserAuthorized = async () => 
     await API.get(`${URL}/authorized`, { credentials, setHeaders });
