@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id id пользователя
  * @property int $manager_id id менеджера
+ * @property int $status_id id статуса
+ * @property int|null $parent_id id представителя
  * @property string $email Email
  * @property string $password Пароль
  * @property string|null $auth_key Authentication Key
@@ -46,7 +48,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'password', 'firstName', 'lastName'], 'required'],
-            [['manager_id'], 'integer'],
+            [['manager_id', 'status_id', 'parent_id'], 'integer'],
             ['status', 'boolean'],
             ['verified', 'boolean'],
             [['created'], 'safe'],
@@ -55,6 +57,7 @@ class User extends \yii\db\ActiveRecord
             [['token'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['manager_id'], 'exist', 'skipOnError' => true, 'targetClass' => Manager::className(), 'targetAttribute' => ['manager_id' => 'id']], 
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
 
@@ -66,6 +69,8 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'id пользователя',
             'manager_id' => 'id менеджера',
+            'status_id' => 'id статуса',
+            'parent_id' => 'id представителя',
             'email' => 'Email',
             'password' => 'Пароль',
             'auth_key' => 'Authentication Key',
@@ -92,6 +97,7 @@ class User extends \yii\db\ActiveRecord
             $fields['password'],
             $fields['token'],
             $fields['manager_id'],
+            $fields['status_id'],
         );
 
         return array_merge($fields, [
@@ -103,6 +109,11 @@ class User extends \yii\db\ActiveRecord
                     ->where(['user_id' => $this->id])
                     ->andWhere(['isRead' => 0])
                     ->count();
+            },
+            'members' => function () {
+                return $this::find()
+                    ->where(['parent_id' => $this->id])
+                    ->all();
             }
         ]);
     }
@@ -120,6 +131,7 @@ class User extends \yii\db\ActiveRecord
             'userCategories',
             'userDocuments',
             'userPhotos',
+            'userStatus'
         ];
     }
 
@@ -151,6 +163,16 @@ class User extends \yii\db\ActiveRecord
     public function getMessages()
     {
         return $this->hasMany(Message::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[UserStatus]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserStatus()
+    {
+        return $this->hasOne(Status::className(), ['id' => 'status_id']);
     }
 
     /**
