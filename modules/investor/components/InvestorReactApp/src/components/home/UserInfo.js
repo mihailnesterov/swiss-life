@@ -7,6 +7,8 @@ const UserInfo = (props) => {
 
     const {user} = props;
 
+    console.log(user);
+
     return (
         <div>
             {
@@ -19,22 +21,29 @@ const UserInfo = (props) => {
             }
             <div>
                 <h4>{user.fullName}</h4>
-                <p>
                     {
                         user.status === 1 ? 
-                        <FontAwesomeIcon className='text-green' icon={solid('check')} /> :
-                        <FontAwesomeIcon className='text-red' icon={solid('xmark')} />
-                    } 
-                    Активен
-                </p>
-                <p>
+                        <p>
+                            <FontAwesomeIcon className='text-green' icon={solid('check')} />
+                            Активен
+                        </p> :
+                        <p>
+                            <FontAwesomeIcon className='text-red' icon={solid('xmark')} /> 
+                            Отключен
+                        </p> 
+                    }
+                
                     {
                         user.verified === 1 ? 
-                        <FontAwesomeIcon className='text-green' icon={solid('check')} /> :
-                        <FontAwesomeIcon className='text-red' icon={solid('xmark')} />
+                        <p>
+                            <FontAwesomeIcon className='text-green' icon={solid('check')} />
+                            Верифицирован
+                        </p> :
+                        <p>
+                            <FontAwesomeIcon className='text-red' icon={solid('xmark')} />
+                            Не верифицирован
+                        </p>
                     }
-                    Верифицирован
-                </p>
                 {
                     user.created &&
                     <p>Дата регистрации: <b>{getDateToString(user.created)}</b></p>
