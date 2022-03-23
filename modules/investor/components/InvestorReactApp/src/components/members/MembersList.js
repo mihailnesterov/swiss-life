@@ -8,13 +8,11 @@ const MembersList = (props) => {
 
     return (
         <div className='members-list'>
-            <div>
-                {
-                    loading ?
-                    <Spinner size={2} /> :
-                    members.map(item => <MembersListItem key={item.id} item={item} />)
-                }
-            </div>
+            {
+                loading ?
+                <Spinner size={2} /> :
+                members.map(item => <MembersListItem key={item.id} item={item} />)
+            }
         </div>
     )
 }
