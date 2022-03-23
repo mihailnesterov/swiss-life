@@ -7,7 +7,7 @@ const EXPAND = `expand=userAssets,manager,accounts,userDocuments,userPhotos,mess
 export const getUserAuthorized = async () => 
     await API.get(`${URL}/authorized`, { credentials, setHeaders });
 
-export const getUserAuthorizedExpanded = async (id) => 
+export const getUserAuthorizedExpanded = async () => 
     await API.get(`${URL}/authorized?${EXPAND}`, { credentials, setHeaders });
 
 export const getUsers = async (params) => 
@@ -21,3 +21,9 @@ export const getUser = async (id) =>
 
 export const getUserExpanded = async (id) => 
     await API.get(`${URL}/${id}?${EXPAND}`, { credentials, setHeaders });
+
+export const getUserMembers = async (id, params) => 
+    await API.get(`${URL}/${id}/members`, { credentials, setHeaders, params });
+
+export const getUserMembersExpanded = async (id, params) => 
+    await API.get(`${URL}/${id}/members?${EXPAND}`, { credentials, setHeaders, params });
