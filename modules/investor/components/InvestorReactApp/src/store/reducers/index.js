@@ -6,6 +6,7 @@ import { assetReducer } from "./assetReducer";
 import { assetCategoriesReducer } from "./assetCategoriesReducer";
 import { newsReducer } from "./newsReducer";
 import { transactionReducer } from "./transactionReducer";
+import { contractReducer } from "./contractReducer";
 import { navbarReducer } from "./navbarReducer";
 
 export const rootReducer = combineReducers({
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
     assetCategories: assetCategoriesReducer,
     news: newsReducer,
     transactions: transactionReducer,
+    contracts: contractReducer,
     navbar: navbarReducer
 });
