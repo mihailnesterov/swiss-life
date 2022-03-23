@@ -21,11 +21,13 @@ use Yii;
  * @property string|null $address Адрес пользователя
  * @property int $status Статус активен/неактивен
  * @property int $verified Верифицирован
+ * @property int $representive Представитель
  * @property string $created Дата создания профиля
  *
  * @property Account[] $accounts
  * @property Manager $manager
  * @property Message[] $messages
+ * @property UserStatus $userStatus
  * @property UserAsset[] $userAssets
  * @property UserCategory[] $userCategories
  * @property UserDocument[] $userDocuments
@@ -49,8 +51,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['email', 'password', 'firstName', 'lastName'], 'required'],
             [['manager_id', 'status_id', 'parent_id'], 'integer'],
-            ['status', 'boolean'],
-            ['verified', 'boolean'],
+            [['status', 'verified', 'representive'], 'boolean'],
             [['created'], 'safe'],
             [['email', 'password', 'firstName', 'lastName', 'phone'], 'string', 'max' => 100],
             [['auth_key', 'address'], 'string', 'max' => 255],
@@ -81,6 +82,7 @@ class User extends \yii\db\ActiveRecord
             'address' => 'Адрес пользователя',
             'status' => 'Статус активен/неактивен',
             'verified' => 'Верифицирован',
+            'representive' => 'Представитель',
             'created' => 'Дата создания профиля',
         ];
     }
