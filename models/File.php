@@ -14,6 +14,7 @@ use yii\helpers\Url;
  * @property string $created Дата создания файла
  *
  * @property AssetFile[] $assetFiles
+ * @property Contract[] $contracts
  * @property MessageFile[] $messageFiles
  * @property NewsFile[] $newsFiles
  * @property UserDocument[] $userDocuments
@@ -94,6 +95,16 @@ class File extends \yii\db\ActiveRecord
     public function getAssetFiles()
     {
         return $this->hasMany(AssetFile::className(), ['file_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Contracts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContracts()
+    {
+        return $this->hasMany(Contract::className(), ['file_id' => 'id']);
     }
 
     /**
