@@ -116,6 +116,9 @@ class User extends \yii\db\ActiveRecord
                 return $this::find()
                     ->where(['parent_id' => $this->id])
                     ->all();
+            },
+            'userStatus' => function () {
+                return $this->userStatus;
             }
         ]);
     }
@@ -132,8 +135,7 @@ class User extends \yii\db\ActiveRecord
             'userAssets', 
             'userCategories',
             'userDocuments',
-            'userPhotos',
-            'userStatus'
+            'userPhotos'
         ];
     }
 
