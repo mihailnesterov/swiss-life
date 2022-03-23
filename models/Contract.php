@@ -51,6 +51,22 @@ class Contract extends \yii\db\ActiveRecord
         ];
     }
 
+    /** 
+     * {@inheritdoc} 
+     */ 
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        unset($fields['file_id']);
+
+        return array_merge($fields, [
+            'file' => function () {
+                return $this->file;
+            }
+        ]);
+    }
+
     /**
      * Gets query for [[File]].
      *
