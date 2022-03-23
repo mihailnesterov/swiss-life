@@ -9,6 +9,7 @@ const MembersListHead = () => {
             <h4>Email</h4>
             <h4>Активен</h4>
             <h4>Верифицирован</h4>
+            <h4>Статус</h4>
         </div>
     )
 }
