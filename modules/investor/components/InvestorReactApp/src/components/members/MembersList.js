@@ -1,4 +1,5 @@
 import React from 'react';
+import MembersListHead from './MembersListHead';
 import MembersListItem from './MembersListItem';
 import Spinner from '../common/loader/Spinner';
 
@@ -8,10 +9,11 @@ const MembersList = (props) => {
 
     return (
         <div className='members-list'>
+            <MembersListHead />
             {
                 loading ?
                 <Spinner size={2} /> :
-                members.map(item => <MembersListItem key={item.id} item={item} />)
+                members.map((item,i) => <MembersListItem key={item.id} num={i} item={item} />)
             }
         </div>
     )
