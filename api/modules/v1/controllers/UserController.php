@@ -30,7 +30,12 @@ class UserController extends BaseApiController
 
     public function actionAuthorized()
     {
-        return \app\models\User::find()->where(['id' => Yii::$app->user->identity->id])->one();
+        return $this->modelClass::find()->where(['id' => Yii::$app->user->identity->id])->one();
+    }
+
+    public function actionMembers($id)
+    {
+        return $this->modelClass::find()->where(['parent_id' => $id])->all();
     }
 
     /*public function actionLogin()
