@@ -1177,13 +1177,15 @@
 %page-members {
     .page-members {
         @extend %members-list;
+        @extend %form-container;
+        @extend %form-sent;
     }
 }
 
 %members-list {
     .members-list {
-        & > * {
-            &:nth-child(1) {
+        & > * {     
+            &:nth-child(2) {
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
@@ -1202,8 +1204,7 @@
                 
                 @extend %members-table;
             }
-
-            &:nth-child(2) {
+            &:nth-child(3) {
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
