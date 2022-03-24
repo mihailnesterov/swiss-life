@@ -16,8 +16,6 @@ const MembersForm = () => {
     const [inputMemberNameValue, setMemberNameValue] = useState('');
     const [inputMemberEmailValue, setMemberEmailValue] = useState('');
 
-    console.log(user,isSent,inputMemberNameValue,inputMemberEmailValue);
-
     const onChangeMemberNameValueHandler = (e) => {
         setMemberNameValue(e.target.value);
     }
