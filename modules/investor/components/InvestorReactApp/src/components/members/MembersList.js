@@ -2,6 +2,7 @@ import React from 'react';
 import MembersListHead from './MembersListHead';
 import MembersListItem from './MembersListItem';
 import Spinner from '../common/loader/Spinner';
+import MembersForm from './MembersForm';
 
 const MembersList = (props) => {
 
@@ -9,6 +10,7 @@ const MembersList = (props) => {
 
     return (
         <div className='members-list'>
+            <MembersForm />
             <MembersListHead />
             {
                 loading ?
