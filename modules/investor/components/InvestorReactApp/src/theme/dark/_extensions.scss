@@ -312,6 +312,7 @@
         @extend %page-add-account;
         @extend %page-profile;
         @extend %page-members;
+        @extend %page-contracts;
     }
 }
 
@@ -1243,6 +1244,44 @@
         &:nth-child(6) {
             flex: 2;
             text-align: center;
+        }
+    }
+}
+
+%page-contracts {
+    .page-contracts {
+        @extend %contracts-list;
+    }
+}
+
+%contracts-list {
+    .contracts-list {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 2rem;
+        & > * {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: 2px $purple solid;
+            border-radius: 8px;
+            padding: 1rem;
+            &:hover {
+                text-decoration: none;
+                opacity: 0.85;
+                border: 2px $gold solid;
+            }
+            & > span {
+                color: $gold-light;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
