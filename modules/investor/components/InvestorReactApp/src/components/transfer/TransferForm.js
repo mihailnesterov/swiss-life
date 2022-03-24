@@ -16,7 +16,7 @@ const TransferForm = () => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
-    const [balance, setBalance] = useState(0);
+    const [profit, setProfit] = useState(0);
 
     useEffect(() => {
         if(user.accounts && user.accounts.length > 0) {
@@ -24,14 +24,14 @@ const TransferForm = () => {
             user.accounts.forEach(item => 
                 _currencies.push({
                     ...item.currency, 
-                    ...{balance: item.balance},
+                    ...{profit: item.profit},
                     ...{account: item.number}
                 })
             );
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                setBalance(_currencies[0].balance);
+                setProfit(_currencies[0].profit);
             }
         }
 
@@ -111,7 +111,7 @@ const TransferForm = () => {
                 theme: 'Заявка на перевод средств другому пользователю',
                 text: `id отправителя: ${user.id}, ФИО отправителя: ${user.fullName}, 
                 id получателя: ${users[0].id}, ФИО получателя: ${users[0].fullName}, email получателя: ${users[0].email},
-                сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, баланс счета: ${balance}`
+                сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${profit}`
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -227,7 +227,7 @@ const TransferForm = () => {
                             <input 
                                 id="transfer-sum"
                                 type='number' 
-                                className={inputValue > balance ? 'text-red' : null}
+                                className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeSumHandler}
@@ -258,9 +258,9 @@ const TransferForm = () => {
                         {
                             currencySelected && 
                             currencySelected.sign && 
-                            balance &&
+                            profit &&
                             <h3>
-                                <small>Баланс:</small> <span>{currencySelected.sign} {balance}</span>
+                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -268,8 +268,8 @@ const TransferForm = () => {
                     <hr />
 
                     {
-                        (inputValue > balance) &&
-                        <small className='text-red'>Сумма превышает баланс</small>
+                        (inputValue > profit) &&
+                        <small className='text-red'>Сумма превышает накопленные средства</small>
                     }
 
                     <button 
@@ -281,7 +281,7 @@ const TransferForm = () => {
                                 inputSearchValue === '' || 
                                 !users || 
                                 users.length !== 1
-                            ) || (inputValue > balance)) ? 
+                            ) || (inputValue > profit)) ? 
                             true : 
                             false
                         }

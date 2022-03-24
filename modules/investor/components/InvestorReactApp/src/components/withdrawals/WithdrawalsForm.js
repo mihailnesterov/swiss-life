@@ -15,7 +15,7 @@ const WithdrawalsForm = () => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
-    const [balance, setBalance] = useState(0);
+    const [profit, setProfit] = useState(0);
 
     useEffect(() => {
         if(user.accounts && user.accounts.length > 0) {
@@ -23,14 +23,14 @@ const WithdrawalsForm = () => {
             user.accounts.forEach(item => 
                 _currencies.push({
                     ...item.currency, 
-                    ...{balance: item.balance},
+                    ...{profit: item.profit},
                     ...{account: item.number}
                 })
             );
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                setBalance(_currencies[0].balance);
+                setProfit(_currencies[0].profit);
             }
         }
 
@@ -59,7 +59,7 @@ const WithdrawalsForm = () => {
                 user_id: user.id,
                 manager_id: user.manager.id,
                 theme: 'Заявка на вывод средств',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, баланс счета: ${balance}`
+                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${profit}`
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -116,7 +116,7 @@ const WithdrawalsForm = () => {
                             <input 
                                 id="withdrawal-sum"
                                 type='number' 
-                                className={inputValue > balance ? 'text-red' : null}
+                                className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
@@ -147,9 +147,9 @@ const WithdrawalsForm = () => {
                         {
                             currencySelected && 
                             currencySelected.sign && 
-                            balance &&
+                            profit &&
                             <h3>
-                                <small>Баланс:</small> <span>{currencySelected.sign} {balance}</span>
+                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -157,13 +157,13 @@ const WithdrawalsForm = () => {
                     <hr />
 
                     {
-                        (inputValue > balance) &&
-                        <small className='text-red'>Сумма превышает баланс</small>
+                        (inputValue > profit) &&
+                        <small className='text-red'>Сумма превышает накопленные средства</small>
                     }
 
                     <button 
                         type='submit' 
-                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > balance)) ? true : false}
+                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
                     >Отправить заявку</button>
 
                 </form>
