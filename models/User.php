@@ -119,6 +119,21 @@ class User extends \yii\db\ActiveRecord
             },
             'userStatus' => function () {
                 return $this->userStatus;
+            },
+            'userAssetsTotal' => function () {
+                $userAssetTable = \app\models\UserAsset::tableName();
+                $currencyTable = \app\models\Currency::tableName();
+                return \app\models\UserAsset::find()
+                    ->select([
+                        new \yii\db\Expression("SUM($userAssetTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $userAssetTable.currency_id")
+                    ->where(["$userAssetTable.user_id" => $this->id])
+                    ->groupBy("$userAssetTable.currency_id")
+                    ->asArray()
+                    ->all();
             }
         ]);
     }
