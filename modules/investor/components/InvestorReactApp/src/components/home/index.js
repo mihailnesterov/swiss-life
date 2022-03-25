@@ -21,8 +21,6 @@ const HomePage = () => {
             </div>
             <div>
                 {
-                    loading ? 
-                    <Spinner size={2} /> : 
                     user && 
                     user.accounts && 
                     user.userAssetsTotal &&
