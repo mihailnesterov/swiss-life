@@ -130,11 +130,12 @@ const AddAccountForm = () => {
 
     return (
         <div className='form-container'>
-            <h3>Выберите валюту и отправьте заявку</h3>
             {
                 (loading || sending) ?
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
+                
+                    <h3>Выберите валюту и отправьте заявку</h3>
 
                     <fieldset>
                         {

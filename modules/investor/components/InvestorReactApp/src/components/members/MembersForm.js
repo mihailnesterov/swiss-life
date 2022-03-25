@@ -85,7 +85,6 @@ const MembersForm = () => {
                 <form onSubmit={onSubmitHandler}>
                     
                     <h3>Пригласить пользователя</h3>
-                    <br />
                     
                     <fieldset>
 

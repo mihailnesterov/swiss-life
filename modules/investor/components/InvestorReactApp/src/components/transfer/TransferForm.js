@@ -174,11 +174,12 @@ const TransferForm = () => {
 
     return (
         <div className='form-container'>
-            <h3>Заявка на перевод средств другому пользователю</h3>
             {
                 (loading || sending) ?
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
+                
+                    <h3>Заявка на перевод средств другому пользователю</h3>
 
                     <fieldset>
 

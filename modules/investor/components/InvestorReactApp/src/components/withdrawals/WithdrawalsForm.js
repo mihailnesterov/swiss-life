@@ -104,11 +104,12 @@ const WithdrawalsForm = () => {
 
     return (
         <div className='form-container'>
-            <h3>Заявка на вывод средств</h3>
             {
                 (loading || sending) ?
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
+                
+                    <h3>Заявка на вывод средств</h3>
 
                     <fieldset>
                         <label htmlFor="withdrawal-sum">
