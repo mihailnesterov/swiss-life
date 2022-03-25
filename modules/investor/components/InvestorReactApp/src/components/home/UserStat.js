@@ -5,13 +5,14 @@ import StatBlock from './StatBlock';
 
 const UserStat = (props) => {
     
-    const {stat} = props;
+    const {stat, assetsStat} = props;
 
     return (
-        stat.length > 0 &&
-        stat.map(item => 
-            <div key={item.id}>
-                <div>
+        <div>
+        {
+            stat.length > 0 &&
+            stat.map(item => 
+                <div key={item.id}>
                     <StatBlock 
                         title='Сумма контракта'
                         titleBg='bg-blue-light'
@@ -28,8 +29,6 @@ const UserStat = (props) => {
                         balance={item.balance}
                         currencySign={item.currency.sign}
                     />
-                </div>
-                <div>
                     <StatBlock 
                         title='Накопленные средства'
                         titleBg='bg-purple-light'
@@ -39,10 +38,25 @@ const UserStat = (props) => {
                         currencySign={item.currency.sign}
                     />
                 </div>
-            </div>
-        )        
+            )
+        }
+        {
+            assetsStat.length > 0 &&
+            assetsStat.map(item => 
+                <div key={item.currency}>
+                    <StatBlock 
+                        title='Инвестированные средства'
+                        titleBg='bg-gold-light'
+                        icon={<FontAwesomeIcon icon={solid('chart-line')} />}
+                        blockBg='bg-gold'
+                        balance={item.total}
+                        currencySign={item.sign}
+                    />
+                </div>
+            )
+        }
+        </div>        
     )
 }
-
 
 export default UserStat;

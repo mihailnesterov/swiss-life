@@ -25,7 +25,11 @@ const HomePage = () => {
                     <Spinner size={2} /> : 
                     user && 
                     user.accounts && 
-                    <UserStat stat={user.accounts} />
+                    user.userAssetsTotal &&
+                    <UserStat 
+                        stat={user.accounts} 
+                        assetsStat={user.userAssetsTotal} 
+                    />
                 }
                 
                 <Partners />
@@ -33,6 +37,5 @@ const HomePage = () => {
         </div>
     )
 }
-
 
 export default HomePage;
