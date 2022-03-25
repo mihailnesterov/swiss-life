@@ -1,6 +1,5 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import StatusChecked from '../common/status/StatusChecked';
 import {getDateToString} from '../../utils/dates';
 
 const UserInfo = (props) => {
@@ -19,28 +18,26 @@ const UserInfo = (props) => {
             }
             <div>
                 <h4>{user.fullName}</h4>
+                    <StatusChecked
+                        condition={user.status}
+                        value={1}
+                        textTrue='Активен'
+                        textFalse='Отключен'
+                    />
+                    <StatusChecked
+                        condition={user.verified}
+                        value={1}
+                        textTrue='Верифицирован'
+                        textFalse='Не верифицирован'
+                    />
                     {
-                        user.status === 1 ? 
-                        <p>
-                            <FontAwesomeIcon className='text-green' icon={solid('check')} />
-                            Активен
-                        </p> :
-                        <p>
-                            <FontAwesomeIcon className='text-red' icon={solid('xmark')} /> 
-                            Отключен
-                        </p> 
-                    }
-                
-                    {
-                        user.verified === 1 ? 
-                        <p>
-                            <FontAwesomeIcon className='text-green' icon={solid('check')} />
-                            Верифицирован
-                        </p> :
-                        <p>
-                            <FontAwesomeIcon className='text-red' icon={solid('xmark')} />
-                            Не верифицирован
-                        </p>
+                        user.representive === 1 &&
+                        <StatusChecked
+                            condition={user.representive}
+                            value={1}
+                            textTrue='Представитель'
+                            textFalse=''
+                        />
                     }
                     {
                         user.userStatus &&
