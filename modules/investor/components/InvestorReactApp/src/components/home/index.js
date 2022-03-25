@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import Partners from './Partners';
 import UserInfo from './UserInfo';
 import UserStat from './UserStat';
-import Spinner from '../common/loader/Spinner';
 
 const HomePage = () => {
     
@@ -29,7 +28,6 @@ const HomePage = () => {
                         assetsStat={user.userAssetsTotal} 
                     />
                 }
-                
                 <Partners />
             </div>
         </div>
