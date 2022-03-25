@@ -1,6 +1,7 @@
 import React from 'react';
 import StatusChecked from '../common/status/StatusChecked';
 import {getDateToString} from '../../utils/dates';
+import UserStatus from '../common/status/UserStatus';
 
 const UserInfo = (props) => {
 
@@ -43,15 +44,7 @@ const UserInfo = (props) => {
                         user.userStatus &&
                         user.userStatus.id &&
                         user.userStatus.id > 1 && 
-                        <p>Статус: <span title={user.userStatus.description} 
-                            style={{
-                               backgroundColor:`#${user.userStatus.color}`,
-                               color: `#${user.userStatus.id === 2 ? 'fff' : '000'}`,
-                               padding: '0.25rem 1rem',
-                               borderRadius: '6px',
-                               cursor:'pointer'
-                               }}>{user.userStatus.name}</span>
-                        </p>
+                        <UserStatus userStatus={user.userStatus} />
                     }
                 {
                     user.created &&
