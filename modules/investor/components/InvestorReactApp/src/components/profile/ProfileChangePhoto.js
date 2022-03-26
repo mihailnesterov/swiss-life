@@ -14,8 +14,9 @@ const ProfileChangePhoto = (props) => {
                 alt: user.userPhotos[0].name
             });
         }
-        
     }, [user]);
+
+    const [isImageChanged, setImageChanged] = useState(false);
 
     const handleSubmitForm = e => {
         e.preventDefault();
@@ -29,6 +30,8 @@ const ProfileChangePhoto = (props) => {
                     'content-type': 'multipart/form-data',
                 },
             };
+
+            setImageChanged(false);
             
             /*axios.post("api/uploadfile", formData, config).then((response) => {
                 console.log(response.data);
@@ -42,16 +45,13 @@ const ProfileChangePhoto = (props) => {
             <form onSubmit={handleSubmitForm}>
                 <h3>Изменить фото</h3>
                 <fieldset>
-                    {
-                        selectedFile &&
-                        <UploadImageFile 
-                            src={selectedFile.src} 
-                            alt={selectedFile.alt}
-                            setSelectedFile={setSelectedFile}
-                        />
-                    }
+                    <UploadImageFile 
+                        selectedFile={selectedFile}
+                        setSelectedFile={setSelectedFile}
+                        setImageChanged={setImageChanged}
+                    />
                 </fieldset>
-                <button type='submit'>Сохранить</button>
+                <button disabled={isImageChanged ? false : true} type='submit'>Сохранить</button>
             </form>
         </div>
     )
