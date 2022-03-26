@@ -1,8 +1,10 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const UploadImageFile = (props) => {
 
-    const {src, alt, setSelectedFile} = props;
+    const {selectedFile, setSelectedFile, setImageChanged} = props;
 
     const handleFileUpload = e => {
         const file = e.target.files[0];
@@ -13,13 +15,13 @@ const UploadImageFile = (props) => {
                     src: reader.result,
                     alt: file.name
                 });
+                setImageChanged(true);
             };
             reader.readAsDataURL(file);
         }
     }
 
     return(
-        src &&
         <div className='load-image-file'>
             <label>
                 <input 
@@ -27,16 +29,24 @@ const UploadImageFile = (props) => {
                     accept="image/*"
                     onChange={handleFileUpload} 
                 />
-                <img 
-                    id='image-file'
-                    src={src} 
-                    alt={alt ? alt : ''}
-                    title='Выберите фото'
-                />
+                {
+                    selectedFile ?
+                    <img 
+                        id='image-file'
+                        src={selectedFile.src ? selectedFile.src : ''} 
+                        alt={selectedFile.alt ? selectedFile.alt : ''}
+                        title='Выберите фото'
+                    /> :
+                    <FontAwesomeIcon 
+                        size='5x' 
+                        className='text-purple'
+                        title='Выберите фото'
+                        icon={solid('image')}
+                    />
+                }
             </label>
         </div>
     )
 }
-
 
 export default UploadImageFile;
