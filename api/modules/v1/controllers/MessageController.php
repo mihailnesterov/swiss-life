@@ -27,7 +27,7 @@ class MessageController extends BaseApiController
     {
         $activeData = new \yii\data\ActiveDataProvider([
             'query' => $this->modelClass::find()
-                ->orderBy(['created' => SORT_ASC])
+                ->orderBy(['created' => SORT_DESC])
                 ->where(['user_id' => $id]),
             'pagination' => $this->pagination,
         ]);
