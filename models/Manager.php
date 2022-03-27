@@ -12,6 +12,7 @@ use Yii;
  * @property string $email Email менеджера
  * @property string $password Пароль менеджера
  * @property string|null $auth_key Authentication Key
+ * @property string|null $token Токен
  * @property string $firstName Имя
  * @property string $lastName Фамилия
  * @property string $role Роль менеджера
@@ -38,15 +39,6 @@ class Manager extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        /*return [
-            [['company_id', 'email', 'password', 'auth_key', 'firstName', 'lastName'], 'required'],
-            [['company_id', 'status'], 'integer'],
-            [['created'], 'safe'],
-            [['email', 'password', 'firstName', 'lastName', 'role'], 'string', 'max' => 100],
-            [['auth_key'], 'string', 'max' => 255],
-            [['email'], 'unique'],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
-        ];*/
         return [
             [['email', 'password', 'firstName', 'lastName'], 'required'],
             [['company_id'], 'integer'],
@@ -54,6 +46,7 @@ class Manager extends \yii\db\ActiveRecord
             [['created'], 'safe'],
             [['email', 'password', 'firstName', 'lastName', 'role'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
+            [['token'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
         ];
@@ -70,6 +63,7 @@ class Manager extends \yii\db\ActiveRecord
             'email' => 'Email менеджера',
             'password' => 'Пароль менеджера',
             'auth_key' => 'Authentication Key',
+            'token' => 'Токен',
             'firstName' => 'Имя',
             'lastName' => 'Фамилия',
             'role' => 'Роль менеджера',
@@ -88,7 +82,8 @@ class Manager extends \yii\db\ActiveRecord
         unset(
             $fields['company_id'], 
             $fields['password'],
-            $fields['auth_key']
+            $fields['auth_key'],
+            $fields['token']
         );
 
         return array_merge($fields, [
