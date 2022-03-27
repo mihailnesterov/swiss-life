@@ -9,6 +9,11 @@ class ManagerController extends BaseApiController
 {
     public $modelClass = 'app\models\Manager';
 
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'managers'
+    ];
+
     public function actionUsers($id)
     {
         return \app\models\User::find()->where(['manager_id' => $id])->all();
