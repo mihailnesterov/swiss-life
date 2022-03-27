@@ -27,7 +27,10 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     
     public static function tableName() 
     {
-        if( self::isCabinet() ) {
+        $urlArray = explode('/',Yii::$app->request->url);
+        $lastElement = (count($urlArray)-1);
+        
+        if( $urlArray[$lastElement] === 'cabinet' ) {
             return '{{%manager}}';
         }
         
@@ -148,11 +151,4 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
         return Yii::$app->security->validatePassword($password, $this->password);
     }
 
-    private function isCabinet()
-    {
-        $urlArray = explode('/',Yii::$app->request->url);
-        $lastElement = count($urlArray)-1;
-        
-        return $urlArray[$lastElement] === 'cabinet';
-    }
 } 
