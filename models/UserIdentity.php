@@ -26,7 +26,11 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     public $rememberMe = true;
     
     public static function tableName() 
-    { 
+    {
+        if( self::isCabinet() ) {
+            return '{{%manager}}';
+        }
+        
         return '{{%user}}'; 
     } 
 
@@ -142,5 +146,13 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    private function isCabinet()
+    {
+        $urlArray = explode('/',Yii::$app->request->url);
+        $lastElement = count($urlArray)-1;
+        
+        return $urlArray[$lastElement] === 'cabinet';
     }
 } 
