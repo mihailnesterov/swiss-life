@@ -74,6 +74,26 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionCabinet() {
+
+        $model = new Login();
+
+        if ( $this->isLogin($model) || $this->isNotGuest() ) {
+            
+            if( Yii::$app->user->identity->role === 'admin' ) {
+                return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
+            }
+
+            return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
+        }
+        
+        $this->view->title = 'Вход в кабинет';
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionError() {
         $exception = Yii::$app->errorHandler->exception;
         if ($exception != null) {
