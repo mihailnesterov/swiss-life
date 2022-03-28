@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\UserIdentity;
 
 /**
- * Login form
+ * User Login form
  */
-class Login extends UserIdentity
+class UserLogin extends UserIdentity
 {
 
     /**
