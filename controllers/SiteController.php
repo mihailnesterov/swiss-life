@@ -9,7 +9,8 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
 use app\models\User;
-use app\models\Login;
+use app\models\UserLogin;
+use app\models\ManagerLogin;
 
 class SiteController extends Controller
 {
@@ -61,9 +62,9 @@ class SiteController extends Controller
     
     public function actionIndex() {
 
-        $model = new Login();
+        $model = new UserLogin();
 
-        if ( $this->isLogin($model) || $this->isNotGuest() ) {               
+        if ( $this->isLogin($model) || !Yii::$app->user->isGuest) {               
             return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));
         }
         
@@ -76,11 +77,11 @@ class SiteController extends Controller
 
     public function actionCabinet() {
 
-        $model = new Login();
+        $model = new ManagerLogin();
 
-        if ( $this->isLogin($model) || $this->isNotGuest() ) {
+        if ( $this->isLogin($model) || !Yii::$app->manager->isGuest ) {
             
-            if( Yii::$app->user->identity->role === 'admin' ) {
+            if( Yii::$app->manager->identity->role === 'admin' ) {
                 return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
             }
 
@@ -106,10 +107,6 @@ class SiteController extends Controller
 
     private function isLogin( $user ) {
         return $user->load( Yii::$app->request->post()) && $user->login();
-    }
-
-    private function isNotGuest() {
-        return !Yii::$app->user->isGuest;
     }
 
 }
