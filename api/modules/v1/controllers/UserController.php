@@ -4,11 +4,7 @@ namespace api\modules\v1\controllers;
 
 use Yii;
 use api\common\controllers\BaseApiController;
-use yii\filters\auth\HttpBasicAuth;
-
-/*use app\models\User;
-use app\models\UserIdentity;
-use app\models\Login;*/
+use app\models\User;
 
 class UserController extends BaseApiController
 {
@@ -38,32 +34,35 @@ class UserController extends BaseApiController
         return $this->modelClass::find()->where(['parent_id' => $id])->all();
     }
 
-    /*public function actionLogin()
+    public function actionChange_password($id)
     {
-        $email = Yii::$app->request->post('email');
-        $password = Yii::$app->request->post('password');
-        $user = UserIdentity::findByUsername($email);
+        $newPassword = Yii::$app->request->post('password');
 
-        if( isset($user) && !empty($password) && $user->validatePassword($password) ) {
-            return $user->token;
+        if( !empty($newPassword) ) {
+            
+            $user = $this->findUserModel($id);           
+            $user->password = Yii::$app->security->generatePasswordHash($newPassword);
+
+            if ( Yii::$app->security->validatePassword($newPassword, $user->password) ) {
+                $user->auth_key = Yii::$app->security->generateRandomString($lenght = 255);
+                $user->save();
+                return $user->password;
+            } else {
+                throw new \yii\base\ErrorException('Пароль не прошел валидацию.');
+            }
+
         } else {
-            throw new \yii\base\ErrorException('Wrong email or password or token is not found.');
+            throw new \yii\base\ErrorException('Пароль пуст.');
         }
     }
 
-    public function actionIndex()
+    private function findUserModel($id)
     {
-        //$users = Users::getAll();
-        $user = Yii::$app->user->identity;
-        return $this->asJson($user);
-    } 
+        if (($model = \app\models\User::findOne($id)) !== null) {
+            return $model;
+        }
 
-    private function errorResponse($message) {
-                                
-        // set response code to 400
-        Yii::$app->response->statusCode = 400;
-    
-        return $this->asJson(['error' => $message]);
-    }*/
+        throw new \yii\web\NotFoundHttpException("Пользователь с id=$id не найден.");
+    }
 
 }
