@@ -27,3 +27,6 @@ export const getUserMembers = async (id, params) =>
 
 export const getUserMembersExpanded = async (id, params) => 
     await API.get(`${URL}/${id}/members?${EXPAND}`, { credentials, setHeaders, params });
+
+export const setUserPassword = async (id, params) => 
+    await API.put(`${URL}/${id}/change_password`, params, { credentials, setHeaders });
