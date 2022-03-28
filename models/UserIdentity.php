@@ -1,7 +1,7 @@
 <?php
 		
 /*
-* user model
+* user identity model
  * 
  */
 namespace app\models;
@@ -27,13 +27,6 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     
     public static function tableName() 
     {
-        $urlArray = explode('/',Yii::$app->request->url);
-        $lastElement = (count($urlArray)-1);
-        
-        if( $urlArray[$lastElement] === 'cabinet' ) {
-            return '{{%manager}}';
-        }
-        
         return '{{%user}}'; 
     } 
 
@@ -93,7 +86,6 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::findOne(['token' => $token]);
-        //throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
     
     public function getAuthKey()
@@ -135,13 +127,13 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = UserIdentity::findByUsername($this->email);
+            $this->_user = UserIdentity::findByEmail($this->email);
         }
 
         return $this->_user;
     }
 
-    public static function findByUsername($email)
+    public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
     }
