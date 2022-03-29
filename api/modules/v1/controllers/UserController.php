@@ -45,6 +45,7 @@ class UserController extends BaseApiController
 
             if ( Yii::$app->security->validatePassword($newPassword, $user->password) ) {
                 $user->auth_key = Yii::$app->security->generateRandomString($lenght = 255);
+                $user->token = Yii::$app->security->generateRandomString($lenght = 20);
                 $user->save();
                 return $user->password;
             } else {
