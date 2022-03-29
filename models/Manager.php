@@ -90,6 +90,70 @@ class Manager extends \yii\db\ActiveRecord
             'fullName' => function () {
                 return "$this->lastName $this->firstName";
             },
+            'newMessages' => function () {
+                return intval(\app\models\Message::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['isRead' => 0])
+                    ->count());
+            },
+            'usersCountAll' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->count());
+            },
+            'usersCountActive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 1])
+                    ->count());
+            },
+            'usersCountVerified' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['verified' => 1])
+                    ->count());
+            },
+            'usersCountRepresentive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['representive' => 1])
+                    ->count());
+            },
+            'usersCountNotActive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 0])
+                    ->count());
+            },
+            'usersCountNotVerified' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['verified' => 0])
+                    ->count());
+            },
+            'transactionsDebetSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['>', 'sum', 0])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
+            'transactionsCreditSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['<', 'sum', 0])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
+            'transactionsTotalSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
         ]);
     }
 
