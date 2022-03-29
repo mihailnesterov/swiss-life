@@ -64,33 +64,19 @@ class SiteController extends Controller
 
         $model = new UserLogin();
 
-        if ( $this->isLogin($model) || !Yii::$app->user->isGuest) {               
+        if ( $this->isLogin($model) || !Yii::$app->user->isGuest) {  
+            if( Yii::$app->user->identity->role === 'admin' ) {
+                return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
+            }
+            if( Yii::$app->user->identity->role === 'manager' ) {
+                return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
+            }             
             return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));
         }
         
         $this->view->title = 'Главная страница';
 
         return $this->render('index', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionCabinet() {
-
-        $model = new ManagerLogin();
-
-        if ( $this->isLogin($model) || !Yii::$app->manager->isGuest ) {
-            
-            if( Yii::$app->manager->identity->role === 'admin' ) {
-                return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
-            }
-
-            return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
-        }
-        
-        $this->view->title = 'Вход в кабинет';
-
-        return $this->render('login', [
             'model' => $model,
         ]);
     }
