@@ -54,6 +54,7 @@ class Module extends \yii\base\Module
         return [
             'access' => [
             'class' => \yii\filters\AccessControl::className(),
+            'user' => \Yii::$app->user,
             'rules' => [
                     [
                         'allow' => true,
