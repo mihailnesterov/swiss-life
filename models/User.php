@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "user".
  *
  * @property int $id id пользователя
- * @property int $manager_id id менеджера
- * @property int $status_id id статуса
+ * @property int|null $manager_id id менеджера
+ * @property int|null $status_id id статуса
  * @property int|null $parent_id id представителя
  * @property string $email Email
  * @property string $password Пароль
@@ -19,6 +19,7 @@ use Yii;
  * @property string $lastName Фамилия
  * @property string|null $phone Телефон
  * @property string|null $address Адрес пользователя
+ * @property string $role Роль 
  * @property int $status Статус активен/неактивен
  * @property int $verified Верифицирован
  * @property int $representive Представитель
@@ -49,15 +50,16 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'firstName', 'lastName'], 'required'],
+            [['email', 'password', 'firstName'], 'required'],
             [['manager_id', 'status_id', 'parent_id'], 'integer'],
             [['status', 'verified', 'representive'], 'boolean'],
             [['created'], 'safe'],
             [['email', 'password', 'firstName', 'lastName', 'phone'], 'string', 'max' => 100],
             [['auth_key', 'address'], 'string', 'max' => 255],
             [['token'], 'string', 'max' => 50],
+            [['role'], 'string', 'max' => 20],
             [['email'], 'unique'],
-            [['manager_id'], 'exist', 'skipOnError' => true, 'targetClass' => Manager::className(), 'targetAttribute' => ['manager_id' => 'id']], 
+            [['manager_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['manager_id' => 'id']], 
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
@@ -80,6 +82,7 @@ class User extends \yii\db\ActiveRecord
             'lastName' => 'Фамилия',
             'phone' => 'Телефон',
             'address' => 'Адрес пользователя',
+            'role' => 'Роль',
             'status' => 'Статус активен/неактивен',
             'verified' => 'Верифицирован',
             'representive' => 'Представитель',
@@ -108,7 +111,7 @@ class User extends \yii\db\ActiveRecord
             },
             'newMessages' => function () {
                 return intval(\app\models\Message::find()
-                    ->where(['user_id' => $this->id])
+                    ->where(['receiver_id' => $this->id])
                     ->andWhere(['isRead' => 0])
                     ->count());
             },
@@ -134,7 +137,65 @@ class User extends \yii\db\ActiveRecord
                     ->groupBy("$userAssetTable.currency_id")
                     ->asArray()
                     ->all();
-            }
+            },
+            'usersCountAll' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->count());
+            },
+            'usersCountActive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 1])
+                    ->count());
+            },
+            'usersCountVerified' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['verified' => 1])
+                    ->count());
+            },
+            'usersCountRepresentive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['representive' => 1])
+                    ->count());
+            },
+            'usersCountNotActive' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 0])
+                    ->count());
+            },
+            'usersCountNotVerified' => function () {
+                return intval(\app\models\User::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['verified' => 0])
+                    ->count());
+            },
+            'transactionsDebetSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['>', 'sum', 0])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
+            'transactionsCreditSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['<', 'sum', 0])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
+            'transactionsTotalSum' => function () {
+                return \app\models\Transaction::find()
+                    ->where(['manager_id' => $this->id])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['not', ['accepted' => null]])
+                    ->sum('sum');
+            },
         ]);
     }
 
@@ -146,7 +207,8 @@ class User extends \yii\db\ActiveRecord
         return [
             'accounts', 
             'manager',
-            'messages',
+            'messagesIn',
+            'messagesOut',
             'userAssets', 
             'userCategories',
             'userDocuments',
@@ -171,17 +233,27 @@ class User extends \yii\db\ActiveRecord
     */ 
     public function getManager() 
     { 
-        return $this->hasOne(Manager::className(), ['id' => 'manager_id']); 
+        return $this->hasOne(User::className(), ['id' => 'manager_id']); 
     }
 
     /**
-     * Gets query for [[Messages]].
+     * Gets query for [[MessagesOut]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMessages()
+    public function getMessagesOut()
     {
-        return $this->hasMany(Message::className(), ['user_id' => 'id']);
+        return $this->hasMany(Message::className(), ['sender_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[MessagesIn]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessagesIn()
+    {
+        return $this->hasMany(Message::className(), ['receiver_id' => 'id']);
     }
 
     /**
