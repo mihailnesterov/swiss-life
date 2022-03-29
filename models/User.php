@@ -107,10 +107,10 @@ class User extends \yii\db\ActiveRecord
                 return "$this->lastName $this->firstName";
             },
             'newMessages' => function () {
-                return \app\models\Message::find()
+                return intval(\app\models\Message::find()
                     ->where(['user_id' => $this->id])
                     ->andWhere(['isRead' => 0])
-                    ->count();
+                    ->count());
             },
             'members' => function () {
                 return $this::find()
