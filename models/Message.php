@@ -8,17 +8,17 @@ use Yii;
  * This is the model class for table "message".
  *
  * @property int $id id сообщения
- * @property int $user_id id пользователя
- * @property int $manager_id id менеджера
+ * @property int $sender_id id отправителя
+ * @property int $receiver_id id получателя
  * @property int|null $parent_id id родительского сообщения
  * @property string $theme Тема сообщения
  * @property string $text Текст сообщения
  * @property int $isRead Прочитано
  * @property string $created Дата создания сообщения
  *
- * @property Manager $manager
  * @property MessageFile[] $messageFiles
- * @property User $user
+ * @property User $receiver
+ * @property User $sender
  */
 class Message extends \yii\db\ActiveRecord
 {
@@ -36,13 +36,13 @@ class Message extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'manager_id', 'theme', 'text'], 'required'],
-            [['user_id', 'manager_id', 'parent_id', 'isRead'], 'integer'],
+            [['sender_id', 'receiver_id', 'theme', 'text'], 'required'],
+            [['sender_id', 'receiver_id', 'parent_id', 'isRead'], 'integer'],
             [['text'], 'string'],
             [['created'], 'safe'],
             [['theme'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['manager_id'], 'exist', 'skipOnError' => true, 'targetClass' => Manager::className(), 'targetAttribute' => ['manager_id' => 'id']],
+            [['sender_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sender_id' => 'id']],
+            [['receiver_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['receiver_id' => 'id']],
         ];
     }
 
@@ -53,8 +53,8 @@ class Message extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'id сообщения',
-            'user_id' => 'id пользователя',
-            'manager_id' => 'id менеджера',
+            'sender_id' => 'id отправителя',
+            'receiver_id' => 'id получателя',
             'parent_id' => 'id родительского сообщения',
             'theme' => 'Тема сообщения',
             'text' => 'Текст сообщения',
@@ -78,34 +78,33 @@ class Message extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Manager]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getManager()
-    {
-        return $this->hasOne(Manager::className(), ['id' => 'manager_id']);
-    }
-
-    /**
      * Gets query for [[MessageFiles]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getMessageFiles()
     {
-        //return $this->hasMany(MessageFile::className(), ['message_id' => 'id']);
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('message_file', ['message_id' => 'id']);
     }
 
     /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
+    * Gets query for [[Receiver]].
+    *
+    * @return \yii\db\ActiveQuery
+    */
+    public function getReceiver()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'receiver_id']);
+    }
+
+    /**
+    * Gets query for [[Sender]].
+    *
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSender()
+    {
+        return $this->hasOne(User::className(), ['id' => 'sender_id']);
     }
 
     /**
