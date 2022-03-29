@@ -30,7 +30,6 @@ class DefaultController extends Controller
         return array_merge(parent::behaviors(), [
             'access' => [
                 'class' => AccessControl::className(),
-                'user' => Yii::$app->user,
                 'only' => ['login', 'signup', 'logout'],
                 'rules' => [
                     [
