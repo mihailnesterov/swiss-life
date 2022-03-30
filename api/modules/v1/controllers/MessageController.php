@@ -23,28 +23,24 @@ class MessageController extends BaseApiController
         return $actions;
     }
 
-    public function actionUser($id)
+    public function actionSender($id)
     {
-        $activeData = new \yii\data\ActiveDataProvider([
+        return new \yii\data\ActiveDataProvider([
             'query' => $this->modelClass::find()
                 ->orderBy(['created' => SORT_DESC])
-                ->where(['user_id' => $id]),
+                ->where(['sender_id' => $id]),
             'pagination' => $this->pagination,
         ]);
-        
-        return $activeData;
     }
 
-    public function actionManager($id)
+    public function actionReceiver($id)
     {
-        $activeData = new \yii\data\ActiveDataProvider([
+        return new \yii\data\ActiveDataProvider([
             'query' => $this->modelClass::find()
                 ->orderBy(['created' => SORT_DESC])
-                ->where(['manager_id' => $id]),
+                ->where(['receiver_id' => $id]),
             'pagination' => $this->pagination,
         ]);
-        
-        return $activeData;
     }
 
 }
