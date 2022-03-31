@@ -33,6 +33,7 @@ use Yii;
  * @property UserCategory[] $userCategories
  * @property UserDocument[] $userDocuments
  * @property UserPhoto[] $userPhotos
+ * @property Transaction[] $managerTransactions
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -123,18 +124,49 @@ class User extends \yii\db\ActiveRecord
             'userStatus' => function () {
                 return $this->userStatus;
             },
-            'userAssetsTotal' => function () {
-                $userAssetTable = \app\models\UserAsset::tableName();
+            'userAssets' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
                 $currencyTable = \app\models\Currency::tableName();
-                return \app\models\UserAsset::find()
+                $accountTable = \app\models\Account::tableName();
+                $userTable = \app\models\User::tableName();
+                $assetTable = \app\models\Asset::tableName();
+                return \app\models\Transaction::find()
                     ->select([
-                        new \yii\db\Expression("SUM($userAssetTable.sum) AS `total`"), 
+                        "$assetTable.id",
+                        "$assetTable.name",
+                        "$assetTable.excerpt",
+                        "$assetTable.calculation",
+                        "$transactionsTable.created",
+                        "$transactionsTable.sum",
                         "$currencyTable.sign", 
                         "$currencyTable.shortName as currency"
                     ])
-                    ->leftJoin($currencyTable, "$currencyTable.id = $userAssetTable.currency_id")
-                    ->where(["$userAssetTable.user_id" => $this->id])
-                    ->groupBy("$userAssetTable.currency_id")
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
+                    ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
+                    ->leftJoin($assetTable, "$assetTable.id = $transactionsTable.asset_id")
+                    ->where(["$userTable.id" => $this->id])
+                    ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->asArray()
+                    ->all();
+            },
+            'userAssetsTotal' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
+                $accountTable = \app\models\Account::tableName();
+                $userTable = \app\models\User::tableName();
+                return \app\models\Transaction::find()
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->leftJoin($accountTable, "$accountTable.user_id = $this->id")
+                    ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
+                    ->where(["$userTable.id" => $this->id])
+                    ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
             },
@@ -173,28 +205,114 @@ class User extends \yii\db\ActiveRecord
                     ->andWhere(['verified' => 0])
                     ->count());
             },
-            'transactionsDebetSum' => function () {
+            'usersByStatuses' => function () {
+                $statusTable = \app\models\Status::tableName();
+                $userTable = \app\models\User::tableName();
+                return \app\models\Status::find()
+                    ->select([
+                        new \yii\db\Expression("COUNT(*) AS `count`"), 
+                        "$statusTable.name as status",
+                    ])
+                    ->leftJoin($userTable, "$userTable.status_id = $statusTable.id")
+                    ->where(["$userTable.manager_id" => $this->id])
+                    ->andWhere(['!=', "$userTable.status_id", 1])
+                    ->orderBy(["$statusTable.id" => SORT_ASC])
+                    ->groupBy("$statusTable.id")
+                    ->asArray()
+                    ->all();
+            },
+            'transactionsDebitSum' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
                 return \app\models\Transaction::find()
-                    ->where(['manager_id' => $this->id])
-                    ->andWhere(['>', 'sum', 0])
-                    ->andWhere(['status' => 1])
-                    ->andWhere(['not', ['accepted' => null]])
-                    ->sum('sum');
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->where(["$transactionsTable.manager_id" => $this->id])
+                    ->andWhere(['>', "$transactionsTable.sum", 0])
+                    ->andWhere(["$transactionsTable.status" => 1])
+                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
             },
             'transactionsCreditSum' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
                 return \app\models\Transaction::find()
-                    ->where(['manager_id' => $this->id])
-                    ->andWhere(['<', 'sum', 0])
-                    ->andWhere(['status' => 1])
-                    ->andWhere(['not', ['accepted' => null]])
-                    ->sum('sum');
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->where(["$transactionsTable.manager_id" => $this->id])
+                    ->andWhere(['<', "$transactionsTable.sum", 0])
+                    ->andWhere(["$transactionsTable.status" => 1])
+                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
             },
             'transactionsTotalSum' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
                 return \app\models\Transaction::find()
-                    ->where(['manager_id' => $this->id])
-                    ->andWhere(['status' => 1])
-                    ->andWhere(['not', ['accepted' => null]])
-                    ->sum('sum');
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->where(["$transactionsTable.manager_id" => $this->id])
+                    ->andWhere(["$transactionsTable.status" => 1])
+                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
+            },
+            'assetsTotalCount' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
+                $accountTable = \app\models\Account::tableName();
+                $userTable = \app\models\User::tableName();
+                return \app\models\Transaction::find()
+                    ->select([
+                        new \yii\db\Expression("COUNT(*) AS `count`"),
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
+                    ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
+                    ->where(["$userTable.manager_id" => $this->id])
+                    ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
+            },
+            'assetsTotalSum' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $currencyTable = \app\models\Currency::tableName();
+                $accountTable = \app\models\Account::tableName();
+                $userTable = \app\models\User::tableName();
+                return \app\models\Transaction::find()
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        "$currencyTable.sign", 
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
+                    ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
+                    ->where(["$userTable.manager_id" => $this->id])
+                    ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
             },
         ]);
     }
@@ -209,10 +327,10 @@ class User extends \yii\db\ActiveRecord
             'manager',
             'messagesIn',
             'messagesOut',
-            'userAssets', 
             'userCategories',
             'userDocuments',
-            'userPhotos'
+            'userPhotos',
+            'managerTransactions'
         ];
     }
 
@@ -304,6 +422,16 @@ class User extends \yii\db\ActiveRecord
     public function getUserPhotos()
     {
         return $this->hasMany(File::className(), ['id' => 'file_id'])->viaTable('user_photo', ['user_id' => 'id']);
+    }
+
+    /** 
+    * Gets query for [[ManagerTransactions]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+    public function getManagerTransactions() 
+    { 
+        return $this->hasMany(Transaction::className(), ['manager_id' => 'id']); 
     }
 
     /**
