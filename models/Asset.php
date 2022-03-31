@@ -19,6 +19,7 @@ use Yii;
  *
  * @property AssetFile[] $assetFiles
  * @property Company $company
+ * @property Transaction[] $transactions 
  * @property UserAsset[] $userAssets
  */
 class Asset extends \yii\db\ActiveRecord
@@ -104,6 +105,16 @@ class Asset extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
+
+    /**
+    * Gets query for [[Transactions]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+    public function getTransactions() 
+    { 
+        return $this->hasMany(Transaction::className(), ['asset_id' => 'id']); 
+    } 
 
     /**
      * Gets query for [[UserAssets]].
