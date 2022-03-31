@@ -10,6 +10,11 @@ class UserController extends BaseApiController
 {
     public $modelClass = 'app\models\User';
 
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'users'
+    ];
+
     public function actions()
     {
         $actions = parent::actions();
