@@ -49,6 +49,30 @@ class UserController extends BaseApiController
         ]);
     }
 
+    public function actionCategories()
+    {        
+        $userCategoryTable = \app\models\UserCategory::tableName();
+        $categoryTable = \app\models\Category::tableName();
+        
+        return array_merge(
+            [
+                [
+                    "name" => "Все",
+                    "description" => "Все клиенты"
+                ]
+            ],
+            \app\models\UserCategory::find()
+            ->select([
+                "$categoryTable.name",
+                "$categoryTable.description",
+            ])
+            ->leftJoin($categoryTable, "$categoryTable.id = $userCategoryTable.category_id")
+            ->groupBy("$categoryTable.id")
+            ->asArray()
+            ->all()
+        );
+    }
+
     public function actionChange_password($id)
     {
         $newPassword = Yii::$app->request->post('password');
