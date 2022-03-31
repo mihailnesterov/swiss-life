@@ -39,6 +39,16 @@ class UserController extends BaseApiController
         return $this->modelClass::find()->where(['parent_id' => $id])->all();
     }
 
+    public function actionAuthorized_manager()
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->where(['manager_id' => Yii::$app->user->identity->id]),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
     public function actionChange_password($id)
     {
         $newPassword = Yii::$app->request->post('password');
