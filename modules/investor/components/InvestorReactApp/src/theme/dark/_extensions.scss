@@ -1306,7 +1306,7 @@
             outline: 0;
             margin-bottom: 1rem;
         }
-        & > form {
+        & form {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -1329,6 +1329,7 @@
                 outline: 0;
                 padding: 0.5rem 0.75rem;
                 border-radius: 6px;
+                box-sizing: border-box;
                 font-size: 20px;
                 &.text-red {
                     color: $red !important;
@@ -1416,25 +1417,8 @@
                 margin: 0.25rem 0 1.5rem 0;
                 width: 100%;
             }
-            & .input-change-password {
-                position: relative;
-                & > button[type="button"] {
-                    position: absolute;
-                    top: 15px;
-                    right: 10px;
-                    z-index: 99;
-                    border: 0;
-                    outline: 0;
-                    background-color: transparent;
-                    margin: 0;
-                    padding: 0;
-                    color: $purple;
-                    &:hover {
-                        opacity: 0.85;
-                        cursor: pointer;
-                    }
-                }
-            }
+            
+            @extend %input-password;
         }
     }
 }
@@ -1530,6 +1514,35 @@
         }
         & input[type="file"] {
             display: none;
+        }
+    }
+}
+
+%input-password {
+    .input-password {
+        position: relative;
+        & > button[type="button"] {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            z-index: 99;
+            border: 0;
+            outline: 0;
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+            color: $purple;
+            &.generate-password {
+                right: 37px;
+                color: $green;
+            }
+            &.show-password {
+                right: 10px;
+            }
+            &:hover {
+                opacity: 0.85;
+                cursor: pointer;
+            }
         }
     }
 }
