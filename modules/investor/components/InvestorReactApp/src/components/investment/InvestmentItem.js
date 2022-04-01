@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../api';
-import GoBackBtn from '../../components/common/buttons/GoBackBtn';
+import GoBackBtn from '../common/buttons/GoBackBtn';
 
 const InvestmentItem = (props) => {
 

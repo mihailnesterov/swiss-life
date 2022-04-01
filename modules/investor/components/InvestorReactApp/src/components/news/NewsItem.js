@@ -1,6 +1,6 @@
 import React from 'react';
 import {getDateToString} from '../../utils/dates';
-import GoBackBtn from '../../components/common/buttons/GoBackBtn';
+import GoBackBtn from '../common/buttons/GoBackBtn';
 
 const NewsItem = (props) => {
 
