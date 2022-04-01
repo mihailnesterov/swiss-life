@@ -1,8 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../api';
+import GoBackBtn from '../../components/common/buttons/GoBackBtn';
 
 const InvestmentItem = (props) => {
 
@@ -11,12 +10,10 @@ const InvestmentItem = (props) => {
     return (
         <div className="investment-item">
             <div>
-                <Link 
-                    className='btn btn-more' 
-                    to={`${BASE_URL}/investment`}
-                >
-                    <FontAwesomeIcon icon={solid('angles-left')} /> В список объектов
-                </Link>
+                <GoBackBtn
+                    url='investment'
+                    title='В список объектов'
+                />
             </div>
             {
                 item.assetFiles &&

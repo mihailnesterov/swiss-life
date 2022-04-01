@@ -1,9 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'; 
 import {getDateToString} from '../../utils/dates';
-import { Link } from 'react-router-dom';
-import {BASE_URL} from '../../api';
+import GoBackBtn from '../../components/common/buttons/GoBackBtn';
 
 const NewsItem = (props) => {
 
@@ -12,12 +9,10 @@ const NewsItem = (props) => {
     return (
         <div className="news-item">
             <div>
-                <Link 
-                    className='btn btn-more' 
-                    to={`${BASE_URL}/news`}
-                >
-                    <FontAwesomeIcon icon={solid('angles-left')} /> В список новостей
-                </Link>
+                <GoBackBtn
+                    url='news'
+                    title='В список новостей'
+                />
             </div>
             {
                 item.newsFiles &&
