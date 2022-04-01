@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { useActions } from '../../../hooks/useActions';
 import {getPageFromLink} from '../../../utils/pages';
 import PaginationButton from './PaginationButton';
 
 const PaginationNav = (props) => {
 
-    const {userId, links, pages, perPage, currentPage} = props;
-
-    const {fetchUserTransactions} = useActions();
+    const {id, links, pages, perPage, currentPage, fetchData} = props;
 
     const [first, setFirst] = useState(null);
     const [last, setLast] = useState(null);
@@ -40,8 +37,13 @@ const PaginationNav = (props) => {
     },[links]);    
 
     const setCurrentPageHandler = (pageNum) => {
-        if(userId) {
-            fetchUserTransactions(userId, {
+        if(id) {
+            fetchData(id, {
+                'per-page': `${perPage}`,
+                'page': `${pageNum}`
+            });
+        } else {
+            fetchData({
                 'per-page': `${perPage}`,
                 'page': `${pageNum}`
             });

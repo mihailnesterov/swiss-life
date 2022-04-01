@@ -3,7 +3,7 @@ import PaginationNav from './PaginationNav';
 
 const Pagination = (props) => {
 
-    const {userId, links, meta} = props;
+    const {id, links, meta, fetchData} = props;
 
     const [currentPage, setCurrentPage] = useState(null);
     const [pageCount, setPageCount] = useState(null);
@@ -42,16 +42,16 @@ const Pagination = (props) => {
             {
                 totalCount > perPage &&
                 <PaginationNav 
-                    userId={userId}
+                    id={id}
                     links={links} 
                     pages={pages} 
                     perPage={perPage}
                     currentPage={currentPage}
+                    fetchData={fetchData}
                 />
             }
         </div>
     )
 }
-
 
 export default Pagination;
