@@ -1322,6 +1322,7 @@
             & input[type="text"],
             & input[type="number"],
             & input[type="password"],
+            & input[type="email"],
             & select {
                 background-color: $white;
                 color: $black;
@@ -1334,6 +1335,9 @@
                 &.text-red {
                     color: $red !important;
                     background-color: blanchedalmond;
+                }
+                &:disabled {
+                    background-color: $gray;
                 }
             }
             & select {
@@ -1507,6 +1511,8 @@
     .load-image-file {
         & img,
         & svg {
+            max-width: 300px;
+            width: 100%;
             &:hover {
                 opacity: 0.85;
                 cursor: pointer;
