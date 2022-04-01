@@ -16,7 +16,7 @@ const TransactionsList = (props) => {
 
     useEffect(() => {
         fetchUserTransactions(user.id, {
-            'per-page': '4',
+            'per-page': '5',
             'page': '1'
         });
     },[user]);
@@ -32,10 +32,14 @@ const TransactionsList = (props) => {
                     transactions.map(item => <TransactionItem key={item.id} item={item} />)
                 }
             </div>
-            <Pagination userId={user.id} links={links} meta={meta} />
+            <Pagination 
+                id={user.id} 
+                links={links} 
+                meta={meta} 
+                fetchData={fetchUserTransactions} 
+            />
         </div>
     )
 }
-
 
 export default TransactionsList;
