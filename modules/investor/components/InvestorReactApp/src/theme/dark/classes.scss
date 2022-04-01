@@ -40,6 +40,15 @@
 .bg-gold-light {
     background-color: $gold-light;
 }
+.bg-dark {
+    background-color: $dark;
+}
+.bg-black {
+    background-color: $black;
+}
+.bg-red {
+    background-color: $red;
+}
 .btn {
     text-decoration: none;
     background-color: transparent;
@@ -93,4 +102,20 @@
 }
 .relative {
     position: relative;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
