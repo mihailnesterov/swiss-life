@@ -1,24 +1,15 @@
 import React, {useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {setUserPassword} from '../../api/user';
 import Spinner from '../common/loader/Spinner';
+import InputPassword from '../common/form/InputPassword';
 
 const ProfileChangePassword = (props) => {
 
     const {user} = props;
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [newPassword, setNewPassword] = useState(null);
     const [saving, setSaving] = useState(false);
     const [status, setStatus] = useState(null);
-
-    const onNewPasswordChangeHandler = (e) => {
-        setNewPassword(e.target.value);
-        setStatus(null);
-        if( e.target.value === '' )
-            setNewPassword(null);
-    }
 
     const handleSubmitForm = e => {
         e.preventDefault();
@@ -37,26 +28,11 @@ const ProfileChangePassword = (props) => {
             <form onSubmit={handleSubmitForm}>
                 <h3>Изменить пароль</h3>
                 <fieldset>
-                    <div className='input-change-password'>
-                        <input 
-                            type={!isPasswordVisible ? "password" : "text"}
-                            placeholder='Новый пароль'
-                            value={newPassword ? newPassword : ''}
-                            onChange={onNewPasswordChangeHandler}
-                            autoComplete='off'
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                            title={!isPasswordVisible ? "Показать пароль" : "Скрыть пароль"}
-                        >
-                            {
-                                isPasswordVisible ?
-                                <FontAwesomeIcon icon={solid('eye-slash')} /> :
-                                <FontAwesomeIcon icon={solid('eye')} />
-                            }
-                        </button>
-                    </div>
+                    <InputPassword
+                        password={newPassword}
+                        setPassword={setNewPassword}
+                        setStatus={setStatus}
+                    />
                     {
                         saving ? 
                         <Spinner size={2} /> : 
