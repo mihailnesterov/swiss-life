@@ -2,10 +2,10 @@ import React from 'react';
 
 const UserStatus = (props) => {
     
-    const {userStatus} = props;
+    const {text, userStatus} = props;
     
     return (
-        <p>Статус: <span title={userStatus.description} 
+        <p>{text ? text : null}<span title={userStatus.description} 
             style={{
                 backgroundColor:`#${userStatus.color}`,
                 color: `#${userStatus.id === 2 ? 'fff' : '000'}`,
