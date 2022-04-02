@@ -4,7 +4,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const UploadImageFile = (props) => {
 
-    const {selectedFile, setSelectedFile, setImageChanged} = props;
+    const {name, selectedFile, setSelectedFile, setImageChanged} = props;
 
     const handleFileUpload = e => {
         const file = e.target.files[0];
@@ -25,6 +25,7 @@ const UploadImageFile = (props) => {
         <div className='load-image-file'>
             <label>
                 <input 
+                    name={name ? name : 'fileName'}
                     type="file"
                     accept="image/*"
                     onChange={handleFileUpload} 
@@ -32,7 +33,6 @@ const UploadImageFile = (props) => {
                 {
                     selectedFile ?
                     <img 
-                        id='image-file'
                         src={selectedFile.src ? selectedFile.src : ''} 
                         alt={selectedFile.alt ? selectedFile.alt : ''}
                         title='Выберите фото'

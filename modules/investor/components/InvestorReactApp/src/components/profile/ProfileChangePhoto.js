@@ -46,6 +46,7 @@ const ProfileChangePhoto = (props) => {
                 <h3>Изменить фото</h3>
                 <fieldset>
                     <UploadImageFile 
+                        name="fileName"
                         selectedFile={selectedFile}
                         setSelectedFile={setSelectedFile}
                         setImageChanged={setImageChanged}
