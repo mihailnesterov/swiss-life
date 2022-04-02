@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {setUserPassword} from '../../api/user';
-import Spinner from '../common/loader/Spinner';
 import InputPassword from '../common/form/InputPassword';
+import Saving from '../common/loader/Saving';
 
 const ProfileChangePassword = (props) => {
 
@@ -33,11 +33,10 @@ const ProfileChangePassword = (props) => {
                         setPassword={setNewPassword}
                         setStatus={setStatus}
                     />
-                    {
-                        saving ? 
-                        <Spinner size={2} /> : 
-                        status && <h4 className='text-green'>{status}!</h4>
-                    }
+                    <Saving 
+                        saving={saving}
+                        text={status}
+                    />
                 </fieldset>
                 <button disabled={newPassword || saving ? false : true} type='submit'>Сохранить</button>
             </form>
