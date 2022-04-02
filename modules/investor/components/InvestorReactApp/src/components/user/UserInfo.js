@@ -44,7 +44,10 @@ const UserInfo = (props) => {
                         user.userStatus &&
                         user.userStatus.id &&
                         user.userStatus.id > 1 && 
-                        <UserStatus userStatus={user.userStatus} />
+                        <UserStatus 
+                            text='Статус: ' 
+                            userStatus={user.userStatus} 
+                        />
                     }
                 {
                     user.created &&
