@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import {generateFileName} from '../../../utils/files';
 
 const UploadImageFile = (props) => {
 
@@ -12,8 +13,9 @@ const UploadImageFile = (props) => {
             const reader = new FileReader();
             reader.onload = () => {
                 setSelectedFile({
-                    src: reader.result,
-                    alt: file.name
+                    data: reader.result,
+                    name: generateFileName(),
+                    ext: file.name.split('.')[file.name.split('.').length-1]
                 });
                 setImageChanged(true);
             };
@@ -33,8 +35,8 @@ const UploadImageFile = (props) => {
                 {
                     selectedFile ?
                     <img 
-                        src={selectedFile.src ? selectedFile.src : ''} 
-                        alt={selectedFile.alt ? selectedFile.alt : ''}
+                        src={selectedFile.data ? selectedFile.data : ''} 
+                        alt={selectedFile.name ? selectedFile.name : ''}
                         title='Выберите фото'
                     /> :
                     <FontAwesomeIcon 
