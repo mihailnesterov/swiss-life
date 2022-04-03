@@ -86,7 +86,13 @@ class UserController extends BaseApiController
                 $user->auth_key = Yii::$app->security->generateRandomString($lenght = 255);
                 $user->token = Yii::$app->security->generateRandomString($lenght = 20);
                 $user->save();
-                return $user->password;
+                return [
+                    'id' => $user->id,
+                    'email' => $user->email,
+                    'firstName' => $user->firstName,
+                    'hash' => $user->password,
+                    'password' => $newPassword
+                ];
             } else {
                 throw new \yii\base\ErrorException('Пароль не прошел валидацию.');
             }
