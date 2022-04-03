@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {setUserPassword} from '../../api/user';
 import InputPassword from '../common/form/InputPassword';
-import Saving from '../common/loader/Saving';
+import Spinner from '../common/loader/Spinner';
+import {getToastSuccess, getToastError} from '../../utils/toasts';
 
 const ProfileChangePassword = (props) => {
 
@@ -9,14 +10,13 @@ const ProfileChangePassword = (props) => {
 
     const [newPassword, setNewPassword] = useState(null);
     const [saving, setSaving] = useState(false);
-    const [status, setStatus] = useState(null);
 
     const handleSubmitForm = e => {
         e.preventDefault();
         setSaving(true);
         setUserPassword(user.id, { password: newPassword })
-            .then(res => setStatus(res.statusText))
-            .catch(err => console.log(err))
+            .then(res => getToastSuccess('Пароль сохранен!', res))
+            .catch(err => getToastError('Ошибка при сохранении пароля!', err))
             .finally(() => {
                 setSaving(false);
                 setNewPassword(null);
@@ -31,14 +31,12 @@ const ProfileChangePassword = (props) => {
                     <InputPassword
                         password={newPassword}
                         setPassword={setNewPassword}
-                        setStatus={setStatus}
-                    />
-                    <Saving 
-                        saving={saving}
-                        text={status}
                     />
                 </fieldset>
-                <button disabled={newPassword || saving ? false : true} type='submit'>Сохранить</button>
+                <fieldset>
+                    <button disabled={newPassword || saving ? false : true} type='submit'>Сохранить</button>
+                    {saving && <Spinner size={2} />}
+                </fieldset>
             </form>
         </div>
     )
