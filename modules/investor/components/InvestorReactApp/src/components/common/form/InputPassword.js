@@ -4,13 +4,12 @@ import ShowPasswordBtn from '../buttons/ShowPasswordBtn';
 
 const InputPassword = (props) => {
 
-    const {password, setPassword, setStatus} = props;
+    const {password, setPassword} = props;
 
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const onChangeHandler = (e) => {
         setPassword(e.target.value);
-        setStatus(null);
         if( e.target.value === '' )
             setPassword(null);
     }
