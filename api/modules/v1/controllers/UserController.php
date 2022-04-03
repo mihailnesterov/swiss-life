@@ -96,6 +96,30 @@ class UserController extends BaseApiController
         }
     }
 
+    public function actionUpdate_photo()
+    {
+        if( Yii::$app->request->getBodyParams() ) {
+            
+            $user_id = Yii::$app->request->getBodyParam('user_id');
+            $file_id = Yii::$app->request->getBodyParam('file_id');
+
+            if(!empty($user_id) && !empty($file_id)) {
+                
+                $userPhoto = \app\models\UserPhoto::find()->where(['user_id' => $user_id])->one();
+                
+                if(!empty($userPhoto)) {
+                    $userPhoto->file_id = $file_id;
+                    $userPhoto->save();
+                } else {
+                    $model = new \app\models\UserPhoto();
+                    $model->user_id = $user_id;
+                    $model->file_id = $file_id;
+                    $model->save();
+                }
+            }
+        }
+    }
+
     private function findUserModel($id)
     {
         if (($model = \app\models\User::findOne($id)) !== null) {
