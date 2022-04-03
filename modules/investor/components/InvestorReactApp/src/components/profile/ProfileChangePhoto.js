@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import UploadImageFile from '../common/form/UploadImageFile';
 import {uploadFile} from '../../api/file';
 import {setUserPhoto} from '../../api/user';
+import {getToastSuccess, getToastError} from '../../utils/toasts';
 
 const ProfileChangePhoto = (props) => {
 
@@ -29,16 +30,15 @@ const ProfileChangePhoto = (props) => {
             const {data, name, ext} = selectedFile;
             uploadFile({data, name, ext})
                 .then(file => {
-                    console.log('uploadFile', file.data);
                     setUserPhoto({
                         user_id: user.id,
                         file_id: file.data.id,
                     })
-                        .then(userPhoto => console.log('userPhoto',userPhoto))
-                        .catch(err => console.log(err))
+                        .then(userPhoto => getToastSuccess('Фото сохранено!',userPhoto))
+                        .catch(err => getToastError('Ошибка при сохранении фото!', err))
                         .finally(() => setImageChanged(false));
                 })
-                .catch(err => console.log(err))
+                .catch(err => getToastError('Ошибка при загрузке файла!', err))
         }
     };
 
