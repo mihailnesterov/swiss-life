@@ -12,11 +12,11 @@ use Yii;
  * @property int|null $status_id id статуса
  * @property int|null $parent_id id представителя
  * @property string $email Email
- * @property string $password Пароль
+ * @property string|null $password Пароль
  * @property string|null $auth_key Authentication Key
  * @property string|null $token Токен 
- * @property string $firstName Имя
- * @property string $lastName Фамилия
+ * @property string|null $firstName Имя
+ * @property string|null $lastName Фамилия
  * @property string|null $phone Телефон
  * @property string|null $address Адрес пользователя
  * @property string $role Роль 
@@ -51,11 +51,12 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'firstName'], 'required'],
+            [['email'], 'required'],
             [['manager_id', 'status_id', 'parent_id'], 'integer'],
             [['status', 'verified', 'representive'], 'boolean'],
             [['created'], 'safe'],
-            [['email', 'password', 'firstName', 'lastName', 'phone'], 'string', 'max' => 100],
+            [['email', 'firstName', 'lastName', 'phone'], 'string', 'max' => 100],
+            ['password', 'string', 'min' => 8, 'max' => 100, 'tooShort' => 'Длина пароля не минее 8 символов'],
             [['auth_key', 'address'], 'string', 'max' => 255],
             [['token'], 'string', 'max' => 50],
             [['role'], 'string', 'max' => 20],
