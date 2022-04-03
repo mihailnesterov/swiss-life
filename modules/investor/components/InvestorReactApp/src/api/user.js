@@ -30,3 +30,6 @@ export const getUserMembersExpanded = async (id, params) =>
 
 export const setUserPassword = async (id, params) => 
     await API.put(`${URL}/${id}/change_password`, params, { credentials, setHeaders });
+
+export const setUserPhoto = async (params) => 
+    await API.put(`${URL}/update_photo`, params, { credentials, setHeaders });
