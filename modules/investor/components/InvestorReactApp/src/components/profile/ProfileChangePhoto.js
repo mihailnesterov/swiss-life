@@ -34,7 +34,7 @@ const ProfileChangePhoto = (props) => {
                         user_id: user.id,
                         file_id: file.data.id,
                     })
-                        .then(userPhoto => getToastSuccess('Фото сохранено!',userPhoto))
+                        .then(userPhoto => getToastSuccess('Фото сохранено!', userPhoto))
                         .catch(err => getToastError('Ошибка при сохранении фото!', err))
                         .finally(() => setImageChanged(false));
                 })
