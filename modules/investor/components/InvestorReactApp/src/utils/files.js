@@ -2,6 +2,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { generateRandomString } from './strings';
 
 /**
  * Возвращает иконку документа в зависимости от расширения файла
@@ -36,4 +37,16 @@ export const getIconByFileExt = (ext) => {
                 icon={iconName} 
                 title='Скачать'
             />;
+}
+
+/**
+ * Генерирует имя файла
+ * @returns String
+ */
+export const generateFileName = () => {
+    const date = new Date();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    return `${generateRandomString(15)}-${hour}${minutes}${seconds}`;
 }
