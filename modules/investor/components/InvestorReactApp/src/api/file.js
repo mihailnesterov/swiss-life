@@ -15,5 +15,8 @@ export const createFile = async (params) =>
 export const updateFile = async (id, params) => 
     await API.put(`${URL}/${id}`, params, { credentials, setHeaders });
 
+export const uploadFile = async (params) => 
+    await API.post(`${URL}/upload`, params, { credentials, setHeaders });
+
 export const createFolder = async () => 
     await API.get(`${URL}/create_folder`, { credentials, setHeaders });
