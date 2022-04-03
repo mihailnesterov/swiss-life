@@ -9,9 +9,7 @@ const InputPassword = (props) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const onChangeHandler = (e) => {
-        setPassword(e.target.value);
-        if( e.target.value === '' )
-            setPassword(null);
+        setPassword(e.target.value === '' ? null : e.target.value);
     }
 
     return (
