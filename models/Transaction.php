@@ -84,7 +84,7 @@ class Transaction extends \yii\db\ActiveRecord
 
         unset(
             $fields['account_id'],
-            $fields['manager_id'],
+            //$fields['manager_id'],
             $fields['currency_id'],
             $fields['transaction_type_id']
         );
@@ -185,5 +185,30 @@ class Transaction extends \yii\db\ActiveRecord
     public function getTransactionType() 
     { 
         return $this->hasOne(TransactionType::className(), ['id' => 'transaction_type_id']); 
+    }
+
+    /**
+     * Search by query params for [[Transaction]].
+     *
+     * @param Object $params
+     * @return \yii\db\ActiveQuery
+     */
+    public function search($params)
+    {
+        $query = $this::find();
+        
+        foreach ($params as $param => $value) {
+            $query->orFilterWhere([
+                'like', $param, $value
+            ]);
+        }
+        
+        return new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [0, 20],
+            ],
+        ]);
     }
 }
