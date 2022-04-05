@@ -34,15 +34,35 @@ class TransactionController extends BaseApiController
 
     public function actionUser($id)
     {
-        $activeData = new \yii\data\ActiveDataProvider([
+        return new \yii\data\ActiveDataProvider([
             'query' => \app\models\Transaction::find()
                 ->orderBy(['created' => SORT_DESC])
                 ->joinWith('account')
                 ->where(['user_id' => $id]),
             'pagination' => $this->pagination,
         ]);
-        
-        return $activeData;
+    }
+
+    public function actionManager($id)
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => \app\models\Transaction::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->joinWith('account')
+                ->where(['manager_id' => $id]),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
+    public function actionManager_authorized()
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => \app\models\Transaction::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->joinWith('account')
+                ->where(['manager_id' => Yii::$app->user->identity->id]),
+            'pagination' => $this->pagination,
+        ]);
     }
 
 }
