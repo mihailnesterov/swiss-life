@@ -4,7 +4,6 @@ namespace api\modules\v1\controllers;
 
 use Yii;
 use api\common\controllers\BaseApiController;
-use yii\helpers\ArrayHelper;
 
 class TransactionController extends BaseApiController
 {
@@ -19,11 +18,14 @@ class TransactionController extends BaseApiController
     {
         $actions = parent::actions();
 
-        $actions['index']['prepareDataProvider'] = [$this, 'prepareTransactionsDataProvider'];
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareBaseApiDataProvider'];
 
         return $actions;
     }
 
+    /**
+     * !deprecated
+     */
     public function prepareTransactionsDataProvider()
     {
         return Yii::createObject([
@@ -36,7 +38,6 @@ class TransactionController extends BaseApiController
     {
         return new \yii\data\ActiveDataProvider([
             'query' => \app\models\Transaction::find()
-                ->orderBy(['created' => SORT_DESC])
                 ->joinWith('account')
                 ->where(['user_id' => $id]),
             'pagination' => $this->pagination,
@@ -47,7 +48,6 @@ class TransactionController extends BaseApiController
     {
         return new \yii\data\ActiveDataProvider([
             'query' => \app\models\Transaction::find()
-                ->orderBy(['created' => SORT_DESC])
                 ->joinWith('account')
                 ->where(['manager_id' => $id]),
             'pagination' => $this->pagination,
@@ -58,7 +58,6 @@ class TransactionController extends BaseApiController
     {
         return new \yii\data\ActiveDataProvider([
             'query' => \app\models\Transaction::find()
-                ->orderBy(['created' => SORT_DESC])
                 ->joinWith('account')
                 ->where(['manager_id' => Yii::$app->user->identity->id]),
             'pagination' => $this->pagination,
