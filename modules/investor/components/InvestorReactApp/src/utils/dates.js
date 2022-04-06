@@ -35,7 +35,7 @@ export const getDateToString = (date) => {
  * @returns String
  */
  export const getDateTimeLocal = (dateStr) => {
-    const date = new Date(dateStr);
+    const date = dateStr ? new Date(dateStr) : new Date();
     const dateObj = {
         year: getYear(date),
         month: getMonth(date),
@@ -43,7 +43,7 @@ export const getDateToString = (date) => {
         hour: getHours(date),
         minutes: getMinutes(date),
         seconds: getSeconds(date)
-    }
+    };
     return `${dateObj.year}-${dateObj.month}-${dateObj.day}T${dateObj.hour}:${dateObj.minutes}`;
 }
 
@@ -54,7 +54,7 @@ export const getDateToString = (date) => {
  */
 const getYear = date => date.getFullYear();
 const getMonth = date => (date.getMonth()+1) < 10 ? `0${date.getMonth()+1}` : (date.getMonth()+1);
-const getDay = date => date.getDay() < 10 ? `0${date.getDay()}` : date.getDay();
+const getDay = date => date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
 const getHours = date => date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
 const getMinutes = date => date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
 const getSeconds = date => date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds();
