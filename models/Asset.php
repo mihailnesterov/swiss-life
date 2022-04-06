@@ -137,19 +137,17 @@ class Asset extends \yii\db\ActiveRecord
         $query = $this::find();
         
         foreach ($params as $param => $value) {
-            $query->andFilterWhere([
-                $param => $value,
+            $query->orFilterWhere([
+                'like', $param, $value
             ]);
         }
         
-        $activeData = new \yii\data\ActiveDataProvider([
+        return new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'defaultPageSize' => 20,
                 'pageSizeLimit' => [0, 20],
             ],
         ]);
-        
-        return $activeData;
     }
 }
