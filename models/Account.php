@@ -68,8 +68,7 @@ class Account extends \yii\db\ActiveRecord
     {
         $fields = parent::fields();
 
-        unset(
-            $fields['user_id'], 
+        unset( 
             $fields['currency_id'],
         );
 
@@ -154,5 +153,32 @@ class Account extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * Search by query params for [[Account]].
+     *
+     * @param Object $params
+     * @return \yii\db\ActiveQuery
+     */
+    public function search($params)
+    {
+        $query = $this::find();
+        
+        foreach ($params as $param => $value) {
+            $query->orFilterWhere([
+                'like', $param, $value
+            ]);
+        }
+        
+        $activeData = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'defaultPageSize' => 20,
+                'pageSizeLimit' => [0, 20],
+            ],
+        ]);
+        
+        return $activeData;
     }
 }
