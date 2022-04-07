@@ -14,4 +14,13 @@ class AccountController extends BaseApiController
         'collectionEnvelope' => 'accounts'
     ];
 
+    public function actions()
+    {
+        $actions = parent::actions();
+        
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareBaseApiDataProvider'];
+        
+        return $actions;
+    }
+
 }
