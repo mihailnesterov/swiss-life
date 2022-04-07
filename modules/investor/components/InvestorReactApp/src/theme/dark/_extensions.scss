@@ -1306,7 +1306,8 @@
             outline: 0;
             margin-bottom: 1rem;
         }
-        & form {
+        & form,
+        & .form {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -1323,6 +1324,8 @@
             & input[type="number"],
             & input[type="password"],
             & input[type="email"],
+            & input[type="datetime-local"],
+            & textarea,
             & select {
                 background-color: $white;
                 color: $black;
@@ -1339,6 +1342,9 @@
                 &:disabled {
                     background-color: $gray;
                 }
+            }
+            & textarea {
+                width: 100%;
             }
             & select {
                 &:hover {
