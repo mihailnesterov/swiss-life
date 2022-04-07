@@ -119,7 +119,6 @@ class Account extends \yii\db\ActiveRecord
     public function extraFields()
     {
         return [
-            //'currency',
             'transactions',
             'user'
         ];
