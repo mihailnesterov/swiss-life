@@ -81,6 +81,7 @@ class Account extends \yii\db\ActiveRecord
             },
             'currency' => function () {
                 return [
+                    'id' => $this->currency->id,
                     'name' => $this->currency->name,
                     'shortName' => $this->currency->shortName,
                     'sign' => $this->currency->sign,
