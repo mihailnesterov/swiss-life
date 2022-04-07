@@ -82,13 +82,6 @@ class Transaction extends \yii\db\ActiveRecord
     {
         $fields = parent::fields();
 
-        unset(
-            $fields['account_id'],
-            //$fields['manager_id'],
-            $fields['currency_id'],
-            $fields['transaction_type_id']
-        );
-
         return array_merge($fields, [
             'user' => function () {
                 return [
