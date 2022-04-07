@@ -49,6 +49,57 @@ class UserController extends BaseApiController
         ]);
     }
 
+    public function actionVerified()
+    {
+        $params = Yii::$app->request->queryParams;
+        $reservedParams = ['sort','q'];
+        
+        if( !empty($params) ) {
+            
+            $model = new $this->modelClass;
+            $modelAttr = $model->attributes;
+            $search = [];
+
+            if (!empty($params)) {
+                foreach ($params as $key => $value) {
+                    if(!is_scalar($key) or !is_scalar($value)) {
+                        throw new \yii\web\BadRequestHttpException('Bad Request');
+                    }
+                    if ( !in_array(strtolower($key), $reservedParams) && 
+                        \yii\helpers\ArrayHelper::keyExists($key, $modelAttr, false) ) {
+                        $search[$key] = $value;
+                    }
+                }
+            }
+
+            $query = $this->modelClass::find();
+        
+            foreach ($search as $param => $value) {
+                $query->orFilterWhere([
+                    'like', $param, $value
+                ]);
+            }
+
+            return new \yii\data\ActiveDataProvider([
+                'query' => $query
+                    ->orderBy(['created' => SORT_ASC])
+                    ->andWhere(['status' => 1])
+                    ->andWhere(['verified' => 1])
+                    ->andWhere(['role' => 'user']),
+                'pagination' => $this->pagination,
+            ]);
+        }
+
+        return new \yii\data\ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->orderBy(['created' => SORT_ASC])
+                ->where(['status' => 1])
+                ->andWhere(['verified' => 1])
+                ->andWhere(['role' => 'user']),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
     public function actionCategories()
     {        
         $userCategoryTable = \app\models\UserCategory::tableName();
