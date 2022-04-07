@@ -99,6 +99,9 @@ class Transaction extends \yii\db\ActiveRecord
             },
             'account' => function () {
                 return [
+                    'id' => $this->account->id,
+                    'user_id' => $this->account->user_id,
+                    'currency_id' => $this->account->currency_id,
                     'number' => $this->account->number
                 ];
             },
