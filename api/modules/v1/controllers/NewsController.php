@@ -31,4 +31,28 @@ class NewsController extends BaseApiController
         ]);
     }
 
+    public function actionUpdate_photo()
+    {
+        if( Yii::$app->request->getBodyParams() ) {
+            
+            $news_id = Yii::$app->request->getBodyParam('news_id');
+            $file_id = Yii::$app->request->getBodyParam('file_id');
+
+            if(!empty($news_id) && !empty($file_id)) {
+                
+                $newsFile = \app\models\NewsFile::find()->where(['news_id' => $news_id])->one();
+                
+                if(!empty($newsFile)) {
+                    $newsFile->file_id = $file_id;
+                    $newsFile->save();
+                } else {
+                    $model = new \app\models\NewsFile();
+                    $model->news_id = $news_id;
+                    $model->file_id = $file_id;
+                    $model->save();
+                }
+            }
+        }
+    }
+
 }
