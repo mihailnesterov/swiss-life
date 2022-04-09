@@ -39,8 +39,6 @@ const UserAddNew = (props) => {
             .finally(() => setParams(null));
     }
 
-    console.log(params);
-
     return (
         <form
             onSubmit={handleSubmitForm} 
