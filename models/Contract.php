@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "contract".
  *
  * @property int $id id договора
- * @property int $file_id id файла
+ * @property int|null $file_id id файла
  * @property string $description Описание договора
  * @property string $created Дата создания
  *
@@ -30,7 +30,7 @@ class Contract extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['file_id'], 'required'],
+            [['description'], 'required'],
             [['file_id'], 'integer'],
             [['created'], 'safe'],
             [['description'], 'string', 'max' => 255],
