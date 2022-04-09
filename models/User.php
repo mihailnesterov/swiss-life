@@ -103,8 +103,7 @@ class User extends \yii\db\ActiveRecord
             $fields['auth_key'], 
             $fields['password'],
             $fields['token'],
-            $fields['manager_id'],
-            $fields['status_id'],
+            $fields['manager_id']
         );
 
         return array_merge($fields, [
