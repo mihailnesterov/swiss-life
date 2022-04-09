@@ -40,6 +40,9 @@ export const getUsersOfAuthorizedManagerExpanded = async (params) =>
 export const getUsersVerified = async (params) => 
     await API.get(`${URL}/verified?${EXPAND}`, { credentials, setHeaders, params });
 
+export const getUsersRepresentive = async (params) => 
+    await API.get(`${URL}/representive?${EXPAND}`, { credentials, setHeaders, params });
+
 export const getUsersCategories = async () => 
     await API.get(`${URL}/categories`, { credentials, setHeaders });
 
