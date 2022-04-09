@@ -5,6 +5,7 @@ import ProfileChangePassword from '../profile/ProfileChangePassword';
 import UserAccounts from './UserAccounts';
 import UserForm from './UserForm';
 import UserTransactions from './UserTransactions';
+import UserDocuments from './UserDocuments';
 
 const UserItem = (props) => {
 
@@ -25,6 +26,7 @@ const UserItem = (props) => {
                     <UserTransactions user={user} />
                     <ProfileChangePhoto user={user} />
                     <ProfileChangePassword user={user} />
+                    <UserDocuments user={user} />
                 </div>
             </div>
         </div>
