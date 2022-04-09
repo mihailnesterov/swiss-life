@@ -10,10 +10,10 @@ use Yii;
  * @property int $id id актива
  * @property int $company_id id компании
  * @property string $name Название актива
- * @property string $excerpt Краткое описание
+ * @property string|null $excerpt Краткое описание
  * @property string $description Описание
- * @property string $category Категория
- * @property string $calculation Калькуляция
+ * @property string|null $category Категория
+ * @property string|null $calculation Калькуляция
  * @property int $status Статус
  * @property string $created Дата создания актива
  *
