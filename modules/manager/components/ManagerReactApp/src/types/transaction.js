@@ -1,0 +1,7 @@
+import Enum from '../utils/enum';
+
+export const transactionActionTypes = Enum({
+    FETCH_TRANSACTION: 'FETCH_TRANSACTION',
+    FETCH_TRANSACTION_SUCCESS: 'FETCH_TRANSACTION_SUCCESS',
+    FETCH_TRANSACTION_ERROR: 'FETCH_TRANSACTION_ERROR'
+});
