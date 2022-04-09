@@ -6,11 +6,11 @@ const URL = `/messages`;
 export const getMessages= async (params) => 
     await API.get(URL, { credentials, setHeaders, params });
 
-export const getUserMessages= async (id, params) => 
-    await API.get(`${URL}/user/${id}`, { credentials, setHeaders, params });
+export const getSernderMessages= async (id, params) => 
+    await API.get(`${URL}/sender/${id}`, { credentials, setHeaders, params });
 
-export const getManagerMessages= async (id, params) => 
-    await API.get(`${URL}/manager/${id}`, { credentials, setHeaders, params });
+export const getReceiverMessages= async (id, params) => 
+    await API.get(`${URL}/receiver/${id}`, { credentials, setHeaders, params });
 
 export const createMessage = async (params) => 
     await API.post(URL, params, { credentials, setHeaders });
