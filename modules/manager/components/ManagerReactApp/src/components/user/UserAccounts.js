@@ -180,7 +180,7 @@ const UserAccounts = (props) => {
         console.log(2,params,accountNumber,currencyCode,currencyId);
     }, [accountNumber, currencyCode, currencyId]);
 
-    console.log(1,params,accountNumber,currencyCode,currencyId);
+    //console.log(1,params,accountNumber,currencyCode,currencyId);
 
     return (
         <form onSubmit={handleSubmitForm} onChange={handleChangeForm}>
