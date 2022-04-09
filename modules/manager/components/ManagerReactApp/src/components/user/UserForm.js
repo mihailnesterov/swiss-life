@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import {updateUser} from '../../api/user';
 import Spinner from '../common/loader/Spinner';
+import AutocompleteUserRepresentive from '../common/autocomplete/AutocompleteUserRepresentive';
+import AutocompleteUserStatus from '../common/autocomplete/AutocompleteUserStatus';
 
 const UserForm = (props) => {
 
@@ -9,14 +11,43 @@ const UserForm = (props) => {
 
     const [params, setParams] = useState(null);
     const [saving, setSaving] = useState(false);
+    const [parentId, setParentId] = useState(null);
+    const [statusId, setStatusId] = useState(null);
+
+    useEffect(() => {
+        if(parentId) {
+            setParams({
+                'parent_id': parentId,
+                ...params
+            });
+        }
+    }, [parentId]);
+
+    useEffect(() => {
+        if(statusId) {
+            setParams({
+                'status_id': statusId === 1 ? null : statusId,
+                ...params
+            });
+        }
+    }, [statusId]);
 
     const handleChangeForm = e => {
         const name = e.target.name;
         const value = e.target.type === 'checkbox' ? (e.target.checked === true ? 1 : 0) : e.target.value;
-        setParams({
-            ...params, 
-            ...{[name]:value}
-        });
+        const excludeFields = [
+            'user',
+            'user-statuses'
+        ];
+        
+        if(excludeFields.filter(item => item === name).length > 0) {
+            setParams({...params});
+        } else {
+            setParams({
+                ...params, 
+                ...{[name]:value}
+            });
+        } 
     }
 
     const handleSubmitForm = e => {
@@ -99,6 +130,14 @@ const UserForm = (props) => {
                         />
                         <label htmlFor="representive">Представитель</label>
                     </div>
+                    <AutocompleteUserRepresentive 
+                        user={user} 
+                        setParentId={setParentId} 
+                    />
+                    <AutocompleteUserStatus 
+                        user={user} 
+                        setStatusId={setStatusId} 
+                    />
                 </fieldset>
             </div>                  
             <fieldset>
