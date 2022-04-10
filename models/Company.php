@@ -78,7 +78,6 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             'assets',
-            'managers',
             'partners'
         ];
     }
@@ -91,16 +90,6 @@ class Company extends \yii\db\ActiveRecord
     public function getAssets()
     {
         return $this->hasMany(Asset::className(), ['company_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Managers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getManagers()
-    {
-        return $this->hasMany(Manager::className(), ['company_id' => 'id']);
     }
 
     /** 
