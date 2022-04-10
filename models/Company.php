@@ -14,7 +14,6 @@ use Yii;
  * @property string $created Дата регистрации
  *
  * @property Asset[] $assets
- * @property Manager[] $managers
  * @property News[] $news
  * @property Partner[] $partners
  */
