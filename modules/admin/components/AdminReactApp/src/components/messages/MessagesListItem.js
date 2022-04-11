@@ -31,8 +31,20 @@ const MessagesListItem = (props) => {
                 />
             </div>
             <div><p>{item.theme}</p></div>
-            <div><p>от: {item.sender.firstName} {item.sender.lastName} ({item.sender.role})</p></div>
-            <div><p>кому: {item.receiver.firstName} {item.sender.lastName} ({item.sender.role})</p></div>
+            <div>
+                {
+                    item.sender &&
+                    item.sender.firstName &&
+                    <p>от: {item.sender.firstName} {item.sender.lastName} ({item.sender.role})</p>
+                }
+            </div>
+            <div>
+                {
+                    item.receiver &&
+                    item.receiver.firstName &&
+                    <p>кому: {item.receiver.firstName} {item.sender.lastName} ({item.sender.role})</p>
+                }
+            </div>
             <div><p>{item.text}</p></div>
             <div>
                 {
