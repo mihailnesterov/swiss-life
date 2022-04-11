@@ -17,8 +17,8 @@ const UserForm = (props) => {
     useEffect(() => {
         if(parentId) {
             setParams({
-                'parent_id': parentId,
-                ...params
+                ...params,
+                'parent_id': parentId
             });
         }
     }, [parentId]);
@@ -26,8 +26,8 @@ const UserForm = (props) => {
     useEffect(() => {
         if(statusId) {
             setParams({
-                'status_id': statusId === 1 ? null : statusId,
-                ...params
+                ...params,
+                'status_id': statusId === 1 ? null : statusId
             });
         }
     }, [statusId]);
