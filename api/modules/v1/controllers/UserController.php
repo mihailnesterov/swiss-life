@@ -49,6 +49,37 @@ class UserController extends BaseApiController
         ]);
     }
 
+    public function actionRole_admin()
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->where(['!=', 'id', Yii::$app->user->identity->id])
+                ->andWhere(['role' => 'admin']),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
+    public function actionRole_manager()
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->andWhere(['role' => 'manager']),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
+    public function actionRole_user()
+    {
+        return new \yii\data\ActiveDataProvider([
+            'query' => $this->modelClass::find()
+                ->orderBy(['created' => SORT_DESC])
+                ->andWhere(['role' => 'user']),
+            'pagination' => $this->pagination,
+        ]);
+    }
+
     public function actionVerified()
     {
         $params = Yii::$app->request->queryParams;
