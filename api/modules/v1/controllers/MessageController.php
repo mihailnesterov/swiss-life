@@ -43,4 +43,12 @@ class MessageController extends BaseApiController
         ]);
     }
 
+    public function actionNew()
+    {
+        return intval(\app\models\Message::find()
+            ->where(['isRead' => 0])
+            ->count()
+        );
+    }
+    
 }
