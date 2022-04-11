@@ -71,6 +71,28 @@ class Message extends \yii\db\ActiveRecord
         $fields = parent::fields();
 
         return array_merge($fields, [
+            'sender' => function () {
+                return [
+                    'id' => $this->sender->id,
+                    'firstName' => $this->sender->firstName,
+                    'lastName' => $this->sender->lastName,
+                    'email' => $this->sender->email,
+                    'phone' => $this->sender->phone,
+                    'role' => $this->sender->role,
+                    'status' => $this->sender->status
+                ];
+            },
+            'receiver' => function () {
+                return [
+                    'id' => $this->receiver->id,
+                    'firstName' => $this->receiver->firstName,
+                    'lastName' => $this->receiver->lastName,
+                    'email' => $this->receiver->email,
+                    'phone' => $this->receiver->phone,
+                    'role' => $this->receiver->role,
+                    'status' => $this->receiver->status
+                ];
+            },
             'messageFiles' => function () {
                 return $this->messageFiles;
             }
