@@ -28,6 +28,7 @@ class NewsController extends BaseApiController
         return Yii::createObject([
             'class' => \yii\data\ActiveDataProvider::className(),
             'query' => \app\models\News::find()->orderBy(['created' => SORT_DESC]),
+            'pagination' => $this->pagination,
         ]);
     }
 
