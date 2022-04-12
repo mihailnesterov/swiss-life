@@ -86,6 +86,10 @@ const MessagesList = () => {
                     id={null} 
                     links={links} 
                     meta={meta} 
+                    params={{
+                        'sender_id': user.id,
+                        'sort': '-created,-isRead'
+                    }}
                     fetchData={getMessages}
                 />
             }
