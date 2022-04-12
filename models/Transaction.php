@@ -14,7 +14,7 @@ use Yii;
  * @property int $currency_id id валюты
  * @property int $transaction_type_id id типа транзакции
  * @property int $sum Сумма транзакции
- * @property string $description Описание
+ * @property string|null $description Описание
  * @property int $status Статус
  * @property string|null $accepted Дата принятия
  * @property string|null $rejected Дата отмены
