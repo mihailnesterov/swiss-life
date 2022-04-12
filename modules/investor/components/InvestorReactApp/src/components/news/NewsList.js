@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
+import Pagination from '../common/pagination';
 import NewsListItem from './NewsListItem';
 import Spinner from '../common/loader/Spinner';
 
 const NewsList = () => {
 
-    const {news, loading} = useSelector( state => state.news);
+    const {news, links, meta, loading} = useSelector( state => state.news);
 
     const {fetchNews} = useActions();
 
     useEffect(() => {
-        fetchNews();
+        fetchNews({'per-page':'8'});
     },[]);
 
     return (
@@ -23,6 +24,13 @@ const NewsList = () => {
                     news.map(item => <NewsListItem key={item.id} item={item} />)
                 }
             </div>
+            <Pagination 
+                id={null} 
+                links={links} 
+                meta={meta} 
+                params={{'per-page':'8'}}
+                fetchData={fetchNews} 
+            />
         </div>
     )
 }
