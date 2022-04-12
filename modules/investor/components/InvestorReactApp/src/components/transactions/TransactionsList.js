@@ -16,8 +16,7 @@ const TransactionsList = (props) => {
 
     useEffect(() => {
         fetchUserTransactions(user.id, {
-            'per-page': '5',
-            'page': '1'
+            'sort': '-created'
         });
     },[user]);
 
@@ -36,6 +35,7 @@ const TransactionsList = (props) => {
                 id={user.id} 
                 links={links} 
                 meta={meta} 
+                params={{'sort': '-created'}}
                 fetchData={fetchUserTransactions} 
             />
         </div>
