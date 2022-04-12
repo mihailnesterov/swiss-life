@@ -56,8 +56,8 @@ const WithdrawalsForm = () => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
+                sender_id: user.id,
+                receiver_id: user.manager.id,
                 theme: 'Заявка на вывод средств',
                 text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${profit}`
             })

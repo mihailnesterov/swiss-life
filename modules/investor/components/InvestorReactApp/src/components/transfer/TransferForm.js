@@ -53,12 +53,12 @@ const TransferForm = () => {
             setIsDropdownListOpen(true);
             setClickedOutside(false);
             getUsers({
-                email: inputSearchValue,
-                firstName: inputSearchValue,
-                lastName: inputSearchValue,
+                'email': inputSearchValue,
+                'firstName': inputSearchValue,
+                'lastName': inputSearchValue,
             })
             .then(res => {
-                setUsers(res.data.filter(item => item.id !== user.id));
+                setUsers(res.data.users.filter(item => item.id !== user.id && item.role === 'user'));
             })
             .catch(err => {
                 console.log('users search error',err);
@@ -80,9 +80,11 @@ const TransferForm = () => {
             setIsDropdownListOpen(true);
             getUsers({
                 'per-page': '5',
+                'role':'user',
+                'sort':'firstName'
             })
             .then(res => {
-                setUsers(res.data.filter(item => item.id !== user.id));
+                setUsers(res.data.users.filter(item => item.id !== user.id));
             })
             .catch(err => {
                 console.log('users search error',err);
@@ -106,8 +108,8 @@ const TransferForm = () => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
+                sender_id: user.id,
+                receiver_id: user.manager.id,
                 theme: 'Заявка на перевод средств другому пользователю',
                 text: `id отправителя: ${user.id}, ФИО отправителя: ${user.fullName}, 
                 id получателя: ${users[0].id}, ФИО получателя: ${users[0].fullName}, email получателя: ${users[0].email},
@@ -192,7 +194,7 @@ const TransferForm = () => {
                                 type='text'
                                 placeholder='Найти получателя'
                                 value={inputSearchValue}
-                                onChange={onChangeSearchValueHandler}
+                                onInput={onChangeSearchValueHandler}
                                 onClick={onClickUsersSearchHandler}
                                 style={{ width: "400px" }}
                                 autoComplete='off'

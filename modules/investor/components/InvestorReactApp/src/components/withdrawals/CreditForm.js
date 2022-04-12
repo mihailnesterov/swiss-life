@@ -64,8 +64,8 @@ const CreditForm = () => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
+                sender_id: user.id,
+                receiver_id: user.manager.id,
                 theme: 'Заявка на кредит',
                 text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, 
                 № счета: ${currencySelected.account}, максимальная сумма кредита: ${currencySelected.sign} ${mostAccessibleSum}`
