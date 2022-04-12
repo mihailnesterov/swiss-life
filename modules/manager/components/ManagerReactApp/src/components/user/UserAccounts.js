@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { useActions } from '../../hooks/useActions';
 import {createAccount} from '../../api/account';
+import {getToastSuccess, getToastError} from '../../utils/toasts';
 import Spinner from '../common/loader/Spinner';
 import AccountsList from './accounts/AccountsList';
 import AccountOpenBtn from './accounts/AccountOpenBtn';
@@ -11,8 +11,6 @@ import AccountNumber from './accounts/AccountNumber';
 const UserAccounts = (props) => {
 
     const {user} = props;
-
-    const {fetchUsersOfAuthorizedManagerExpanded} = useActions();
 
     const [isOpenAccount, setOpenAccount] = useState(false);    
     const [params, setParams] = useState(null);
@@ -62,7 +60,6 @@ const UserAccounts = (props) => {
             createAccount(params)
                 .then(res => {
                     getToastSuccess('Счет создан!',res);
-                    fetchUsersOfAuthorizedManagerExpanded();
                     setAccountNumber(null);
                     setCurrency(null);
                 })
