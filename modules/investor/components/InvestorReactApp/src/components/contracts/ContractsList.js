@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from "react-redux";
 import {useActions} from '../../hooks/useActions';
 import ContractsListItem from './ContractsListItem';
@@ -9,19 +9,10 @@ const ContractsList = () => {
     const {contracts, loading} = useSelector( state => state.contracts);
     
     const {fetchContracts} = useActions();
-    
-    const [contractsList, setContractsList] = useState(null);
 
     useEffect(() => {
         fetchContracts();
     },[]);
-
-    useEffect(() => {
-        if(contracts && contracts.contracts && contracts.contracts.length > 0) {
-            setContractsList(contracts.contracts);
-        }
-        return () => setContractsList(null);
-    },[contracts]);
 
     return (
         loading ?
@@ -29,9 +20,9 @@ const ContractsList = () => {
 
         <div className='contracts-list'>
             {
-                contractsList &&
-                contractsList.length > 0 &&
-                contractsList.map(item => <ContractsListItem key={item.id} item={item} />)
+                contracts &&
+                contracts.length > 0 &&
+                contracts.map(item => <ContractsListItem key={item.id} item={item} />)
             }
         </div>
     )
