@@ -3,7 +3,7 @@ import PaginationNav from './PaginationNav';
 
 const Pagination = (props) => {
 
-    const {id, links, meta, fetchData} = props;
+    const {id, links, meta, params, fetchData} = props;
 
     const [currentPage, setCurrentPage] = useState(null);
     const [pageCount, setPageCount] = useState(null);
@@ -47,6 +47,7 @@ const Pagination = (props) => {
                     pages={pages} 
                     perPage={perPage}
                     currentPage={currentPage}
+                    params={params}
                     fetchData={fetchData}
                 />
             }

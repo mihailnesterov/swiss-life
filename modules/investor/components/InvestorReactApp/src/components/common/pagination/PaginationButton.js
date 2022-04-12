@@ -48,7 +48,6 @@ const PaginationButton = (props) => {
         
     }, [buttonType, pageNum]);
 
-
     return (
         <button 
             className={isCurrent === true ? "current" : null}

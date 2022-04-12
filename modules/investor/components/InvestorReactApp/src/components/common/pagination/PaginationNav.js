@@ -4,7 +4,7 @@ import PaginationButton from './PaginationButton';
 
 const PaginationNav = (props) => {
 
-    const {id, links, pages, perPage, currentPage, fetchData} = props;
+    const {id, links, pages, perPage, currentPage, params, fetchData} = props;
 
     const [first, setFirst] = useState(null);
     const [last, setLast] = useState(null);
@@ -38,15 +38,15 @@ const PaginationNav = (props) => {
 
     const setCurrentPageHandler = (pageNum) => {
         if(id) {
-            fetchData(id, {
+            fetchData(id, {...params, ...{
                 'per-page': `${perPage}`,
                 'page': `${pageNum}`
-            });
+            }});
         } else {
-            fetchData({
+            fetchData({...params, ...{
                 'per-page': `${perPage}`,
                 'page': `${pageNum}`
-            });
+            }});
         }
     }
 
