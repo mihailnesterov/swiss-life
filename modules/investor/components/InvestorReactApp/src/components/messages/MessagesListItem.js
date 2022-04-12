@@ -1,15 +1,32 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useActions } from '../../hooks/useActions';
 import {getDateTimeToString} from '../../utils/dates';
+import {updateMessage} from '../../api/message';
+import MessageEnvelope from './MessageEnvelope';
 
 const MessagesListItem = (props) => {
 
     const {item} = props;
 
+    const {fetchUserAuthorizedExpanded} = useActions();
+
+    const handleChangeRead = () => {
+        if(item && item.id) {
+            updateMessage(item.id, {
+                'isRead': item.isRead === 1 ? 0 : 1
+            }).then(res => fetchUserAuthorizedExpanded())
+            .catch(err => console.log(err))
+        }
+    }
+
     return (
         <div className='messages-list-item'>
-            <div><FontAwesomeIcon size='2x' className={item.isRead === 1 ? 'text-green' : 'text-red'} icon={solid('envelope')} /></div>
+            <div>
+                <MessageEnvelope 
+                    isRead={item.isRead}
+                    setRead={handleChangeRead}
+                />
+            </div>
             <div><p>{item.theme}</p></div>
             <div><p>{item.text}</p></div>
             <div>
