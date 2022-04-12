@@ -3,7 +3,6 @@ import {getTransactionTypes, getTransactionType} from '../../../api/transactionT
 
 const AutocompleteTransactionType = (props) => {
 
-    //const {transactionTypeId, setResult} = props;
     const {transaction, setParams, params} = props;
 
     const [transactionType, setTransactionType] = useState(null);
@@ -27,21 +26,6 @@ const AutocompleteTransactionType = (props) => {
                 .catch(err => console.log(`get get transaction type by id error`, err));
         }
     }, [transactionTypes, transaction]);
-
-    /*useEffect(() => {
-        if(transactionTypes && transactionTypes.length > 0) {
-            setSelected(transactionTypeId);
-        }
-    }, [transactionTypeId, transactionTypes]);
-
-    const setSelected = (id) => {
-        if(id && transactionTypes && transactionTypes.length > 0) {
-            const _data = transactionTypes.filter(item => item.id === id);
-            if(_data.length > 0) {
-                setTransactionType(_data[0]);
-            }
-        }
-    }*/
 
     const handleClickTransactionType = () => {
         setClickedOutside(false);
