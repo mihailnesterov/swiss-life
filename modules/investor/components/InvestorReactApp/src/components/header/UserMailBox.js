@@ -7,13 +7,19 @@ import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 const UserMailBox = (props) => {
    
     const {newMessages} = props;
+
     const navigate = useNavigate();
+    
     const {MESSAGES} = RouteNames;
+
+    const handleNavigateToMessagesPage = () => {
+        navigate(MESSAGES);
+    }
 
     return (
         <div>
             <button 
-                onClick={() => navigate(MESSAGES)}
+                onClick={handleNavigateToMessagesPage}
             >
                 <FontAwesomeIcon 
                     size='2x' 
