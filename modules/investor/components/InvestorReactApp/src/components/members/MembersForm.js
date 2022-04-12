@@ -35,8 +35,8 @@ const MembersForm = () => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
+                sender_id: user.id,
+                receiver_id: user.manager.id,
                 theme: 'Заявка на регистрацию пользователя от представителя',
                 text: `id представителя: ${user.id}, ФИО представителя: ${user.fullName}, 
                 ФИО приглашенного пользователя: ${inputMemberNameValue}, email приглашенного пользователя: ${inputMemberEmailValue}`

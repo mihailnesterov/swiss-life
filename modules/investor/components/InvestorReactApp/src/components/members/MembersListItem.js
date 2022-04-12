@@ -27,6 +27,7 @@ const NewsListItem = (props) => {
             </div>
             <div>
                 {
+                    item.userStatus &&
                     item.userStatus.id > 1 &&
                     <span style={{
                             backgroundColor:`#${item.userStatus.color}`,

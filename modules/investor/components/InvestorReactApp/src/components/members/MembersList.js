@@ -15,6 +15,8 @@ const MembersList = (props) => {
             {
                 loading ?
                 <Spinner size={2} /> :
+                members &&
+                members.length > 0 &&
                 members.map((item,i) => <MembersListItem key={item.id} num={i} item={item} />)
             }
         </div>
