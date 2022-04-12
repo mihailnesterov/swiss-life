@@ -1748,6 +1748,9 @@
                 color: $purple;
             }
         }
+        & h4 {
+            color: $gold-light;
+        }
         & fieldset {
             display: flex;
             align-items: flex-start;
@@ -2086,7 +2089,7 @@
             position: absolute;
             top: 15px;
             right: 10px;
-            z-index: 99;
+            z-index: 98;
             border: 0;
             outline: 0;
             background-color: transparent;
