@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
+import Pagination from '../common/pagination';
 import InvestmentListItem from './InvestmentListItem';
 import Spinner from '../common/loader/Spinner';
 import AssetCategoriesFilter from './AssetCategoriesFilter';
 
 const InvestmentList = () => {
 
-    const {assets, loading} = useSelector( state => state.assets);
+    const {assets, links, meta, loading} = useSelector( state => state.assets);
     const {assetCategories} = useSelector( state => state.assetCategories);
 
     const {fetchAssets, fetchAssetsCategories} = useActions();
@@ -35,6 +36,12 @@ const InvestmentList = () => {
                     assets.map(item => <InvestmentListItem key={item.id} item={item} />)
                 }
             </div>
+            <Pagination 
+                id={null} 
+                links={links} 
+                meta={meta} 
+                fetchData={fetchAssets} 
+            />
         </div>
     )
 }
