@@ -9,6 +9,8 @@ const {
 
 const initialState = {
     assets: [],
+    links: {},
+    meta: {},
     loading: false,
     error: null
 };
@@ -18,24 +20,32 @@ export const assetReducer = (state = initialState, action) => {
         case FETCH_ASSET:
             return {
                 assets: [],
+                links: {},
+                meta: {},
                 loading: true,
                 error: null
             }
         case FETCH_ASSET_SUCCESS:
             return {
-                assets: action.payload,
+                assets: action.payload.assets,
+                links: action.payload._links,
+                meta: action.payload._meta,
                 loading: false,
                 error: null
             }
         case FETCH_ASSET_ITEM_SUCCESS:
             return {
-                assets: [action.payload],
+                assets: [action.payload.assets],
+                links: action.payload._links,
+                meta: action.payload._meta,
                 loading: false,
                 error: null
             }
         case FETCH_ASSET_ERROR:
             return {
                 assets: [],
+                links: {},
+                meta: {},
                 loading: false,
                 error: action.payload
             }
