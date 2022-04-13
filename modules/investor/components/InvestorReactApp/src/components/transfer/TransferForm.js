@@ -212,7 +212,6 @@ const TransferForm = () => {
                                 value={inputSearchValue}
                                 onInput={onChangeSearchValueHandler}
                                 onClick={onClickUsersSearchHandler}
-                                style={{ width: "400px" }}
                                 autoComplete='off'
                             />
                                 {
