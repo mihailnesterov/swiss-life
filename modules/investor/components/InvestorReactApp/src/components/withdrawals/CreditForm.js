@@ -15,6 +15,7 @@ const CreditForm = () => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
+    const [currencyName, setCurrencyName] = useState(null);
     const [profit, setProfit] = useState(0);
     const [balance, setBalance] = useState(0);
     const [mostAccessibleSum, setMostAccessibleSum] = useState(0);
@@ -41,8 +42,27 @@ const CreditForm = () => {
         return () => {
             setCurrencies(null);
             setCurrencySelected(null);
+            setProfit(0);
+            setBalance(0);
         }
     }, [user]);
+
+    useEffect(() => {
+        if(currencies && currencies.length > 0 && currencyName) {
+            const _currencySelected = currencies.filter(item => item.shortName === currencyName);
+            if(_currencySelected.length > 0) {
+                setCurrencySelected(_currencySelected[0]);
+                setProfit(_currencySelected[0].profit); 
+                setProfit(_currencySelected[0].balance); 
+            }
+        }
+
+        return () => {
+            setCurrencySelected(null);
+            setProfit(0);
+            setBalance(0);
+        }
+    }, [currencyName]);
 
     useEffect(() => {
         setMostAccessibleSum(Math.floor(profit + (balance/2)));
@@ -55,8 +75,7 @@ const CreditForm = () => {
     }
 
     const onCurrencySelectHandler = (e) => {
-        // доработать, т.к. не тестировалось с двумя валютами
-        console.log(e, currencySelected.sign);
+        setCurrencyName(e.target.value);
     }
 
     const onSubmitHandler = (e) => {

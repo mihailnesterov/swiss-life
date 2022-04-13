@@ -16,6 +16,7 @@ const TransferForm = () => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
+    const [currencyName, setCurrencyName] = useState(null);
     const [profit, setProfit] = useState(0);
 
     useEffect(() => {
@@ -31,15 +32,31 @@ const TransferForm = () => {
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                setProfit(_currencies[0].profit);
+                setProfit(_currencies[0].profit); 
             }
         }
 
         return () => {
             setCurrencies(null);
             setCurrencySelected(null);
+            setProfit(0);
         }
     }, [user]);
+
+    useEffect(() => {
+        if(currencies && currencies.length > 0 && currencyName) {
+            const _currencySelected = currencies.filter(item => item.shortName === currencyName);
+            if(_currencySelected.length > 0) {
+                setCurrencySelected(_currencySelected[0]);
+                setProfit(_currencySelected[0].profit); 
+            }
+        }
+
+        return () => {
+            setCurrencySelected(null);
+            setProfit(0);
+        }
+    }, [currencyName]);
     
     const [inputSearchValue, setInputSearchValue] = useState('');
     const [users, setUsers] = useState(null);
@@ -99,8 +116,7 @@ const TransferForm = () => {
     }
 
     const onCurrencySelectHandler = (e) => {
-        // доработать, т.к. не тестировалось с двумя валютами
-        console.log(e, currencySelected.sign);
+        setCurrencyName(e.target.value);
     }
 
     const onSubmitHandler = (e) => {
@@ -113,7 +129,7 @@ const TransferForm = () => {
                 theme: 'Заявка на перевод средств другому пользователю',
                 text: `id отправителя: ${user.id}, ФИО отправителя: ${user.fullName}, 
                 id получателя: ${users[0].id}, ФИО получателя: ${users[0].fullName}, email получателя: ${users[0].email},
-                сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${profit}`
+                сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
             })
                 .then(res => {
                     console.log('message created success', res);
