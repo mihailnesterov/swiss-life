@@ -8,6 +8,8 @@ const {
 
 const initialState = {
     partners: [],
+    links: {},
+    meta: {},
     loading: false,
     error: null
 };
@@ -17,18 +19,24 @@ export const partnerReducer = (state = initialState, action) => {
         case FETCH_PARTNER:
             return {
                 partners: [],
+                links: {},
+                meta: {},
                 loading: true,
                 error: null
             }
         case FETCH_PARTNER_SUCCESS:
             return {
-                partners: action.payload,
+                partners: action.payload.partners,
+                links: action.payload._links,
+                meta: action.payload._meta,
                 loading: false,
                 error: null
             }
         case FETCH_PARTNER_ERROR:
             return {
                 partners: [],
+                links: {},
+                meta: {},
                 loading: false,
                 error: action.payload
             }
