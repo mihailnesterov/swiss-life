@@ -157,7 +157,7 @@ class User extends \yii\db\ActiveRecord
                 $userTable = \app\models\User::tableName();
                 return \app\models\Transaction::find()
                     ->select([
-                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"), 
+                        new \yii\db\Expression("SUM(round($transactionsTable.sum/2)) AS `total`"), 
                         "$currencyTable.sign", 
                         "$currencyTable.shortName as currency"
                     ])
