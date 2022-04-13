@@ -849,11 +849,11 @@
             color: $gold-light;
         }
         & > * {
-            &:first-child {
+            &:nth-child(1) {
                 margin-top: 1rem;
                 margin-bottom: 1rem;
             }
-            &:last-child {
+            &:nth-child(3) {
                 display: flex;
                 align-items: flex-start;
                 justify-content: flex-start;
@@ -1027,9 +1027,45 @@
         align-items: flex-start;
         justify-content: flex-start;
         flex-wrap: wrap;
+        gap: 1rem;
+        & > * {
+            &:nth-child(1) {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                width: 100%;
+                & h3 {
+                    color: $gold-light;
+                }
+                & a,
+                & button {
+                    @include button($purple, $white);
+                    &.active {
+                        @include button($purple-light, $white);
+                        text-decoration: underline;
+                    }
+                }
+                & > * {
+                    &:last-child {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+                }
+            }
+            &:nth-child(2),
+            &:nth-child(3) {
+                width: 100%;
+            }
+        }
     }
 
     @extend %messages-list-item;
+    @extend %pagination;
 }
 
 %messages-list-item {
@@ -1053,6 +1089,12 @@
         & > * {
             &:nth-child(1) {
                 flex: 1;
+                & svg {
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.75;
+                    }
+                }
             }
             &:nth-child(2) {
                 flex: 4;
@@ -1179,7 +1221,7 @@
 
 %members-list {
     .members-list {
-        & > * {     
+        & > * {
             &:nth-child(2) {
                 display: flex;
                 align-items: flex-start;
@@ -1200,19 +1242,20 @@
                 @extend %members-table;
             }
             &:nth-child(3) {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                flex-wrap: nowrap;
-                gap: 1.5rem;
-                border-bottom: 2px $purple solid;
-                padding: 0.75rem;
+                & > * {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                    gap: 1.5rem;
+                    border-bottom: 2px $purple solid;
+                    padding: 0.75rem;
 
-                &:last-child {
-                    border-bottom: 0;
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+                    @extend %members-table; 
                 }
-
-                @extend %members-table;
             }
         }
     }
@@ -1230,15 +1273,15 @@
             flex: 4;
         }
         &:nth-child(4) {
-            flex: 2;
+            flex: 4;
             text-align: center;
         }
         &:nth-child(5) {
-            flex: 2;
+            flex: 4;
             text-align: center;
         }
         &:nth-child(6) {
-            flex: 2;
+            flex: 3;
             text-align: center;
         }
     }
