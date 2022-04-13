@@ -49,6 +49,9 @@
             & > * {
                 &:last-child {
                     color: $gold;
+                    @media (max-width: 767.98px) {
+                        display: none;
+                    }
                 }
             }
         }
@@ -268,6 +271,23 @@
             justify-content: space-between;
             flex-wrap: nowrap;
             font-size: 26px;
+            @media (max-width: 767.98px) {
+                & > span {
+                    &:first-child {
+                        @media (max-width: 767.98px) {
+                            display: none;
+                        }
+                    }
+                    &:last-child {
+                        & > a {
+                            display: inline-block;
+                            text-align: center;
+                            width: 100%;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
         }
         & h2 {
             font-size: 24px;
@@ -1054,6 +1074,10 @@
                         justify-content: flex-end;
                         flex-wrap: wrap;
                         gap: 1rem;
+                        @media (max-width: 767.98px) {
+                            justify-content: center;
+                            flex-wrap: nowrap;
+                        }
                     }
                 }
             }
@@ -1378,6 +1402,7 @@
                 border-radius: 6px;
                 box-sizing: border-box;
                 font-size: 20px;
+                width: 100%;
                 &.text-red {
                     color: $red !important;
                     background-color: blanchedalmond;
