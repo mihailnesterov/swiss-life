@@ -1,22 +1,35 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from "react-redux";
-import { useActions } from '../hooks/useActions';
 import PageLayout from '../layouts/PageLayout';
 import InvestForm from '../components/investment/InvestForm';
 import Spinner from '../components/common/loader/Spinner';
+import { getAsset } from '../api/asset';
 
 const InvestPage = () => {
 
     const {id} = useParams();
 
-    const {assets, loading} = useSelector( state => state.assets);
-
-    const {fetchAsset} = useActions();
+    const [loading, setLoading] = useState(false);
+    const [title, setTitle] = useState(null);
+    const [asset, setAsset] = useState(null);
 
     useEffect(() => {
-        fetchAsset(parseInt(id));
+        setLoading(true);
+        getAsset(parseInt(id))
+            .then(res => setAsset(res.data))
+            .catch(err => console.log(err))
+            .finally(() => setLoading(false));
+
+        return () => setAsset(null);
     },[id]);
+
+    useEffect(() => {
+        if(asset && asset.name) {
+            setTitle(`Инвестировать в актив: ${asset.name}`);
+        }
+
+        return () => setTitle(null);
+    },[asset]);
 
     if(loading) {
         return(
@@ -27,9 +40,10 @@ const InvestPage = () => {
     }
 
     return (
-        <PageLayout title={`Инвестировать в актив: "${assets[0].name}"`}>
+        asset &&
+        <PageLayout title={`Инвестировать в актив: "${title}"`}>
             <div className='page-invest'>
-                <InvestForm asset={assets[0]} />
+                <InvestForm asset={asset} />
             </div>
         </PageLayout>
     )

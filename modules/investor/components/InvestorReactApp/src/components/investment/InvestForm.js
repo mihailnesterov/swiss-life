@@ -17,7 +17,7 @@ const InvestForm = (props) => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
-    const [balance, setBalance] = useState(0);
+    const [profit, setProfit] = useState(0);
 
     useEffect(() => {
         if(user.accounts && user.accounts.length > 0) {
@@ -25,14 +25,14 @@ const InvestForm = (props) => {
             user.accounts.forEach(item => 
                 _currencies.push({
                     ...item.currency, 
-                    ...{balance: item.balance},
+                    ...{profit: item.profit},
                     ...{account: item.number}
                 })
             );
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                setBalance(_currencies[0].balance);
+                setProfit(_currencies[0].profit);
             }
         }
 
@@ -58,11 +58,11 @@ const InvestForm = (props) => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
+                sender_id: user.id,
+                receiver_id: user.manager.id,
                 theme: 'Заявка на инвестирование в актив',
                 text: `id клиента: ${user.id}, ФИО: ${user.fullName}, актив: ${asset.name}, 
-                сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, баланс счета: ${balance}`
+                сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${profit}`
             })
                 .then(res => {
                     fetchUserAuthorizedExpanded();
@@ -133,7 +133,7 @@ const InvestForm = (props) => {
                             <input 
                                 id="invest-sum"
                                 type='number' 
-                                className={inputValue > balance ? 'text-red' : null}
+                                className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
@@ -164,9 +164,9 @@ const InvestForm = (props) => {
                         {
                             currencySelected && 
                             currencySelected.sign && 
-                            balance &&
+                            profit &&
                             <h3>
-                                <small>Баланс:</small> <span>{currencySelected.sign} {balance}</span>
+                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -174,13 +174,13 @@ const InvestForm = (props) => {
                     <hr />
 
                     {
-                        (inputValue > balance) &&
-                        <small className='text-red'>Сумма превышает баланс</small>
+                        (inputValue > profit) &&
+                        <small className='text-red'>Сумма превышает накопленные средства</small>
                     }
 
                     <button 
                         type='submit' 
-                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > balance)) ? true : false}
+                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
                     >Отправить заявку</button>
 
                 </form>
