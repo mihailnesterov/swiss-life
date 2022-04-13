@@ -9,52 +9,53 @@ const UserStat = (props) => {
 
     return (
         <div>
-        {
-            stat.length > 0 &&
-            stat.map(item => 
-                <div key={item.id}>
+            {
+                stat.length > 0 &&
+                stat.map(item => 
+                    <div key={item.id}>
+                        <StatBlock 
+                            title='Сумма контракта'
+                            titleBg='bg-blue-light'
+                            icon={<FontAwesomeIcon icon={solid('wallet')} />}
+                            blockBg='bg-blue'
+                            balance={item.contractSum}
+                            currencySign={item.currency.sign}
+                        />
+                        <StatBlock 
+                            title='Внесённая сумма'
+                            titleBg='bg-green-light'
+                            icon={<FontAwesomeIcon icon={solid('coins')} />}
+                            blockBg='bg-green'
+                            balance={item.balance}
+                            currencySign={item.currency.sign}
+                        />
+                        <StatBlock 
+                            title='Накопленные средства'
+                            titleBg='bg-purple-light'
+                            icon={<FontAwesomeIcon icon={solid('money-check')} />}
+                            blockBg='bg-purple'
+                            balance={item.profit}
+                            currencySign={item.currency.sign}
+                        />
+                    </div>
+                )
+            }
+            <div>
+            {
+                assetsStat.length > 0 &&
+                assetsStat.map(item => 
                     <StatBlock 
-                        title='Сумма контракта'
-                        titleBg='bg-blue-light'
-                        icon={<FontAwesomeIcon icon={solid('wallet')} />}
-                        blockBg='bg-blue'
-                        balance={item.contractSum}
-                        currencySign={item.currency.sign}
-                    />
-                    <StatBlock 
-                        title='Внесённая сумма'
-                        titleBg='bg-green-light'
-                        icon={<FontAwesomeIcon icon={solid('coins')} />}
-                        blockBg='bg-green'
-                        balance={item.balance}
-                        currencySign={item.currency.sign}
-                    />
-                    <StatBlock 
-                        title='Накопленные средства'
-                        titleBg='bg-purple-light'
-                        icon={<FontAwesomeIcon icon={solid('money-check')} />}
-                        blockBg='bg-purple'
-                        balance={item.profit}
-                        currencySign={item.currency.sign}
-                    />
-                </div>
-            )
-        }
-        {
-            assetsStat.length > 0 &&
-            assetsStat.map(item => 
-                <div key={item.currency}>
-                    <StatBlock 
-                        title='Инвестированные средства'
+                        key={item.currency}
+                        title={`Инвестированные средства (${item.sign})`}
                         titleBg='bg-gold-light'
                         icon={<FontAwesomeIcon icon={solid('chart-line')} />}
                         blockBg='bg-gold'
                         balance={item.total}
                         currencySign={item.sign}
                     />
-                </div>
-            )
-        }
+                )
+            }
+            </div>
         </div>        
     )
 }
