@@ -29,8 +29,6 @@ export const contractReducer = (state = initialState, action) => {
                 contracts: action.payload.contracts,
                 links: action.payload._links,
                 meta: action.payload._meta,
-                links: {},
-                meta: {},
                 loading: false,
                 error: null
             }
