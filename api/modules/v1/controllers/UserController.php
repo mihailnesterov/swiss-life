@@ -219,6 +219,29 @@ class UserController extends BaseApiController
                 $user->auth_key = Yii::$app->security->generateRandomString($lenght = 255);
                 $user->token = Yii::$app->security->generateRandomString($lenght = 20);
                 $user->save();
+
+                Yii::$app->mailer->getView()->params['fullName'] = "$user->firstName $user->lastName";
+                Yii::$app->mailer->getView()->params['login'] = $user->email;
+                Yii::$app->mailer->getView()->params['password'] = $newPassword;
+                
+                Yii::$app->mailer->compose([
+                    'html' => 'password-html',
+                    'text' => 'password-text',
+                ],
+                [
+                    'fullName' => "$user->firstName $user->lastName",
+                    'login' => $user->email,
+                    'password' => $newPassword,
+                ])
+                ->setFrom([Yii::$app->params['email'] => Yii::$app->name])
+                ->setTo($user->email)
+                ->setSubject("Данные пользователя: $user->firstName $user->lastName")
+                ->send();
+
+                Yii::$app->mailer->getView()->params['fullName'] = null;
+                Yii::$app->mailer->getView()->params['login'] = null;
+                Yii::$app->mailer->getView()->params['password'] = null;
+
                 return [
                     'id' => $user->id,
                     'email' => $user->email,
