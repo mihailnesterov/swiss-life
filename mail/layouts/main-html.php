@@ -24,25 +24,23 @@ $this->title = \Yii::$app->name;
             font-weight: normal;
             line-height: 1.6;
         }
-        h1,h2,h3,h4 {
+        h1,h2,h3 {
             color: #A48962;
         }
         .wrapper {
             background-color: #fff;
             margin: 0 auto;
             max-width: 600px;
-            border: 1px #555099 solid;
-            border-radius: 6px;
+            border: 2px #222836 solid;
             padding: 0;
         }
         .header,
         .footer {
-            background-color: #555099;
-            padding: 16px;
+            background-color: #222836;
+            padding: 10px 16px;
         }
         .header {
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
+            text-align: center;
         }
         .content {
             padding: 16px;
@@ -56,22 +54,12 @@ $this->title = \Yii::$app->name;
             color: #555099;
             text-decoration: underline;
         }
-        .content a:hover {
-            opacity: 0.85;
-        }
-        .footer {
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-        }
         .copyright {
             text-align: center;
         }
         .copyright a {
             color: #A48962;
             text-decoration: underline;
-        }
-        .copyright a:hover {
-            opacity: 0.85;
         }
     </style>
 </head>
@@ -89,7 +77,7 @@ $this->title = \Yii::$app->name;
         <div class="footer">
             <p class="copyright">
                 <a href="<?= \Yii::$app->params['url'] ?>" target="_blank">
-                    <?= \Yii::$app->params['url'] ?>
+                    <?= \Yii::$app->name ?>
                 </a>
             </p>
         </div>
