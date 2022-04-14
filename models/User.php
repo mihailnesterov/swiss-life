@@ -152,19 +152,19 @@ class User extends \yii\db\ActiveRecord
             },
             'userAssetsTotal' => function () {
                 $transactionsTable = \app\models\Transaction::tableName();
+                $transactionTypeTable = \app\models\TransactionType::tableName();
                 $currencyTable = \app\models\Currency::tableName();
                 $accountTable = \app\models\Account::tableName();
-                $userTable = \app\models\User::tableName();
                 return \app\models\Transaction::find()
                     ->select([
-                        new \yii\db\Expression("SUM(round($transactionsTable.sum/2)) AS `total`"), 
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"),
                         "$currencyTable.sign", 
                         "$currencyTable.shortName as currency"
                     ])
                     ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
-                    ->leftJoin($accountTable, "$accountTable.user_id = $this->id")
-                    ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
-                    ->where(["$userTable.id" => $this->id])
+                    ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
+                    ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
+                    ->where(["$accountTable.user_id" => $this->id])
                     ->andWhere(["$transactionsTable.transaction_type_id" => 7])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
