@@ -17,7 +17,7 @@ const TransactionsStatList = (props) => {
                 <h4>На сумму</h4>
                 {
                     stat.map(item => 
-                        <p key={item.id}><b>{item.currency.sign} {item.stat.sumAll}</b></p>
+                        <p key={item.id}><b>{item.currency.sign} {item.stat.sumAll ? item.stat.sumAll : 0}</b></p>
                     )
                 }
             </div>
@@ -32,7 +32,7 @@ const TransactionsStatList = (props) => {
                 <h4>На сумму</h4>
                 {
                     stat.map(item => 
-                        <p key={item.id}><b>{item.currency.sign} {item.stat.sumNotAccepted}</b></p>
+                        <p key={item.id}><b>{item.currency.sign} {item.stat.sumNotAccepted ? item.stat.sumNotAccepted : 0}</b></p>
                     )
                 }
             </div>
