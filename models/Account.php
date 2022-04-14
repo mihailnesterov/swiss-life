@@ -74,7 +74,12 @@ class Account extends \yii\db\ActiveRecord
 
         return array_merge($fields, [
             'balance' => function () {
-                return floatval($this->getTransactions()->sum('sum'));
+                return floatval(
+                    $this->getTransactions()
+                        ->where(['transaction_type_id' => 1]) // 1 = депозит
+                        ->orWhere(['transaction_type_id' => 3]) // 3 = пополнение счета
+                        ->sum('sum')
+                );
             },
             'profit' => function () {
                 return floatval($this->getTransactions()->where(['transaction_type_id' => 5])->sum('sum'));
