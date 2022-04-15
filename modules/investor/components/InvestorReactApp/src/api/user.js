@@ -33,3 +33,6 @@ export const setUserPassword = async (id, params) =>
 
 export const setUserPhoto = async (params) => 
     await API.put(`${URL}/update_photo`, params, { credentials, setHeaders });
+
+export const updateUser = async (id, params) => 
+    await API.put(`${URL}/${id}`, params, { credentials, setHeaders });
