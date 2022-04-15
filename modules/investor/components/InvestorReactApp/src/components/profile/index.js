@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ProfileChangePhoto from './ProfileChangePhoto';
 import ProfileChangePassword from './ProfileChangePassword';
 import Spinner from '../common/loader/Spinner';
+import UserForm from '../user/UserForm';
 
 const ProfilePage = () => {
 
@@ -14,6 +15,7 @@ const ProfilePage = () => {
                 loading ?
                 <Spinner size={2} /> :
                 <>
+                    <UserForm user={user} />
                     <ProfileChangePhoto user={user} />
                     <ProfileChangePassword user={user} />
                 </>
