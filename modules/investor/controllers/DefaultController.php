@@ -95,7 +95,6 @@ class DefaultController extends Controller
 
     private function logout() {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 

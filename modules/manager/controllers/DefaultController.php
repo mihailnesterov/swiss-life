@@ -9,7 +9,6 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\helpers\ArrayHelper;
 use app\models\User;
-use app\models\Signup;
 
 /**
  * Default controller for the `manager` module
@@ -77,29 +76,6 @@ class DefaultController extends Controller
             'manager' => $manager
         ]);
     }
-
-    public function actionSignup() {
-
-        if ( Yii::$app->user->isGuest )
-            $this->logout();
-
-        $model = new Signup();
-        
-        if ( $this->isSignup( $model ) ) {
-            
-            $manager = $this->createManager( $model );
-            //$this->sendRegistrationEmail( $manager );
-           
-            echo "<pre>";
-            var_dump(\Yii::$app->request->post());
-            echo "</pre>";
-            
-        }
-        
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
  
     public function actionLogout() {
         $this->logout();
@@ -114,28 +90,7 @@ class DefaultController extends Controller
 
     private function logout() {
         Yii::$app->user->logout();
-
         return $this->goHome();
-    }
-
-    private function isSignup( $model ) {
-        return $model->load(Yii::$app->request->post()) && $model->validate();
-    }
-
-    private function createManager( $model ) {
-        
-        $manager = new User();
-
-        $manager->email = $model->email;
-        $manager->password = Yii::$app->security->generatePasswordHash($model->password);
-        $manager->auth_key = Yii::$app->security->generateRandomString($lenght = 255);
-        $manager->token = Yii::$app->security->generateRandomString($lenght = 20);
-        $manager->role = 'manager';
-        $manager->firstName = 'Елена';
-        $manager->lastName = 'Попова';
-        $manager->save();
-
-        return $manager;
     }
 
     private function loginManager( $manager ) {
@@ -149,17 +104,4 @@ class DefaultController extends Controller
         } 
     }
 
-    private function sendRegistrationEmail( $manager ) {
-        // send registration info on manager email
-        /*Yii::$app->mailer->compose([
-        'html' => 'test',
-        'text' => 'test',
-        ])
-        ->setFrom(['mail@mail.ru' => ''])
-        ->setTo($manager->email)
-        ->setSubject('')
-        ->setTextBody('')
-        ->setHtmlBody('')
-        ->send();*/
-    }
 }

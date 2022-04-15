@@ -97,7 +97,6 @@ class DefaultController extends Controller
         if ( $this->isSignup( $model ) ) {
             
             $user = $this->createUser( $model );
-            //$this->sendRegistrationEmail( $user );
             
         }
         
@@ -119,17 +118,12 @@ class DefaultController extends Controller
 
     private function logout() {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
     private function isSignup( $user ) {
         return $user->load(Yii::$app->request->post()) && $user->validate();
     }
-
-    /*private function isAuthorizedAsInvestor() {
-        return Yii::$app->user->identity->role === 'investor';
-    }*/
 
     private function createUser( $model ) {
         
@@ -151,21 +145,7 @@ class DefaultController extends Controller
             $user->login();
             
             return $this->redirect(Yii::$app->urlManager->createUrl('/admin'));
-           
         } 
     }
 
-    private function sendRegistrationEmail( $user ) {
-        // send registration info on user email
-        /*Yii::$app->mailer->compose([
-        'html' => 'test',
-        'text' => 'test',
-        ])
-        ->setFrom(['mail@mail.ru' => ''])
-        ->setTo($user->email)
-        ->setSubject('')
-        ->setTextBody('')
-        ->setHtmlBody('')
-        ->send();*/
-    }
 }
