@@ -2,4 +2,3 @@ AddDefaultCharset UTF-8
 Options -Indexes
 RewriteEngine On
 RewriteRule ^(\/?.*)$ web/$1 [L]
-
