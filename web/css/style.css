@@ -19,7 +19,6 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     position: relative;
     font-size: medium;
-    background: var(--color-black);
     color: var(--color-white);
 }
 
@@ -31,52 +30,36 @@ h4 {
 }
 
 h1 {
-    font-size: 40px;
-    margin: 2rem 0;
+    font-size: 30px;
+    padding: 0.5rem 0 2rem 0;
+    text-align: center;
 }
 
 .wrapper {
-    margin: 0 auto; 
-    max-width: 1200px;
-    padding: 1rem;
+    background: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    height: 100vh;
+    padding-top: 20vh;
 }
 
-.header {
-    text-align: center;
-    border-bottom: 2px var(--color-purple-light) solid;
-    margin-bottom: 4rem;
-}
-
-.container {
+.main {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 2px var(--color-purple-light) solid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 .login {
-    flex: 1;
-    margin: 0 auto; 
+    margin: 0 auto;
     max-width: 480px;
     padding: 2rem;
+    background-color: var(--color-black);
     border: 4px var(--color-purple-light) solid;
     border-radius: 6px;
     box-shadow: 0px 6px 10px rgba(16, 17, 19, 0.15);
-}
-
-.content {
-    flex: 2;
-    text-align: justify;
-}
-
-.content p {
-    font-size: 20px;
-    line-height: 1.5;
-    color: var(--color-gold-light);
-    margin-bottom: 1rem;
 }
 
 .input {
@@ -160,7 +143,7 @@ footer {
     flex-wrap: wrap;
     gap: 1rem;
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 0 1rem 0;
 }
 
 .copyright {
@@ -168,19 +151,16 @@ footer {
 }
 
 @media (max-width: 991.98px) {
-    .container {
-        flex-direction: column-reverse;
-    }
-    .login {
-        flex: 1;
-    }
-    .content {
-        flex: 1;
+    .wrapper {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
 @media (max-width: 767.98px) {
-    .container {
-        flex-direction: column-reverse;
+    .wrapper {
+        padding-top: 5vh; 
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     footer {
         padding: 1rem;
