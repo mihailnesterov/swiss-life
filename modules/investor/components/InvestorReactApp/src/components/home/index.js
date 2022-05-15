@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Partners from './Partners';
 import UserInfo from '../user/UserInfo';
 import UserStat from '../user/UserStat';
+import { Trans } from '@lingui/macro';
 
 const HomePage = () => {
     
@@ -13,7 +14,7 @@ const HomePage = () => {
             <div>
                 {
                     loading ? 
-                    'Загрузка профиля ...' : 
+                    <Trans>Загрузка профиля...</Trans> : 
                     user && 
                     <UserInfo user={user} />
                 }
