@@ -4,6 +4,8 @@ import {useActions} from '../../hooks/useActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Spinner from '../common/loader/Spinner';
+import { I18n } from '@lingui/react'
+import { Trans, t } from '@lingui/macro';
 
 const Partners = () => {
     // store
@@ -28,7 +30,7 @@ const Partners = () => {
         loading ? 
         <Spinner size={2} /> :
         <div className='partners'>
-            <h3>Наши партнеры</h3>
+            <h3><Trans>Наши партнеры</Trans></h3>
             <div>
                 {
                     partnersList &&
@@ -39,13 +41,19 @@ const Partners = () => {
                             <a 
                                 href={item.url} 
                                 target="_blank"
-                                title="Перейти на сайт"
+                                title={t({
+                                    id: 'Перейти на сайт', 
+                                    message: 'Перейти на сайт'
+                                })}
                             >
                                 <FontAwesomeIcon icon={solid('link')} />
                             </a>
                             <a 
                                 href={item.url} 
-                                title="Подробнее..."
+                                title={t({
+                                    id: 'Подробнее...', 
+                                    message: 'Подробнее...'
+                                })}
                             >
                                 <FontAwesomeIcon icon={solid('ellipsis')} />
                             </a>
@@ -56,6 +64,5 @@ const Partners = () => {
         </div>
     )
 }
-
 
 export default Partners;
