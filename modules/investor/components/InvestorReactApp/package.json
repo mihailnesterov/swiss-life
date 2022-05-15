@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "lingui-extract": "lingui extract",
+    "lingui-compile": "lingui compile"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
+    "@lingui/react": "^3.13.3",
     "axios": "^0.25.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-macros": "^3.1.0",
@@ -34,6 +37,8 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.17.0",
+    "@lingui/cli": "^3.13.3",
+    "@lingui/macro": "^3.13.3",
     "css-loader": "^6.6.0",
     "dotenv-webpack": "^7.1.0",
     "mini-css-extract-plugin": "^2.5.3",
