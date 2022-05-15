@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:{"Загрузка профиля...":"Profile loading...","Наши партнеры":"Our partners","Перейти на сайт":"Go to website","Подробнее...":"More..."}};
