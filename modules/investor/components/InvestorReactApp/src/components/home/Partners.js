@@ -4,7 +4,6 @@ import {useActions} from '../../hooks/useActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Spinner from '../common/loader/Spinner';
-import { I18n } from '@lingui/react'
 import { Trans, t } from '@lingui/macro';
 
 const Partners = () => {
