@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 const StatBlock = (props) => {
     
@@ -7,11 +8,10 @@ const StatBlock = (props) => {
     return (
         <div className={`stat-block ${blockBg}`}>
             <h3 className={titleBg}>{icon} {title}</h3>
-            <p>Текущий баланс</p>
+            <p><Trans>Текущий баланс</Trans></p>
             <h2>{currencySign} {balance}</h2>
         </div>
     )
 }
-
 
 export default StatBlock;
