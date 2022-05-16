@@ -1,5 +1,6 @@
 import React from 'react';
 import {getIconByFileExt} from '../../utils/files';
+import { t } from '@lingui/macro';
 
 const ContractsListItem = (props) => {
 
@@ -8,7 +9,9 @@ const ContractsListItem = (props) => {
     return (
         <a download={item.file.url} href={item.file.url}>
             {getIconByFileExt(item.file.extention)}
-            <span title='Скачать'>{item.description !== '' ? item.description : item.file.name}</span>
+            <span title={t({id: 'Скачать', message: 'Скачать'})}>
+                {item.description !== '' ? item.description : item.file.name}
+            </span>
         </a>
     )
 }
