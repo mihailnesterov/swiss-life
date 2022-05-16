@@ -5,6 +5,7 @@ import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import {getCurrencies} from '../../api/currency';
 import FormSent from '../common/form/FormSent';
+import { Trans, t } from '@lingui/macro';
 
 const AddAccountForm = () => {
 
@@ -54,7 +55,7 @@ const AddAccountForm = () => {
                     }
 
                     if(label) {
-                        label.textContent = `${label.textContent} (счет № ${item.number})`;
+                        label.textContent = `${label.textContent} (${t({id: 'счет №', message: 'счет №'})} ${item.number})`;
                     }
                 }, 1000);  
             });
@@ -84,10 +85,16 @@ const AddAccountForm = () => {
         setSending(true);
         setTimeout(() => {
             createMessage({
-                user_id: user.id,
-                manager_id: user.manager.id,
-                theme: 'Заявка на открытие счета',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, валюта: ${currenciesSelected. join(',')}`
+                sender_id: user.id,
+                receiver_id: user.manager.id,
+                theme: t({
+                    id: 'Заявка на открытие счета', 
+                    message: 'Заявка на открытие счета'
+                }),
+                text: t({
+                    id: `add.account.message`, 
+                    message: `id клиента: ${user.id}, ФИО: ${user.fullName}, валюта: ${currenciesSelected. join(',')}`
+                })
             })
                 .then(res => {
                     fetchUserAuthorizedExpanded();
@@ -96,11 +103,14 @@ const AddAccountForm = () => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -121,8 +131,14 @@ const AddAccountForm = () => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка отправлена'
-                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                header={t({
+                    id: 'Заявка отправлена', 
+                    message: 'Заявка отправлена'
+                })}
+                text={t({
+                    id: 'В ближайшее время наш менеджер свяжется с Вами', 
+                    message: 'В ближайшее время наш менеджер свяжется с Вами'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -135,7 +151,7 @@ const AddAccountForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
                 
-                    <h3>Выберите валюту и отправьте заявку</h3>
+                    <h3><Trans>Выберите валюту и отправьте заявку</Trans></h3>
 
                     <fieldset>
                         {
@@ -161,7 +177,7 @@ const AddAccountForm = () => {
                     <button 
                         type='submit' 
                         disabled={currenciesSelected.length > 0 ? false : true}
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
