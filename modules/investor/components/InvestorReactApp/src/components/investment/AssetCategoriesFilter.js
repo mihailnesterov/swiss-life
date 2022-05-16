@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import React from 'react';
 import { useActions } from '../../hooks/useActions';
+import { Trans } from '@lingui/macro';
 
 const AssetCategoriesFilter = (props) => {
 
@@ -21,7 +21,7 @@ const AssetCategoriesFilter = (props) => {
                 <li>
                     <button
                         onClick={() => setActiveCategory('Все')}
-                    >Все</button>
+                    ><Trans>Все</Trans></button>
                 </li>
                 {
                     categories.map(item => 
