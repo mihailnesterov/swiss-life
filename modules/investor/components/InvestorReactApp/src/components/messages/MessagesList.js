@@ -4,6 +4,7 @@ import MessagesListItem from './MessagesListItem';
 import Spinner from '../common/loader/Spinner';
 import Pagination from '../common/pagination';
 import {getMessages} from '../../api/message';
+import { Trans } from '@lingui/macro';
 
 const MessagesList = () => {
 
@@ -58,16 +59,16 @@ const MessagesList = () => {
     return (
         <div className='messages-list'>
             <div>
-                <h3>Список сообщений{meta && meta.totalCount && ` (${meta.totalCount})`}</h3>
+                <h3><Trans>Список сообщений</Trans> {meta && meta.totalCount && ` (${meta.totalCount})`}</h3>
                 <div>
                     <button 
                         className={isActive === 1 ? 'active' : null} 
                         onClick={getMessagesIn}
-                    >Входящие</button>
+                    ><Trans>Входящие</Trans></button>
                     <button 
                         className={isActive === 2 ? 'active' : null} 
                         onClick={getMessagesOut}
-                    >Исходящие</button>
+                    ><Trans>Исходящие</Trans></button>
                 </div>
             </div>
             <div>
@@ -97,6 +98,5 @@ const MessagesList = () => {
     </div>
     )
 }
-
 
 export default MessagesList;
