@@ -5,6 +5,7 @@ import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
 import {getUsers} from '../../api/user';
+import { Trans, t } from '@lingui/macro';
 
 const TransferForm = () => {
 
@@ -126,10 +127,14 @@ const TransferForm = () => {
             createMessage({
                 sender_id: user.id,
                 receiver_id: user.manager.id,
-                theme: 'Заявка на перевод средств другому пользователю',
-                text: `id отправителя: ${user.id}, ФИО отправителя: ${user.fullName}, 
-                id получателя: ${users[0].id}, ФИО получателя: ${users[0].fullName}, email получателя: ${users[0].email},
-                сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                theme: t({
+                    id: 'Заявка на перевод средств другому пользователю', 
+                    message: 'Заявка на перевод средств другому пользователю'
+                }),
+                text: t({
+                    id: 'add.transfer.request', 
+                    message: `id отправителя: ${user.id}, ФИО отправителя: ${user.fullName}, id получателя: ${users[0].id}, ФИО получателя: ${users[0].fullName}, email получателя: ${users[0].email}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                })
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -139,11 +144,14 @@ const TransferForm = () => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -183,8 +191,14 @@ const TransferForm = () => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка отправлена'
-                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                header={t({
+                    id: 'Заявка отправлена', 
+                    message: 'Заявка отправлена'
+                })}
+                text={t({
+                    id: 'В ближайшее время наш менеджер свяжется с Вами', 
+                    message: 'В ближайшее время наш менеджер свяжется с Вами'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -197,7 +211,7 @@ const TransferForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
                 
-                    <h3>Заявка на перевод средств другому пользователю</h3>
+                    <h3><Trans>Заявка на перевод средств другому пользователю</Trans></h3>
 
                     <fieldset>
 
@@ -205,10 +219,14 @@ const TransferForm = () => {
                             htmlFor="transfer-user" 
                             className='autocomplete'
                         >
+                            <span><Trans>Найти получателя</Trans></span>
                             <input 
                                 id="transfer-user"
                                 type='text'
-                                placeholder='Найти получателя'
+                                placeholder={t({
+                                    id: 'Введите ФИО или email', 
+                                    message: 'Введите ФИО или email'
+                                })}
                                 value={inputSearchValue}
                                 onInput={onChangeSearchValueHandler}
                                 onClick={onClickUsersSearchHandler}
@@ -233,7 +251,7 @@ const TransferForm = () => {
                                                         {item.fullName} "{item.email}"
                                                     </li>
                                                 ) :
-                                                <li>Не найдено...</li>
+                                                <li><Trans>Не найдено...</Trans></li>
                                             }
                                         </ul>
                                     </div>    
@@ -241,12 +259,15 @@ const TransferForm = () => {
                         </label>
 
                         <label htmlFor="transfer-sum">
-                            <span>Сумма</span>
+                            <span><Trans>Сумма</Trans></span>
                             <input 
                                 id="transfer-sum"
                                 type='number' 
                                 className={inputValue > profit ? 'text-red' : null}
-                                placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
+                                placeholder={`${t({
+                                    id: 'Сумма', 
+                                    message: 'Сумма'
+                                })} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeSumHandler}
                             />
@@ -256,7 +277,7 @@ const TransferForm = () => {
                             currencies &&
                             currencies.length > 0 &&
                                 <label htmlFor="transfer-currency-sign">
-                                    <span>Валюта</span>
+                                    <span><Trans>Валюта</Trans></span>
                                     <select 
                                         id="transfer-currency-sign"
                                         onChange={onCurrencySelectHandler}>
@@ -278,7 +299,7 @@ const TransferForm = () => {
                             currencySelected.sign && 
                             profit &&
                             <h3>
-                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -287,7 +308,7 @@ const TransferForm = () => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'>Сумма превышает накопленные средства</small>
+                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
                     }
 
                     <button 
@@ -303,7 +324,7 @@ const TransferForm = () => {
                             true : 
                             false
                         }
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
