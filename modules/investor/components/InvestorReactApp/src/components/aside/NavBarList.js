@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from 'react-router-dom';
 import { investorRoutes } from '../../routes';
 import {getInitialItemActive, setPageTitle} from '../../utils/navbar';
+import { t } from "@lingui/macro";
 
 const NavBarList = () => {
 
@@ -17,7 +18,7 @@ const NavBarList = () => {
 
     const itemActiveHandler = (item) => {
         setItemActive(item.id);
-        setPageTitle(item.title);
+        setPageTitle(t({id: item.title, message: item.title}));
     }
 
     return (
@@ -31,9 +32,9 @@ const NavBarList = () => {
                     >
                         <Link 
                             to={item.path} 
-                            title={!navbar ? item.title : undefined}
+                            title={!navbar ? t({id: item.title, message: item.title}) : undefined}
                         >
-                            {item.icon}{navbar && item.title}
+                            {item.icon}{navbar && t({id: item.title, message: item.title})}
                         </Link>
                     </li>
                 )
