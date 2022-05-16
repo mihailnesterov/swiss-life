@@ -1,6 +1,7 @@
 import React from 'react';
 import {getDateToString} from '../../utils/dates';
 import GoBackBtn from '../common/buttons/GoBackBtn';
+import { t } from '@lingui/macro';
 
 const NewsItem = (props) => {
 
@@ -11,7 +12,10 @@ const NewsItem = (props) => {
             <div>
                 <GoBackBtn
                     url='news'
-                    title='В список новостей'
+                    title={t({
+                        id: 'В список новостей', 
+                        message: 'В список новостей'
+                    })}
                 />
             </div>
             {
@@ -35,6 +39,5 @@ const NewsItem = (props) => {
         </div>
     )
 }
-
 
 export default NewsItem;

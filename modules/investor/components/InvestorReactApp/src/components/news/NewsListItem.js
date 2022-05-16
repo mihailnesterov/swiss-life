@@ -2,6 +2,7 @@ import React from 'react';
 import {getDateToString} from '../../utils/dates';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../api';
+import { Trans } from '@lingui/macro';
 
 const NewsListItem = (props) => {
 
@@ -25,7 +26,7 @@ const NewsListItem = (props) => {
                 </h3>
                 <p><small>{getDateToString(item.created)}</small></p>
                 <p>{item.excerpt}</p>
-                <Link className='btn btn-more' to={`${BASE_URL}/news/${item.id}`}>Подробнее...</Link>
+                <Link className='btn btn-more' to={`${BASE_URL}/news/${item.id}`}><Trans>Подробнее...</Trans></Link>
             </div>
         </div>
     )
