@@ -1,5 +1,6 @@
 import React from 'react';
 import {getDateToString} from '../../utils/dates';
+import { Trans } from '@lingui/macro';
 
 const UserInvestmentItem = (props) => {
 
@@ -7,9 +8,9 @@ const UserInvestmentItem = (props) => {
 
     return (
         <div>
-            <p>Объект: <b>{item.name}</b></p>
-            <p>Дата: <b>{getDateToString(item.created)}</b></p>
-            <p>Сумма: <b>{item.sum} {item.sign}</b></p>
+            <p><Trans>Объект</Trans>: <b>{item.name}</b></p>
+            <p><Trans>Дата</Trans>: <b>{getDateToString(item.created)}</b></p>
+            <p><Trans>Сумма</Trans>: <b>{item.sum} {item.sign}</b></p>
         </div>
     )
 }

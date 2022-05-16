@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import UserInvestmentItem from './UserInvestmentItem';
+import { Trans } from '@lingui/macro';
 
 const UserInvestmentsList = () => {
 
@@ -19,7 +20,7 @@ const UserInvestmentsList = () => {
     return (
         userAssets &&
         <div className='user-investments'>
-            <h2>Мои инвестиции</h2>
+            <h2><Trans>Мои инвестиции</Trans></h2>
             <div>
                 {
                     userAssets.map(item => <UserInvestmentItem key={item.id} item={item} />)

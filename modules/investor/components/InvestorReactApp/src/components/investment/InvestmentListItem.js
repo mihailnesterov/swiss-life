@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../api';
+import { Trans } from '@lingui/macro';
 
 const InvestmentListItem = (props) => {
 
@@ -21,9 +22,9 @@ const InvestmentListItem = (props) => {
             <div>
                 <h3>{item.name}</h3>
                 <p>{item.excerpt}</p>
-                <p>Стоимость: <b>{item.calculation}</b></p>
-                <Link className='btn btn-more mr-1' to={`${BASE_URL}/investment/${item.id}`}>Подробнее...</Link>
-                <Link className='btn btn-red' to={`${BASE_URL}/invest/${item.id}`}>Инвестировать</Link>
+                <p><Trans>Стоимость</Trans>: <b>{item.calculation}</b></p>
+                <Link className='btn btn-more mr-1' to={`${BASE_URL}/investment/${item.id}`}><Trans>Подробнее...</Trans></Link>
+                <Link className='btn btn-red' to={`${BASE_URL}/invest/${item.id}`}><Trans>Инвестировать</Trans></Link>
             </div>
         </div>
     )

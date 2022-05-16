@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../api';
 import GoBackBtn from '../common/buttons/GoBackBtn';
+import { Trans, t } from '@lingui/macro';
 
 const InvestmentItem = (props) => {
 
@@ -12,7 +13,10 @@ const InvestmentItem = (props) => {
             <div>
                 <GoBackBtn
                     url='investment'
-                    title='В список объектов'
+                    title={t({
+                        id: 'В список объектов', 
+                        message: 'В список объектов'
+                    })}
                 />
             </div>
             {
@@ -32,8 +36,8 @@ const InvestmentItem = (props) => {
             
             <div>
                 <p>{item.description}</p>
-                <p>Стоимость: <b>{item.calculation}</b></p>
-                <Link to={`${BASE_URL}/invest/${item.id}`}>Инвестировать</Link>
+                <p><Trans>Стоимость</Trans>: <b>{item.calculation}</b></p>
+                <Link to={`${BASE_URL}/invest/${item.id}`}><Trans>Инвестировать</Trans></Link>
             </div>
         </div>
     )

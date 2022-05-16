@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
+import { Trans, t } from '@lingui/macro';
 
 const InvestForm = (props) => {
 
@@ -76,9 +77,15 @@ const InvestForm = (props) => {
             createMessage({
                 sender_id: user.id,
                 receiver_id: user.manager.id,
-                theme: 'Заявка на инвестирование в актив',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, актив: ${asset.name}, 
-                сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                theme: t({
+                    id: 'Заявка на инвестирование в актив', 
+                    message: 'Заявка на инвестирование в актив'
+                }),
+                text: t({
+                    id: 'asset.invest.request', 
+                    message: `id клиента: ${user.id}, ФИО: ${user.fullName}, актив: ${asset.name}, 
+                    сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                })
             })
                 .then(res => {
                     fetchUserAuthorizedExpanded();
@@ -87,11 +94,14 @@ const InvestForm = (props) => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -113,8 +123,14 @@ const InvestForm = (props) => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка отправлена'
-                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                header={t({
+                    id: 'Заявка отправлена', 
+                    message: 'Заявка отправлена'
+                })}
+                text={t({
+                    id: 'В ближайшее время наш менеджер свяжется с Вами', 
+                    message: 'В ближайшее время наш менеджер свяжется с Вами'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -132,7 +148,7 @@ const InvestForm = (props) => {
                     }
                     <div>
                         <p>{asset.description}</p>
-                        <p>Калькуляция: <b>{asset.calculation}</b></p>
+                        <p><Trans>Калькуляция</Trans>: <b>{asset.calculation}</b></p>
                     </div>
                 </div>
                 
@@ -145,12 +161,12 @@ const InvestForm = (props) => {
 
                     <fieldset>
                         <label htmlFor="invest-sum">
-                            <span>Сумма инвестиций</span>
+                            <span><Trans>Сумма инвестиций</Trans></span>
                             <input 
                                 id="invest-sum"
                                 type='number' 
                                 className={inputValue > profit ? 'text-red' : null}
-                                placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
+                                placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
                             />
@@ -160,7 +176,7 @@ const InvestForm = (props) => {
                             currencies &&
                             currencies.length > 0 &&
                                 <label htmlFor="invest-currency-sign">
-                                    <span>Валюта</span>
+                                    <span><Trans>Валюта</Trans></span>
                                     <select 
                                         id="invest-currency-sign"
                                         onChange={onCurrencySelectHandler}>
@@ -182,7 +198,7 @@ const InvestForm = (props) => {
                             currencySelected.sign && 
                             profit &&
                             <h3>
-                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -191,13 +207,13 @@ const InvestForm = (props) => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'>Сумма превышает накопленные средства</small>
+                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
                     }
 
                     <button 
                         type='submit' 
                         disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
