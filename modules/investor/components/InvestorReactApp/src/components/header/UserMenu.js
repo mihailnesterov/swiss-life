@@ -4,6 +4,7 @@ import {RouteNames} from '../../routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {setPageTitle} from '../../utils/navbar';
+import { Trans, t } from "@lingui/macro";
 
 const Avatar = (props) => {
     
@@ -55,9 +56,9 @@ const UserMenu = (props) => {
                     <nav>
                         <ul>
                             <li onClick={myProfileHandler}>
-                                <Link to={PROFILE}>Мой профиль</Link>
+                                <Link to={PROFILE}><Trans>Мой профиль</Trans></Link>
                             </li>
-                            <li><a href={LOGOUT}>Выход</a></li>
+                            <li><a href={LOGOUT}><Trans>Выход</Trans></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -65,6 +66,5 @@ const UserMenu = (props) => {
         </div>
     )
 }
-
 
 export default UserMenu;
