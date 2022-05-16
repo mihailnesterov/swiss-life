@@ -11,6 +11,7 @@ use Yii;
  * @property int|null $manager_id id менеджера
  * @property int|null $status_id id статуса
  * @property int|null $parent_id id представителя
+ * @property int $language_id id языка
  * @property string $email Email
  * @property string|null $password Пароль
  * @property string|null $auth_key Authentication Key
@@ -27,6 +28,7 @@ use Yii;
  *
  * @property Account[] $accounts
  * @property Manager $manager
+ * @property Language $language
  * @property Message[] $messages
  * @property UserStatus $userStatus
  * @property UserAsset[] $userAssets
@@ -52,7 +54,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['email'], 'required'],
-            [['manager_id', 'status_id', 'parent_id'], 'integer'],
+            [['manager_id', 'status_id', 'parent_id', 'language_id'], 'integer'],
             [['status', 'verified', 'representive'], 'boolean'],
             [['created'], 'safe'],
             [['email', 'firstName', 'lastName', 'phone'], 'string', 'max' => 100],
@@ -63,6 +65,7 @@ class User extends \yii\db\ActiveRecord
             [['email'], 'unique'],
             [['manager_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['manager_id' => 'id']], 
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
+            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
         ];
     }
 
@@ -76,6 +79,7 @@ class User extends \yii\db\ActiveRecord
             'manager_id' => 'id менеджера',
             'status_id' => 'id статуса',
             'parent_id' => 'id представителя',
+            'language_id' => 'id языка',
             'email' => 'Email',
             'password' => 'Пароль',
             'auth_key' => 'Authentication Key',
@@ -103,7 +107,8 @@ class User extends \yii\db\ActiveRecord
             $fields['auth_key'], 
             $fields['password'],
             $fields['token'],
-            $fields['manager_id']
+            $fields['manager_id'],
+            $fields['language_id']
         );
 
         return array_merge($fields, [
@@ -325,6 +330,7 @@ class User extends \yii\db\ActiveRecord
         return [
             'accounts', 
             'manager',
+            'language',
             'messagesIn',
             'messagesOut',
             'userCategories',
@@ -353,6 +359,16 @@ class User extends \yii\db\ActiveRecord
     { 
         return $this->hasOne(User::className(), ['id' => 'manager_id']); 
     }
+
+    /**
+    * Gets query for [[Language]].
+    *
+    * @return \yii\db\ActiveQuery
+    */
+   public function getLanguage()
+   {
+       return $this->hasOne(Language::className(), ['id' => 'language_id']);
+   }
 
     /**
      * Gets query for [[MessagesOut]].
