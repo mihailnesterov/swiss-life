@@ -4,6 +4,7 @@ import PageLayout from '../layouts/PageLayout';
 import Spinner from '../components/common/loader/Spinner';
 import InvestmentItem from '../components/investment/InvestmentItem';
 import { getAsset } from '../api/asset';
+import { t } from '@lingui/macro';
 
 const InvestmentItemPage = () => {
     
@@ -25,7 +26,7 @@ const InvestmentItemPage = () => {
 
     useEffect(() => {
         if(asset && asset.name) {
-            setTitle(`Актив: ${asset.name}`);
+            setTitle(`${t({id: 'Актив', message: 'Актив' })}: ${asset.name}`);
         }
 
         return () => setTitle(null);

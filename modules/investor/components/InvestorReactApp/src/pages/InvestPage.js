@@ -4,6 +4,7 @@ import PageLayout from '../layouts/PageLayout';
 import InvestForm from '../components/investment/InvestForm';
 import Spinner from '../components/common/loader/Spinner';
 import { getAsset } from '../api/asset';
+import { t } from '@lingui/macro';
 
 const InvestPage = () => {
 
@@ -25,7 +26,7 @@ const InvestPage = () => {
 
     useEffect(() => {
         if(asset && asset.name) {
-            setTitle(`Инвестировать в актив: ${asset.name}`);
+            setTitle(`${t({id: 'Инвестировать в актив', message: 'Инвестировать в актив' })}: ${asset.name}`);
         }
 
         return () => setTitle(null);
@@ -41,7 +42,7 @@ const InvestPage = () => {
 
     return (
         asset &&
-        <PageLayout title={`Инвестировать в актив: "${title}"`}>
+        <PageLayout title={title}>
             <div className='page-invest'>
                 <InvestForm asset={asset} />
             </div>
