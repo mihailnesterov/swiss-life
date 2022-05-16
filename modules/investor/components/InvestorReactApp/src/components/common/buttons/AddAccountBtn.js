@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Trans } from "@lingui/macro";
 
 const AddAccountBtn = () => {
     return (
@@ -11,10 +12,9 @@ const AddAccountBtn = () => {
             to={`${BASE_URL}/add-account`}
         >
             <FontAwesomeIcon icon={solid('plus')} />
-            Открыть счет
+            <Trans>Открыть счет</Trans>
         </Link>
     )
 }
-
 
 export default AddAccountBtn;
