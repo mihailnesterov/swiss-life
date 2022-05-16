@@ -18,7 +18,7 @@ const NavBarList = () => {
 
     const itemActiveHandler = (item) => {
         setItemActive(item.id);
-        setPageTitle(t({id: item.title, message: item.title}));
+        setPageTitle(item.title);
     }
 
     return (
