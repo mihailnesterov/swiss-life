@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
+import { Trans, t } from '@lingui/macro';
 
 const MembersForm = () => {
 
@@ -37,9 +38,14 @@ const MembersForm = () => {
             createMessage({
                 sender_id: user.id,
                 receiver_id: user.manager.id,
-                theme: 'Заявка на регистрацию пользователя от представителя',
-                text: `id представителя: ${user.id}, ФИО представителя: ${user.fullName}, 
-                ФИО приглашенного пользователя: ${inputMemberNameValue}, email приглашенного пользователя: ${inputMemberEmailValue}`
+                theme: t({
+                    id: 'Заявка на регистрацию пользователя от представителя', 
+                    message: 'Заявка на регистрацию пользователя от представителя'
+                }),
+                text: t({
+                    id: 'member.registration.request', 
+                    message: `id представителя: ${user.id}, ФИО представителя: ${user.fullName}, ФИО приглашенного пользователя: ${inputMemberNameValue}, email приглашенного пользователя: ${inputMemberEmailValue}`
+                })
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -49,11 +55,14 @@ const MembersForm = () => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -70,8 +79,14 @@ const MembersForm = () => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка отправлена'
-                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                header={t({
+                    id: 'Заявка отправлена', 
+                    message: 'Заявка отправлена'
+                })}
+                text={t({
+                    id: 'В ближайшее время наш менеджер свяжется с Вами', 
+                    message: 'В ближайшее время наш менеджер свяжется с Вами'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -84,7 +99,7 @@ const MembersForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
                     
-                    <h3>Пригласить пользователя</h3>
+                    <h3><Trans>Пригласить пользователя</Trans></h3>
                     
                     <fieldset>
 
@@ -92,7 +107,10 @@ const MembersForm = () => {
                             <input 
                                 id="member-name"
                                 type='text'
-                                placeholder='ФИО пользователя'
+                                placeholder={t({
+                                    id: 'ФИО пользователя', 
+                                    message: 'ФИО пользователя'
+                                })}
                                 value={inputMemberNameValue}
                                 onChange={onChangeMemberNameValueHandler}
                                 autoComplete='off'
@@ -103,7 +121,10 @@ const MembersForm = () => {
                             <input 
                                 id="member-email"
                                 type='text'
-                                placeholder='Email пользователя'
+                                placeholder={t({
+                                    id: 'Email пользователя', 
+                                    message: 'Email пользователя'
+                                })}
                                 value={inputMemberEmailValue}
                                 onChange={onChangeMemberEmailValueHandler}
                                 autoComplete='off'
@@ -124,7 +145,7 @@ const MembersForm = () => {
                             true : 
                             false
                         }
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
