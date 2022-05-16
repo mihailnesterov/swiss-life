@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
+import { Trans, t } from '@lingui/macro';
 
 const WithdrawalsForm = () => {
 
@@ -74,8 +75,14 @@ const WithdrawalsForm = () => {
             createMessage({
                 sender_id: user.id,
                 receiver_id: user.manager.id,
-                theme: 'Заявка на вывод средств',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                theme: t({
+                    id: 'Заявка на вывод средств', 
+                    message: 'Заявка на вывод средств'
+                }),
+                text: t({
+                    id: 'add.withdrawals.request', 
+                    message: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                })
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -85,11 +92,14 @@ const WithdrawalsForm = () => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -111,8 +121,14 @@ const WithdrawalsForm = () => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка отправлена'
-                text={<p>В ближайшее время наш менеджер свяжется с Вами</p>}
+                header={t({
+                    id: 'Заявка отправлена', 
+                    message: 'Заявка отправлена'
+                })}
+                text={t({
+                    id: 'В ближайшее время наш менеджер свяжется с Вами', 
+                    message: 'В ближайшее время наш менеджер свяжется с Вами'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -125,16 +141,16 @@ const WithdrawalsForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
                 
-                    <h3>Заявка на вывод средств</h3>
+                    <h3><Trans>Заявка на вывод средств</Trans></h3>
 
                     <fieldset>
                         <label htmlFor="withdrawal-sum">
-                            <span>Сумма</span>
+                            <span><Trans>Сумма</Trans></span>
                             <input 
                                 id="withdrawal-sum"
                                 type='number' 
                                 className={inputValue > profit ? 'text-red' : null}
-                                placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
+                                placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
                             />
@@ -144,7 +160,7 @@ const WithdrawalsForm = () => {
                             currencies &&
                             currencies.length > 0 &&
                                 <label htmlFor="withdrawal-currency-sign">
-                                    <span>Валюта</span>
+                                    <span><Trans>Валюта</Trans></span>
                                     <select 
                                         id="withdrawal-currency-sign"
                                         onChange={onCurrencySelectHandler}>
@@ -166,7 +182,7 @@ const WithdrawalsForm = () => {
                             currencySelected.sign && 
                             profit &&
                             <h3>
-                                <small>Накопленные средства:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -175,19 +191,18 @@ const WithdrawalsForm = () => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'>Сумма превышает накопленные средства</small>
+                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
                     }
 
                     <button 
                         type='submit' 
                         disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
         </div>
     )
 }
-
 
 export default WithdrawalsForm;

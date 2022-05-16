@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
+import { Trans, t } from '@lingui/macro';
 
 const CreditForm = () => {
 
@@ -85,9 +86,14 @@ const CreditForm = () => {
             createMessage({
                 sender_id: user.id,
                 receiver_id: user.manager.id,
-                theme: 'Заявка на кредит',
-                text: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, 
-                № счета: ${currencySelected.account}, максимальная сумма кредита: ${currencySelected.sign} ${mostAccessibleSum}`
+                theme: t({
+                    id: 'Заявка на кредит', 
+                    message: 'Заявка на кредит'
+                }),
+                text: t({
+                    id: 'add.credit.request', 
+                    message: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, максимальная сумма кредита: ${currencySelected.sign} ${mostAccessibleSum}`
+                })
             })
                 .then(res => {
                     console.log('message created success', res);
@@ -97,11 +103,14 @@ const CreditForm = () => {
                     console.log('message create error',err);
                     return(
                         <FormSent 
-                            header='Ошибка при подаче заявки!'
+                            header={t({
+                                id: 'Ошибка при подаче заявки!', 
+                                message: 'Ошибка при подаче заявки!'
+                            })}
                             text={
                                 <>
-                                    <p>Попробуйте оформить заявку еще раз.</p>
-                                    <p>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</p>
+                                    <p><Trans>Попробуйте оформить заявку еще раз.</Trans></p>
+                                    <p><Trans>В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте.</Trans></p>
                                 </>
                             }
                             onOk={onIsSentHandler}
@@ -123,8 +132,14 @@ const CreditForm = () => {
     if(isSent) {
         return(
             <FormSent 
-                header='Заявка на кредитное плечо отправлена'
-                text={<p>Заявка будет рассмотрена в ближайшее время, о резаультатах рассмотрения заявки можете уточнить у администрации сайта</p>}
+                header={t({
+                    id: 'Заявка на кредитное плечо отправлена', 
+                    message: 'Заявка на кредитное плечо отправлена'
+                })}
+                text={t({
+                    id: 'Заявка будет рассмотрена в ближайшее время, о резаультатах рассмотрения заявки можете уточнить у администрации сайта', 
+                    message: 'Заявка будет рассмотрена в ближайшее время, о резаультатах рассмотрения заявки можете уточнить у администрации сайта'
+                })}
                 onOk={onIsSentHandler}
             />
         );
@@ -137,17 +152,17 @@ const CreditForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
 
-                    <h3>Заявка на кредитное плечо</h3>
+                    <h3><Trans>Заявка на кредитное плечо</Trans></h3>
 
                     <fieldset>
                         <label htmlFor="credit-sum">
-                            <span>Сумма кредита</span>
+                            <span><Trans>Сумма кредита</Trans></span>
                             <input 
                                 id="credit-sum"
                                 type='number'
                                 min='0'
                                 className={inputValue > mostAccessibleSum ? 'text-red' : null}
-                                placeholder={`Сумма ${currencySelected && currencySelected.sign && currencySelected.sign}`}
+                                placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
                             />
@@ -157,7 +172,7 @@ const CreditForm = () => {
                             currencies &&
                             currencies.length > 0 &&
                                 <label htmlFor="credit-currency-sign">
-                                    <span>Валюта</span>
+                                    <span><Trans>Валюта</Trans></span>
                                     <select 
                                         id="credit-currency-sign"
                                         onChange={onCurrencySelectHandler}>
@@ -179,7 +194,7 @@ const CreditForm = () => {
                             currencySelected.sign && 
                             profit &&
                             <h3>
-                                <small>Максимально доступная сумма:</small> <span>{currencySelected.sign} {mostAccessibleSum}</span>
+                                <small><Trans>Максимально доступная сумма</Trans>:</small> <span>{currencySelected.sign} {mostAccessibleSum}</span>
                             </h3>
                         }
                     </fieldset>
@@ -188,13 +203,13 @@ const CreditForm = () => {
 
                     {
                         (inputValue > mostAccessibleSum) &&
-                        <small className='text-red'>Сумма превышает максимально доступную</small>
+                        <small className='text-red'><Trans>Сумма превышает максимально доступную</Trans></small>
                     }
 
                     <button 
                         type='submit' 
                         disabled={((inputValue === '' || inputValue === 0) || (inputValue > mostAccessibleSum)) ? true : false}
-                    >Отправить заявку</button>
+                    ><Trans>Отправить заявку</Trans></button>
 
                 </form>
             }
