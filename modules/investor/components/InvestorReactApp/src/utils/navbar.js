@@ -1,3 +1,5 @@
+import { t } from "@lingui/macro";
+
 /**
  * Выбор активного пункта меню
  * @param {Array} routes 
@@ -21,7 +23,6 @@
 
 /**
  * Установить заголовок страницы
- * @param {String} title 
- * @returns 
+ * @param {String} title
  */
-export const setPageTitle = (title) => document.title = title;
+export const setPageTitle = (title) => document.title = t({id: title, message: title});
