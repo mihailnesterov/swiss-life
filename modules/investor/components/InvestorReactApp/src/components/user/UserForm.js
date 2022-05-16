@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import {updateUser} from '../../api/user';
 import Spinner from '../common/loader/Spinner';
+import { Trans, t } from '@lingui/macro';
 
 const UserForm = (props) => {
 
@@ -24,8 +25,14 @@ const UserForm = (props) => {
         setSaving(true);
         if(params) {
             updateUser(user.id, params)
-                .then(res => getToastSuccess('Личные данные сохранены!',res))
-                .catch(err => getToastError('Ошибка при сохранении личных данных!',err))
+                .then(res => getToastSuccess(t({
+                    id: 'Личные данные сохранены!', 
+                    message: 'Личные данные сохранены!'
+                }),res))
+                .catch(err => getToastError(t({
+                    id: 'Ошибка при сохранении личных данных!', 
+                    message: 'Ошибка при сохранении личных данных!'
+                }),err))
                 .finally(() => {
                     setParams(null);
                     setSaving(false);
@@ -36,41 +43,53 @@ const UserForm = (props) => {
     return (
         <div className='form-container'>
             <form onSubmit={handleSubmitForm} onChange={handleChangeForm}>
-                <h3>Личные данные</h3>
+                <h3><Trans>Личные данные</Trans></h3>
                 <div className='row'>
                     <fieldset className='column'>
                         <input 
                             name="firstName"
                             type="text"
-                            placeholder='Имя'
+                            placeholder={t({
+                                id: 'Имя', 
+                                message: 'Имя'
+                            })}
                             defaultValue={user.firstName}
                             autoComplete='off'
                         />
                         <input 
                             name="lastName"
                             type="text"
-                            placeholder='Фамилия'
+                            placeholder={t({
+                                id: 'Фамилия', 
+                                message: 'Фамилия'
+                            })}
                             defaultValue={user.lastName}
                             autoComplete='off'
                         />
                         <input 
                             name="phone"
                             type="text"
-                            placeholder='Телефон'
+                            placeholder={t({
+                                id: 'Телефон', 
+                                message: 'Телефон'
+                            })}
                             defaultValue={user.phone}
                             autoComplete='off'
                         />
                         <input 
                             name="address"
                             type="text"
-                            placeholder='Адрес'
+                            placeholder={t({
+                                id: 'Адрес', 
+                                message: 'Адрес'
+                            })}
                             value={user.address}
                             autoComplete='off'
                         />
                     </fieldset>
                 </div>                  
                 <fieldset>
-                    <button disabled={params ? false : true} type='submit'>Сохранить</button>
+                    <button disabled={params ? false : true} type='submit'><Trans>Сохранить</Trans></button>
                     {saving && <Spinner size={2} />}
                 </fieldset>
             </form>

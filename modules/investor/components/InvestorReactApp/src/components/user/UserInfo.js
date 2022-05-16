@@ -2,6 +2,7 @@ import React from 'react';
 import StatusChecked from '../common/status/StatusChecked';
 import {getDateToString} from '../../utils/dates';
 import UserStatus from '../common/status/UserStatus';
+import { Trans, t } from '@lingui/macro';
 
 const UserInfo = (props) => {
 
@@ -22,21 +23,36 @@ const UserInfo = (props) => {
                     <StatusChecked
                         condition={user.status}
                         value={1}
-                        textTrue='Активен'
-                        textFalse='Отключен'
+                        textTrue={t({
+                            id: 'Активен', 
+                            message: 'Активен'
+                        })}
+                        textFalse={t({
+                            id: 'Отключен', 
+                            message: 'Отключен'
+                        })}
                     />
                     <StatusChecked
                         condition={user.verified}
                         value={1}
-                        textTrue='Верифицирован'
-                        textFalse='Не верифицирован'
+                        textTrue={t({
+                            id: 'Верифицирован', 
+                            message: 'Верифицирован'
+                        })}
+                        textFalse={t({
+                            id: 'Не верифицирован', 
+                            message: 'Не верифицирован'
+                        })}
                     />
                     {
                         user.representive === 1 &&
                         <StatusChecked
                             condition={user.representive}
                             value={1}
-                            textTrue='Представитель'
+                            textTrue={t({
+                                id: 'Представитель', 
+                                message: 'Представитель'
+                            })}
                             textFalse=''
                         />
                     }
@@ -45,19 +61,18 @@ const UserInfo = (props) => {
                         user.userStatus.id &&
                         user.userStatus.id > 1 && 
                         <UserStatus 
-                            text='Статус: ' 
+                            text={`${t({id: 'Статус', message: 'Статус'})}: `}
                             userStatus={user.userStatus} 
                         />
                     }
                 {
                     user.created &&
-                    <p>Дата регистрации: <b>{getDateToString(user.created)}</b></p>
+                    <p><Trans>Дата регистрации</Trans>: <b>{getDateToString(user.created)}</b></p>
                 }
                 
             </div>
         </div>
     )
 }
-
 
 export default UserInfo;

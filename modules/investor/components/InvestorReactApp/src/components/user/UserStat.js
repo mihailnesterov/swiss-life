@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import StatBlock from '../home/StatBlock';
+import { Trans, t } from '@lingui/macro';
 
 const UserStat = (props) => {
     
@@ -14,7 +15,10 @@ const UserStat = (props) => {
                 stat.map(item => 
                     <div key={item.id}>
                         <StatBlock 
-                            title='Сумма контракта'
+                            title={t({
+                                id: 'Сумма контракта', 
+                                message: 'Сумма контракта'
+                            })}
                             titleBg='bg-blue-light'
                             icon={<FontAwesomeIcon icon={solid('wallet')} />}
                             blockBg='bg-blue'
@@ -22,7 +26,10 @@ const UserStat = (props) => {
                             currencySign={item.currency.sign}
                         />
                         <StatBlock 
-                            title='Внесённая сумма'
+                            title={t({
+                                id: 'Внесённая сумма', 
+                                message: 'Внесённая сумма'
+                            })}
                             titleBg='bg-green-light'
                             icon={<FontAwesomeIcon icon={solid('coins')} />}
                             blockBg='bg-green'
@@ -30,7 +37,10 @@ const UserStat = (props) => {
                             currencySign={item.currency.sign}
                         />
                         <StatBlock 
-                            title='Накопленные средства'
+                            title={t({
+                                id: 'Накопленные средства', 
+                                message: 'Накопленные средства'
+                            })}
                             titleBg='bg-purple-light'
                             icon={<FontAwesomeIcon icon={solid('money-check')} />}
                             blockBg='bg-purple'
@@ -46,7 +56,7 @@ const UserStat = (props) => {
                 assetsStat.map(item => 
                     <StatBlock 
                         key={item.currency}
-                        title={`Инвестированные средства (${item.sign})`}
+                        title={`${t({id: 'Инвестированные средства', message: 'Инвестированные средства'})} (${item.sign})`}
                         titleBg='bg-gold-light'
                         icon={<FontAwesomeIcon icon={solid('chart-line')} />}
                         blockBg='bg-gold'
