@@ -5,6 +5,7 @@ import Pagination from '../common/pagination';
 import TransactionItem from './TransactionItem';
 import TransactionsHead from './TransactionsHead';
 import Spinner from '../common/loader/Spinner';
+import { Trans } from '@lingui/macro';
 
 const TransactionsList = (props) => {
 
@@ -22,7 +23,7 @@ const TransactionsList = (props) => {
 
     return (
         <div className='transactions-list'>
-            <h3>Список финансовых операций</h3>
+            <h3><Trans>Список финансовых операций</Trans></h3>
             <TransactionsHead />
             <div>
                 {

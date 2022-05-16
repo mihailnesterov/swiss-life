@@ -1,22 +1,22 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 const TransactionsHead = () => {
 
     return (
         <div>
-            <h4>№</h4>
-            <h4>Дебет</h4>
-            <h4>Кредит</h4>
-            <h4>Сумма</h4>
-            <h4>Валюта</h4>
-            <h4>Вид операции</h4>
-            <h4>Описание</h4>
-            <h4>Статус</h4>
-            <h4>Дата открытия</h4>
-            <h4>Дата проведения</h4>
+            <h4><Trans>№</Trans></h4>
+            <h4><Trans>Дебет</Trans></h4>
+            <h4><Trans>Кредит</Trans></h4>
+            <h4><Trans>Сумма</Trans></h4>
+            <h4><Trans>Валюта</Trans></h4>
+            <h4><Trans>Вид операции</Trans></h4>
+            <h4><Trans>Описание</Trans></h4>
+            <h4><Trans>Статус</Trans></h4>
+            <h4><Trans>Дата открытия</Trans></h4>
+            <h4><Trans>Дата проведения</Trans></h4>
         </div>
     )
 }
-
 
 export default TransactionsHead;
