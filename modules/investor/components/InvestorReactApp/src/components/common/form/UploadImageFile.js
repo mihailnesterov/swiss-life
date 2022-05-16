@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {generateFileName} from '../../../utils/files';
+import { t } from '@lingui/macro';
 
 const UploadImageFile = (props) => {
 
@@ -37,12 +38,18 @@ const UploadImageFile = (props) => {
                     <img 
                         src={selectedFile.data ? selectedFile.data : ''} 
                         alt={selectedFile.name ? selectedFile.name : ''}
-                        title='Выберите фото'
+                        title={t({
+                            id: 'Выберите фото', 
+                            message: 'Выберите фото'
+                        })}
                     /> :
                     <FontAwesomeIcon 
                         size='5x' 
                         className='text-purple'
-                        title='Выберите фото'
+                        title={t({
+                            id: 'Выберите фото', 
+                            message: 'Выберите фото'
+                        })}
                         icon={solid('image')}
                     />
                 }

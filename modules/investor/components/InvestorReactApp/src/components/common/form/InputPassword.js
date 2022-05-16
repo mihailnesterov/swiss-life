@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import GeneratePasswordBtn from '../buttons/GeneratePasswordBtn';
 import ShowPasswordBtn from '../buttons/ShowPasswordBtn';
+import { t } from '@lingui/macro';
 
 const InputPassword = (props) => {
 
@@ -16,7 +17,10 @@ const InputPassword = (props) => {
         <div className='input-password'>
             <input 
                 type={!isPasswordVisible ? "password" : "text"}
-                placeholder='Введите пароль'
+                placeholder={t({
+                    id: 'Введите пароль', 
+                    message: 'Введите пароль'
+                })}
                 value={password ? password : ''}
                 onChange={onChangeHandler}
                 autoComplete='off'
