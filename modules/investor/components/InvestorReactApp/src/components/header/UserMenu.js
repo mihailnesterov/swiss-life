@@ -4,7 +4,7 @@ import {RouteNames} from '../../routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {setPageTitle} from '../../utils/navbar';
-import { Trans, t } from "@lingui/macro";
+import { Trans } from "@lingui/macro";
 
 const Avatar = (props) => {
     

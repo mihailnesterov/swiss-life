@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
 import Logo from './logo';
 import CompanyName from './CompanyName';
+import LangSwitcher from './LangSwitcher';
 import UserMailBox from './UserMailBox';
 import UserMenu from './UserMenu';
 
@@ -36,12 +37,12 @@ const Header = () => {
             {
                 companyName && user &&
                 <div>
+                    <LangSwitcher user={user} />
                     <UserMailBox newMessages={user.newMessages} />
                     <UserMenu user={user}/>
                 </div>
             }
         </header>
-        
     )
 }
 
