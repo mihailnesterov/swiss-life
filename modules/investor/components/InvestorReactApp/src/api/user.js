@@ -36,3 +36,6 @@ export const setUserPhoto = async (params) =>
 
 export const updateUser = async (id, params) => 
     await API.put(`${URL}/${id}`, params, { credentials, setHeaders });
+
+export const setLanguage = async (id, params) => 
+    await API.put(`${URL}/${id}/change_language`, params, { credentials, setHeaders });
