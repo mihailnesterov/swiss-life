@@ -19,7 +19,10 @@ i18n.load({
     en: enMessages,
     ru: ruMessages,
 });
-i18n.activate('ru');
+
+const lang = window.localStorage.getItem('_swiss_life_lang');
+
+i18n.activate(lang ? lang : 'ru') ;
 
 ReactDOM.render(
     <I18nProvider i18n={i18n}>
