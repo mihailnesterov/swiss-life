@@ -282,6 +282,23 @@ class UserController extends BaseApiController
         }
     }
 
+    public function actionChange_language($id)
+    {
+        if( Yii::$app->request->getBodyParams() ) {
+
+            $lang_id = Yii::$app->request->getBodyParam('lang_id');
+
+            if(!empty($lang_id)) {
+                $user = $this->findUserModel($id);
+                $user->language_id = $lang_id;
+                $user->save();
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     private function findUserModel($id)
     {
         if (($model = \app\models\User::findOne($id)) !== null) {
