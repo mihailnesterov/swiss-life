@@ -12,6 +12,7 @@ import * as NewsActionCreators from './news';
 import * as TransactionActionCreators from './transaction';
 import * as ContractActionCreators from './contract';
 import * as NavbarActionCreators from './navbar';
+import * as LanguagesActionCreators from './language';
 
 // собираем вместе все action creators
 const ActionCreators = {
@@ -28,7 +29,8 @@ const ActionCreators = {
     ...NewsActionCreators,
     ...TransactionActionCreators,
     ...ContractActionCreators,
-    ...NavbarActionCreators
+    ...NavbarActionCreators,
+    ...LanguagesActionCreators
 }
 
 export default ActionCreators;
