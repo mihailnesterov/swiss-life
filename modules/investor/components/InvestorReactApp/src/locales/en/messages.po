@@ -363,6 +363,10 @@ msgstr "Submit"
 msgid "Ошибка при загрузке файла!"
 msgstr "Loading file error!"
 
+#: src/components/header/LangSwitcher.js:32
+msgid "Ошибка при изменении языка"
+msgstr "Language changing error"
+
 #: src/components/account/AddAccountForm.js:106
 #: src/components/investment/InvestForm.js:97
 #: src/components/members/MembersForm.js:58
@@ -541,6 +545,10 @@ msgstr "Transactions"
 #: src/components/profile/ProfileChangePhoto.js:38
 msgid "Фото сохранено!"
 msgstr "Photo saved!"
+
+#: src/components/header/LangSwitcher.js:27
+msgid "Язык переключен"
+msgstr "Language changed"
 
 #: src/components/account/AddAccountForm.js:58
 msgid "счет №"
