@@ -11,3 +11,6 @@ export const getTransaction = async (id) =>
     
 export const getUserTransactions = async (user_id, params) => 
     await API.get(`${URL}/user/${user_id}`, { credentials, setHeaders, params });
+
+export const createTransaction = async (params) => 
+    await API.post(URL, params, { credentials, setHeaders });
