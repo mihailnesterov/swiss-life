@@ -10,7 +10,6 @@ use yii\web\NotFoundHttpException;
 
 use app\models\User;
 use app\models\UserLogin;
-use app\models\ManagerLogin;
 
 class SiteController extends Controller
 {
