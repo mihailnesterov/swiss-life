@@ -78,8 +78,7 @@
                         opacity: 0.85;
                     }
                 }
-                &:first-child {
-                    margin-bottom: -10px;
+                &:nth-child(2) {
                     & button {
                        position: relative;
                        color: $purple;
