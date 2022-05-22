@@ -5,6 +5,10 @@ use yii\base\Widget;
 class ManagerReactAppWidget extends Widget 
 {
     public function init() {
+        if( \Yii::$app->user->identity->role !== 'manager' ) {
+            \Yii::$app->response->redirect(\yii\helpers\Url::previous())->send();
+            return false;
+        }
         ManagerReactAppAsset::register( $this->getView() );
         parent::init();
     }

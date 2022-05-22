@@ -5,6 +5,10 @@ use yii\base\Widget;
 class InvestorReactAppWidget extends Widget 
 {
     public function init() {
+        if( \Yii::$app->user->identity->role !== 'user' ) {
+            \Yii::$app->response->redirect(\yii\helpers\Url::previous())->send();
+            return false;
+        }
         InvestorReactAppAsset::register( $this->getView() );
         parent::init();
     }
