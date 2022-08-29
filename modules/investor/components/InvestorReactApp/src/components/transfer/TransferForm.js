@@ -77,7 +77,7 @@ const TransferForm = () => {
             getUsersExpanded({
                 'email': inputSearchValue,
                 'firstName': inputSearchValue,
-                'lastName': inputSearchValue,
+                'lastName': inputSearchValue
             })
             .then(res => {
                 setUsers(res.data.users.filter(item => item.id !== user.id && item.role === 'user'));
@@ -123,7 +123,7 @@ const TransferForm = () => {
     const onClickUsersSearchHandler = () => {
         if(inputSearchValue === '') {
             setClickedOutside(false);
-            setIsDropdownListOpen(true);
+            setIsDropdownListOpen(false);
             getUsersExpanded({
                 'per-page': '5',
                 'role':'user',
@@ -327,16 +327,22 @@ const TransferForm = () => {
                                         <ul>
                                             {
                                                 users &&
-                                                users.length > 0 ?
-                                                users.map(item => 
-                                                    <li 
-                                                        key={item.id}
-                                                        onClick={() => onSelectSearchValueHandler(item.email)}
-                                                    >
-                                                        {item.fullName} "{item.email}"
-                                                    </li>
+                                                (users.length > 0 ?
+                                                (
+                                                    users.length === 1 ?
+                                                    users.map(item => 
+                                                        <li 
+                                                            key={item.id}
+                                                            onClick={() => onSelectSearchValueHandler(item.email)}
+                                                        >
+                                                            {item.fullName} "{item.email}"
+                                                        </li>
+                                                    )
+                                                    :
+                                                    <li><Trans>Продолжайте поиск...</Trans></li>
+                                                    
                                                 ) :
-                                                <li><Trans>Не найдено...</Trans></li>
+                                                <li><Trans>Не найдено...</Trans></li>)
                                             }
                                         </ul>
                                     </div>    
