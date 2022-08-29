@@ -79,6 +79,7 @@ class Account extends \yii\db\ActiveRecord
                         ->where(['transaction_type_id' => 1]) // 1 = депозит
                         ->orWhere(['transaction_type_id' => 3]) // 3 = пополнение счета
                         ->orWhere(['transaction_type_id' => 4]) // 4 = перевод
+                        ->orWhere(['transaction_type_id' => 8]) // 8 = кредит
                         ->sum('sum')
                 );
             },
@@ -87,6 +88,13 @@ class Account extends \yii\db\ActiveRecord
                     $this->getTransactions()
                     ->where(['transaction_type_id' => 4]) // 4 = перевод
                     ->orWhere(['transaction_type_id' => 5]) // 5 = начисление прибыли
+                    ->sum('sum')
+                );
+            },
+            'credit' => function () {
+                return floatval(
+                    $this->getTransactions()
+                    ->where(['transaction_type_id' => 8]) // 8 = кредит
                     ->sum('sum')
                 );
             },
