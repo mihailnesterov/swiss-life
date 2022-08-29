@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
+import {createTransaction} from '../../api/transaction';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
 import { Trans, t } from '@lingui/macro';
@@ -16,9 +17,11 @@ const CreditForm = () => {
     const [isSent, setIsSent] = useState(false);
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
+    const [accountSelected, setAccountSelected] = useState(null);
     const [currencyName, setCurrencyName] = useState(null);
     const [profit, setProfit] = useState(0);
     const [balance, setBalance] = useState(0);
+    const [credit, setCredit] = useState(0);
     const [mostAccessibleSum, setMostAccessibleSum] = useState(0);
 
     useEffect(() => {
@@ -29,7 +32,9 @@ const CreditForm = () => {
                     ...item.currency, 
                     ...{profit: item.profit},
                     ...{account: item.number},
-                    ...{balance: item.balance}
+                    ...{balance: item.balance},
+                    ...{credit: item.credit},
+                    ...{account_id: item.id}
                 })
             );
             setCurrencies(_currencies);
@@ -37,6 +42,7 @@ const CreditForm = () => {
                 setCurrencySelected(_currencies[0]);
                 setProfit(_currencies[0].profit);
                 setBalance(_currencies[0].balance);
+                setCredit(_currencies[0].credit);
             }
         }
 
@@ -45,6 +51,7 @@ const CreditForm = () => {
             setCurrencySelected(null);
             setProfit(0);
             setBalance(0);
+            setCredit(0);
         }
     }, [user]);
 
@@ -55,6 +62,7 @@ const CreditForm = () => {
                 setCurrencySelected(_currencySelected[0]);
                 setProfit(_currencySelected[0].profit); 
                 setProfit(_currencySelected[0].balance); 
+                setCredit(_currencySelected[0].credit); 
             }
         }
 
@@ -62,12 +70,24 @@ const CreditForm = () => {
             setCurrencySelected(null);
             setProfit(0);
             setBalance(0);
+            setCredit(0);
         }
     }, [currencyName]);
 
     useEffect(() => {
-        setMostAccessibleSum(Math.floor(profit + (balance/2)));
-    }, [profit, balance]);
+        setMostAccessibleSum(Math.floor(profit + ((balance - credit)/2)));
+    }, [profit, balance, credit]);
+
+    useEffect(() => {
+        if(user.accounts && user.accounts.length > 0 && currencySelected) {
+            const _accountSelected = user.accounts.filter(
+                acc => acc.currency.id === currencySelected.id 
+            );
+            setAccountSelected(_accountSelected);
+        }
+
+        return () => setAccountSelected(null);
+    }, [user, currencySelected]);
     
     const [inputValue, setInputValue] = useState(0);
 
@@ -82,25 +102,45 @@ const CreditForm = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         setSending(true);
-        setTimeout(() => {
-            createMessage({
-                sender_id: user.id,
-                receiver_id: user.manager.id,
-                theme: t({
-                    id: 'Заявка на кредит', 
-                    message: 'Заявка на кредит'
-                }),
-                text: t({
-                    id: 'add.credit.request', 
-                    message: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, максимальная сумма кредита: ${currencySelected.sign} ${mostAccessibleSum}`
-                })
+
+        // кредит: начислить сумму на счет клиента
+        const creditOptions = {
+            account_id: accountSelected[0].id,
+            manager_id: user.manager.id,
+            currency_id: currencySelected.id,
+            transaction_type_id: 8,
+            sum: Number(inputValue),
+            description: t({
+                id: 'Начисление кредитных средств', 
+                message: 'Начисление кредитных средств'
+            }),
+        };
+
+        // сообщение о кредите от клиента своему менеджеру
+        const creditMessageOptions = {
+            sender_id: user.id,
+            receiver_id: user.manager.id,
+            theme: t({
+                id: 'Кредитное плечо', 
+                message: 'Кредитное плечо'
+            }),
+            text: t({
+                id: 'add.credit.request', 
+                message: `id клиента: ${user.id}, ФИО: ${user.fullName}, сумма: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, максимальная сумма кредита: ${currencySelected.sign} ${mostAccessibleSum}`
             })
+        };
+
+        setTimeout(() => {
+            createTransaction(creditOptions)
                 .then(res => {
-                    console.log('message created success', res);
-                    fetchUserAuthorizedExpanded();
+                    console.log('credit success', res);
+
+                    createMessage(creditMessageOptions)
+                        .then(resMsg => console.log('message success', resMsg))
+                        .catch(errMsg => console.error(errMsg));
                 })
                 .catch(err => {
-                    console.log('message create error',err);
+                    console.error(err);
                     return(
                         <FormSent 
                             header={t({
@@ -118,6 +158,7 @@ const CreditForm = () => {
                     );
                 })
                 .finally(() => {
+                    fetchUserAuthorizedExpanded();
                     setSending(false);
                     setIsSent(true);
                 });
