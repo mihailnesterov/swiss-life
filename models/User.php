@@ -461,11 +461,13 @@ class User extends \yii\db\ActiveRecord
         $query = $this::find();
         
         foreach ($params as $param => $value) {
-            $query->orFilterWhere([
-                'like', $param, $value
-            ]);
+            foreach(explode(' ', $value) as $key => $searchString) {
+                $query->orFilterWhere([
+                    'like', $param, $searchString
+                ]);
+            }
         }
-        
+
         $activeData = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
