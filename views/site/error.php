@@ -5,22 +5,21 @@
 /* @var $message string */
 /* @var $exception Exception */
 
-use yii\helpers\Html;
+use yii\helpers\{Html, Url};
+
+if( null !== Yii::$app->request->get('lang') ) {
+    Yii::$app->language = Yii::$app->request->get('lang');
+}
 
 $this->title = $name;
-?>
-<div class="site-error" style="padding: 2em;">
-    <div class="row">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
-    <div class="alert alert-danger">
-        <?= Html::encode($message) ?>
-    </div>
-    
-    
-    <div class="bg-info">
-        <?= Html::a('<i class="fa fa-caret-left"></i> Вернуться на главную страницу', 'javascript:history.go(-1)', ['class' => 'btn btn-link']) ?>
-    </div>
-    </div>
 
-</div>
+echo Html::tag(
+    'div',
+    Html::tag('h1', Html::encode($this->title))
+    . Html::tag('h3', Html::encode(Yii::t('app', $message)))
+    . Html::a(
+        Html::tag('i', '', ['class' => 'fa fa-caret-left']) . ' ' . Yii::t('app', 'Вернуться на предыдущую страницу'), 
+        'javascript:history.go(-1)'
+    ),
+    ['class' => 'error-404']
+);
