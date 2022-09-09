@@ -27,6 +27,11 @@ echo Html::tag(
         . ' ' . \Yii::t('app', 'и регистрационным номером компании') . ' '
         . Html::tag('span', 'XXXXXXXX', ['class' => 'text-red'])
     )
+    .Html::a(
+        \Yii::t('app', 'Лицензия'),
+        Url::to(['license', 'lang' => Yii::$app->language]),
+        ['class' => 'btn btn-secondary btn-medium']
+    )
 )
 . Html::tag(
     'div',
