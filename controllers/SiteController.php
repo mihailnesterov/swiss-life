@@ -8,8 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
-use app\models\User;
-use app\models\UserLogin;
+use app\models\{User, UserLogin, Partner};
 
 class SiteController extends Controller
 {
@@ -73,11 +72,17 @@ class SiteController extends Controller
             return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));
         }
         
-        $this->view->title = 'Главная страница';
+        $this->view->title = Yii::$app->name;
+        $partners = Partner::find()->asArray()->all();
 
-        return $this->render('index', [
-            'model' => $model,
-        ]);
+        return $this->render('index', compact('model', 'partners'));
+    }
+
+    public function actionLogin() {
+        
+        $model = new UserLogin();
+
+        return $this->render('login', compact('model'));
     }
 
     public function actionError() {
@@ -87,7 +92,7 @@ class SiteController extends Controller
                 return $this->redirect(['404/'])->send();
             }
         }
-        return $this->render('error',['exception' => $exception]);
+        return $this->render('error', compact('exception'));
     }
 
     private function isLogin( $user ) {
