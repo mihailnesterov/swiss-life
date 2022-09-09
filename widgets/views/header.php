@@ -26,12 +26,12 @@ echo Html::tag(
             Html::a(
                 'RU', 
                 Url::to([Yii::$app->controller->route, 'lang' => 'ru-RU']), 
-                ['class' => 'btn btn-secondary btn-medium btn-lang']
+                ['class' => 'btn btn-secondary btn-medium btn-lang' . (Yii::$app->language === 'ru-RU' ? ' active' : '')]
             )
             . Html::a(
                 'EN', 
                 Url::to([Yii::$app->controller->route, 'lang' => 'en-US']), 
-                ['class' => 'btn btn-secondary btn-medium btn-lang']
+                ['class' => 'btn btn-secondary btn-medium btn-lang' . (Yii::$app->language === 'en-US' ? ' active' : '')]
             )
             . Html::a(
                 Yii::t('app', 'Авторизоваться'), 
