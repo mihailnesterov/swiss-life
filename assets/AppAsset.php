@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/fontawesome.min.js',
+        'js/wow.min.js',
         'js/scripts.js'
     ];
     public $depends = [
