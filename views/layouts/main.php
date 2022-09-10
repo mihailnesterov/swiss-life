@@ -65,7 +65,7 @@
     <body>
         <?php $this->beginBody(); ?>
         <div class="wrapper">
-            <header class="header">
+            <header id="header" class="header">
                 <div class="container">
                     <?= \app\widgets\Header::widget() ?>
                 </div>
@@ -79,6 +79,7 @@
                 </div>
             </footer>
         </div>
+        <a href="#header"><i class="fa-solid fa-circle-chevron-up toTop"></i></a>
         <?php $this->endBody(); ?>
     </body>
 </html>
