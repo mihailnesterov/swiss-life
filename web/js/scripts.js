@@ -1,1 +1,1 @@
-console.log('scripts');
+new WOW().init();
