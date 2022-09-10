@@ -155,7 +155,7 @@ echo Html::tag(
             ['class' => 'nsm-account-list container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
         )
         ,
-        ['class' => 'nsm-account']
+        ['id' => 'advantages', 'class' => 'nsm-account']
     )
     . Html::tag(
         'section',
@@ -186,7 +186,7 @@ echo Html::tag(
                 )
             )
         ),
-        ['class' => 'our-partners container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
+        ['id' => 'partners', 'class' => 'our-partners container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
     )
     . Html::tag(
         'section',
@@ -194,7 +194,7 @@ echo Html::tag(
         . Html::a('nsm@nsm-swissconsulting.com', 'mailto:nsm@nsm-swissconsulting.com')
         . Html::a('nsm-invest@nsm-swissconsulting.com', 'mailto:nsm-invest@nsm-swissconsulting.com')
         ,
-        ['class' => 'contact-us wow slide-in-bck-bottom']
+        ['id' => 'contacts', 'class' => 'contact-us wow slide-in-bck-bottom']
     
     ),
     ['class' => 'main']
