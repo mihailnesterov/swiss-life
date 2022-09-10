@@ -3,7 +3,7 @@
 use yii\helpers\{Html, Url};
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model app\models\Partners */
 
 if( null !== Yii::$app->request->get('lang') ) {
     Yii::$app->language = Yii::$app->request->get('lang');
@@ -14,8 +14,8 @@ echo Html::tag(
     Html::tag(
         'section',
         Html::tag('h1', Html::encode(Yii::$app->name))
-        . Html::tag('p', Yii::t('app', 'Мы создаем, подбираем и ребалансируем инвестиционный портфель, чтобы вы могли расслабиться!'))
-        . Html::a(Yii::t('app', 'Рассчитать доходность'), Url::to([Yii::$app->controller->route . '#calculate']), ['class' => 'btn btn-secondary'])
+        . Html::tag('p', Yii::t('app', 'Мы создаем, подбираем и ребалансируем инвестиционный портфель, чтобы вы могли расслабиться!'), ['class' => 'wow slide-in-bck-bottom', 'data-wow-delay' => '.2s'])
+        . Html::a(Yii::t('app', 'Рассчитать доходность'), Url::to([Yii::$app->controller->route . '#calculate']), ['class' => 'btn btn-secondary wow slide-in-bck-bottom', 'data-wow-delay' => '.4s'])
         ,
         ['class' => 'first-screen']
     )
@@ -25,7 +25,7 @@ echo Html::tag(
         . Html::tag(
             'p', 
             Yii::t('app', 'Мы не верим в спекуляции, но мы верим в ответственное инвестирование. Подотчетность и надежность - это наши руководящие принципы.'),
-            ['class' => 'about-excerpt']
+            ['class' => 'about-excerpt wow slide-in-bck-bottom']
         )
         . Html::tag(
             'div', 
@@ -78,14 +78,14 @@ echo Html::tag(
                 ['class' => 'about-list__item']
             )
             ,
-            ['class' => 'about-list']
+            ['class' => 'about-list wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
         )
         ,
         ['id' => 'about', 'class' => 'about']
     )
     . Html::tag(
         'section',
-        Html::tag('h2', Yii::t('app', 'Отдельно управляемый счет') . ' ' . Html::encode(Yii::$app->name))
+        Html::tag('h2', Yii::t('app', 'Отдельно управляемый счет') . ' ' . Html::encode(Yii::$app->name), ['class' => 'wow slide-in-bck-bottom', 'data-wow-delay' => '.2s'])
         . Html::tag(
             'div',
             Html::tag(
@@ -152,7 +152,7 @@ echo Html::tag(
                 . Html::tag('h3', Yii::t('app', 'Доступность')),
                 ['class' => 'nsm-account-list__item']
             ),
-            ['class' => 'nsm-account-list container']
+            ['class' => 'nsm-account-list container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
         )
         ,
         ['class' => 'nsm-account']
@@ -168,7 +168,7 @@ echo Html::tag(
             ['class' => 'btn-group']
         )
         ,
-        ['class' => 'create-account']
+        ['class' => 'create-account wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
     
     )
     . Html::tag(
@@ -186,7 +186,7 @@ echo Html::tag(
                 )
             )
         ),
-        ['class' => 'our-partners container']
+        ['class' => 'our-partners container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
     )
     . Html::tag(
         'section',
@@ -194,7 +194,7 @@ echo Html::tag(
         . Html::a('nsm@nsm-swissconsulting.com', 'mailto:nsm@nsm-swissconsulting.com')
         . Html::a('nsm-invest@nsm-swissconsulting.com', 'mailto:nsm-invest@nsm-swissconsulting.com')
         ,
-        ['class' => 'contact-us']
+        ['class' => 'contact-us wow slide-in-bck-bottom']
     
     ),
     ['class' => 'main']
