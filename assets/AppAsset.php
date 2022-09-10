@@ -15,10 +15,10 @@ class AppAsset extends AssetBundle
         'css/reset.css',
         'fonts/cormorant/stylesheet.css',
         'fonts/inter/stylesheet.css',
+        'css/fontawesome.min.css',
         'css/style.css'
     ];
     public $js = [
-        'js/fontawesome.min.js',
         'js/wow.min.js',
         'js/scripts.js'
     ];
