@@ -13,7 +13,7 @@ echo Html::tag(
                     $options['class'] = 'active';
                 }
                 
-                return Html::tag('li', Html::a(Yii::t('app', $item), '#' . Url::to($index)), $options);
+                return Html::tag('li', Html::a(Yii::t('app', $item), Url::to(['/', '#' => $index, 'lang' => Yii::$app->language])), $options);
             },
             'class' => 'main-menu'
         ],
