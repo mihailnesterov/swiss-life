@@ -5,6 +5,7 @@
 */
 
 return [
+    'Здравствуйте' => 'Hello',
     'О компании' => 'About',
     'Рассчитать доходность' => 'Calculate profit',
     'Преимущества' => 'Advantages',
@@ -15,6 +16,9 @@ return [
     'Вернуться на предыдущую страницу' => 'Return to previous page',
     'Войти' => 'Sign In',
     'Войти в аккаунт' => 'Sign In',
+    'Войти в кабинет' => 'Sign In',
+    'Ваши данные для авторизации' => 'Your authorization data',
+    'Логин' => 'Login',
     'Пароль' => 'Password',
     'Ваш пароль' => 'Your password',
     'Придумайте пароль' => 'Create password',
@@ -23,6 +27,7 @@ return [
     'Введите новый пароль' => 'Enter new password',
     'Смена пароля' => 'Password change',
     'Сменить пароль' => 'Change password',
+    'Одноразовый код для смены пароля' => 'One-time password change code',
     'Подтвердить пароль' => 'Confirm password',
     'Подтвердите пароль' => 'Confirm password',
     'Пароли не совпадают' => 'Passwords do not match',
