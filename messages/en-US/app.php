@@ -28,6 +28,8 @@ return [
     'Пароли не совпадают' => 'Passwords do not match',
     'Пароль изменен' => 'Password changed',
     'Не удалось изменить пароль' => 'Failed to change password',
+    'Показать пароль' => 'Show password',
+    'Скрыть пароль' => 'Hide password',
     'Ваш email' => 'Your email',
     'Ваш логин' => 'Your login',
     'Мы создаем, подбираем и ребалансируем инвестиционный портфель, чтобы вы могли расслабиться!' => 'We create, select and rebalance an investment portfolio so you can relax!',

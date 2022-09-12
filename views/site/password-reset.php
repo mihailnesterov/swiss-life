@@ -8,8 +8,31 @@ use yii\widgets\ActiveForm;
 /* @var $form ActiveForm */
 
 $this->registerJs("
-    jQuery('#show-password').change(function(){
-        jQuery('#userlogin-password').attr('type', this.checked ? 'text' : 'password');
+    jQuery('#show-password').on('click', function(){
+        const eye = jQuery(this).find('i');
+        if( jQuery(eye).hasClass('fa-eye') ) {
+            jQuery(eye).removeClass('fa-eye').addClass('fa-eye-slash');
+            jQuery(this).attr('title', '" . Yii::t('app', 'Скрыть пароль') . "');
+        } else {
+            jQuery(eye).removeClass('fa-eye-slash').addClass('fa-eye');
+            jQuery(this).attr('title', '" . Yii::t('app', 'Показать пароль') . "');
+        }
+        jQuery('#userpasswordreset-password').attr('type', function(index, attr) {
+            return attr === 'password' ? 'text' : 'password';
+        });
+    });
+    jQuery('#show-new-password').on('click', function(){
+        const eye = jQuery(this).find('i');
+        if( jQuery(eye).hasClass('fa-eye') ) {
+            jQuery(eye).removeClass('fa-eye').addClass('fa-eye-slash');
+            jQuery(this).attr('title', '" . Yii::t('app', 'Скрыть пароль') . "');
+        } else {
+            jQuery(eye).removeClass('fa-eye-slash').addClass('fa-eye');
+            jQuery(this).attr('title', '" . Yii::t('app', 'Показать пароль') . "');
+        }
+        jQuery('#userpasswordreset-newpassword').attr('type', function(index, attr) {
+            return attr === 'password' ? 'text' : 'password';
+        });
     })"
 );
 
@@ -37,6 +60,7 @@ $this->title = Yii::t('app', 'Смена пароля');
             ]); ?>
 
                 <?= $form->field($model, 'password', [
+                    'template' => '<div class="input-block">{label}{input}<button type="button" id="show-password" class="show-password" title="' . Yii::t('app', 'Показать пароль') . '"><i class="fa-regular fa-eye"></i></button>{error}</div>',
                     'inputOptions' => [
                         'tabindex' => '1',
                         'placeholder' => Yii::t('app', 'Новый пароль'),
@@ -45,6 +69,7 @@ $this->title = Yii::t('app', 'Смена пароля');
                 ])->passwordInput()->label(Yii::t('app', 'Введите новый пароль')) ?>
 
                 <?= $form->field($model, 'newPassword', [
+                    'template' => '<div class="input-block">{label}{input}<button type="button" id="show-new-password" class="show-password" title="' . Yii::t('app', 'Показать пароль') . '"><i class="fa-regular fa-eye"></i></button>{error}</div>',
                     'inputOptions' => [
                         'tabindex' => '2',
                         'placeholder' => Yii::t('app', 'Новый пароль'),
