@@ -14,12 +14,6 @@ if( null !== Yii::$app->request->get('lang') ) {
 
 $this->title = Yii::t('app', 'Восстановление пароля');
 
-/*echo '<pre>';
-print_r($model->oneTimeCode);
-print_r(Yii::$app->getRequest()->getCookies()->getValue('_swiss_life_one_time_code'));
-print_r(Yii::$app->request->post());
-echo '</pre>';*/
-
 ?>
 <main class="main">
     <?= Yii::$app->session->getFlash('password-restore') ?>

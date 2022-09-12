@@ -14,10 +14,6 @@ if( null !== Yii::$app->request->get('lang') ) {
 
 $this->title = Yii::t('app', 'Ввести одноразовый код');
 
-echo '<pre>';
-print_r(Yii::$app->getRequest()->getCookies()->getValue('_swiss_life_one_time_code'));
-echo '</pre>';
-
 ?>
 <main class="main">
     <?= Yii::$app->session->getFlash('one-time-code') ?>
