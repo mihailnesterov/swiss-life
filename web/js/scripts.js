@@ -18,3 +18,17 @@ window.onload = function() {
     });
     
 }
+
+$(function() {
+    
+    if( $('.flash').length ) {
+        setTimeout(() => {
+            $('.flash').each(function() {
+                $(this).fadeOut( "slow", function() {
+                    $(this).remove();
+                });
+            });
+        }, 3000);
+    }
+    
+});
