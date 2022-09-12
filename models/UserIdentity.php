@@ -46,13 +46,13 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
     public function rules() 
     { 
         return [ 
-            ['email', 'email'],
+            ['email', 'email', 'message' => Yii::t('app', 'Введенный email содержит ошибки')],
             ['email', 'string', 'min' => 8, 'max' => 100],
             ['rememberMe', 'boolean'],
             
-            ['email', 'required', 'message' => 'Email не может быть пустым'],
-            ['password', 'required', 'message' => 'Пароль не может быть пустым'],
-            ['password', 'string', 'min' => 8, 'max' => 100, 'tooShort' => 'Длина пароля не минее 8 символов'],
+            ['email', 'required', 'message' => Yii::t('app', 'Email не может быть пустым')],
+            ['password', 'required', 'message' => Yii::t('app', 'Пароль не может быть пустым')],
+            ['password', 'string', 'min' => 8, 'max' => 100, 'tooShort' => Yii::t('app', 'Длина пароля не минее 8 символов')],
         ]; 
     } 
 

@@ -18,8 +18,8 @@ class UserLogin extends UserIdentity
     public function rules()
     {
         return [
-            ['email', 'required', 'message' => 'Email не может быть пустым'],
-            ['password', 'required', 'message' => 'Пароль не может быть пустым'],
+            ['email', 'required', 'message' => Yii::t('app', 'Email не может быть пустым')],
+            ['password', 'required', 'message' => Yii::t('app', 'Пароль не может быть пустым')],
             ['password', 'validatePassword'],
             [['token'], 'string'],
         ];
@@ -31,7 +31,7 @@ class UserLogin extends UserIdentity
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError('Неправильный логин или пароль');
+                $this->addError(Yii::t('app', 'Неправильный логин или пароль'));
             }
         }
     }
