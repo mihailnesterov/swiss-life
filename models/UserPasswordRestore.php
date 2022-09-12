@@ -10,6 +10,9 @@ use app\models\{User, UserIdentity};
 class UserPasswordRestore extends UserIdentity
 {
 
+    /**
+     * One-time code for password restore.
+     */
     public $oneTimeCode;
 
     public function __construct()
@@ -44,6 +47,9 @@ class UserPasswordRestore extends UserIdentity
         return Yii::$app->security->generateRandomString(8);
     }
 
+    /**
+     * Validates user's email
+     */
     public function validateEmail()
     {
         if (!$this->hasErrors()) {
@@ -64,7 +70,7 @@ class UserPasswordRestore extends UserIdentity
     }
 
     /**
-     * Sends one time code to user
+     * Sends one time code on user's email
      *
      * @return bool whether the email was sent
      */
@@ -79,19 +85,26 @@ class UserPasswordRestore extends UserIdentity
             return false;
         }
 
-        return true;
+        Yii::$app->mailer->getView()->params['fullName'] = "$user->firstName $user->lastName";
+        Yii::$app->mailer->getView()->params['code'] = $this->oneTimeCode;
+        
+        $isEmailSent = Yii::$app->mailer->compose([
+            'html' => 'one-time-code-html',
+            'text' => 'one-time-code-text',
+        ],
+        [
+            'fullName' => "$user->firstName $user->lastName",
+            'code' => $this->oneTimeCode,
+        ])
+        ->setFrom([Yii::$app->params['email'] => Yii::$app->name])
+        ->setTo($user->email)
+        ->setSubject(Yii::t('app', 'Одноразовый код для смены пароля'))
+        ->send();
 
-        /*return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();*/
+        Yii::$app->mailer->getView()->params['fullName'] = null;
+        Yii::$app->mailer->getView()->params['code'] = null;
+
+        return $isEmailSent;
         
     }
-
 }
