@@ -17,7 +17,7 @@ echo Html::tag(
                     'NSM SWISS LIFE<br> INVESTMENT &<br> CONSULTING LP'
                 )
             ),
-            Url::to(['/']),
+            Url::to(['/', 'lang' => Yii::$app->language]),
             ['class' => 'logo']
         )
         . \app\widgets\MainMenu::widget()
