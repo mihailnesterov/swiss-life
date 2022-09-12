@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
-use app\models\{User, UserLogin, Partner};
+use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, Partner};
 
 class SiteController extends Controller
 {
@@ -83,6 +83,82 @@ class SiteController extends Controller
         $model = new UserLogin();
 
         return $this->render('login', compact('model'));
+    }
+
+    public function actionPasswordRestore() {
+        
+        $model = new UserPasswordRestore();
+
+        if( null !== Yii::$app->request->get('lang') ) {
+            Yii::$app->language = Yii::$app->request->get('lang');
+        }
+        
+        $cookie = new \yii\web\Cookie([
+            'name' => '_swiss_life_one_time_code',
+            'value' => $model->oneTimeCode,
+            'expire' => time() + 60 * 60,
+        ]);
+
+        Yii::$app->getResponse()->getCookies()->add($cookie); 
+
+        if ($this->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                if( true === $model->sendCodeOnEmail() ) {
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['one-time-code', 'lang' => Yii::$app->language]));
+                }
+            } else {
+                Yii::$app->session->setFlash('password-restore', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Пользователь с таким email не найден') . '</h4></div>');
+            }
+        }
+
+        return $this->render('password-restore', compact('model'));
+    }
+
+    public function actionOneTimeCode() {
+
+        if( ! Yii::$app->request->cookies->has('_swiss_life_restore_password_email') )
+            return $this->redirect(Yii::$app->urlManager->createUrl(['login', 'lang' => Yii::$app->language]));
+        
+        $model = new UserOneTimeCode();
+
+        if( null !== Yii::$app->request->get('lang') ) {
+            Yii::$app->language = Yii::$app->request->get('lang');
+        }
+
+        Yii::$app->session->setFlash('one-time-code', '<div class="flash success slide-in-right"><h4>' . Yii::t('app', 'Одноразовый код отправлен на указанный email') . '</h4></div>');
+
+        if ($this->request->isPost) {
+            
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                return $this->redirect(Yii::$app->urlManager->createUrl(['password-reset', 'lang' => Yii::$app->language]));
+            } else {
+                Yii::$app->session->setFlash('one-time-code', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Введен неверный код') . '</h4></div>');
+            }
+        }
+
+        return $this->render('one-time-code', compact('model'));
+    }
+
+    public function actionPasswordReset() {
+
+        if( ! Yii::$app->request->cookies->has('_swiss_life_restore_password_email') )
+            return $this->redirect(Yii::$app->urlManager->createUrl(['login', 'lang' => Yii::$app->language]));
+        
+        $model = new UserPasswordReset();
+
+        if ($this->request->isPost) {
+            if( null !== Yii::$app->request->get('lang') ) {
+                Yii::$app->language = Yii::$app->request->get('lang');
+            }
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                $model->resetPassword();
+                return $this->redirect(Yii::$app->urlManager->createUrl(['login', 'lang' => Yii::$app->language]));
+            } else {
+                Yii::$app->session->setFlash('password-reset', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Пароли не совпадают') . '</h4></div>');
+            }
+        }
+
+        return $this->render('password-reset', compact('model'));
     }
 
     public function actionError() {
