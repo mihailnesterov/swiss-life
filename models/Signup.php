@@ -18,10 +18,10 @@ class Signup extends UserIdentity
     public function rules()
     {
         return [
-            ['email', 'required', 'message' => 'Email не может быть пустым'],
-            ['password', 'required', 'message' => 'Пароль не может быть пустым'],
-            ['password', 'string', 'min' => 8, 'max' => 100, 'tooShort' => 'Длина пароля не минее 8 символов'],
-            ['email', 'unique', 'targetClass' => Signup::className(), 'message' => 'Пользователь с таким email уже существует'],
+            ['email', 'required', 'message' => Yii::t('app', 'Email не может быть пустым')],
+            ['password', 'required', 'message' => Yii::t('app', 'Пароль не может быть пустым')],
+            ['password', 'string', 'min' => 8, 'max' => 100, 'tooShort' => Yii::t('app', 'Длина пароля не минее 8 символов')],
+            ['email', 'unique', 'targetClass' => Signup::className(), 'message' => Yii::t('app', 'Пользователь с таким email уже существует')],
         ];
     }
    
