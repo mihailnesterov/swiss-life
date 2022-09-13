@@ -186,7 +186,7 @@ echo Html::tag(
                 )
             )
         ),
-        ['id' => 'partners', 'class' => 'our-partners container wow slide-in-bck-bottom', 'data-wow-delay' => '.4s']
+        ['id' => 'partners', 'class' => 'our-partners container']
     )
     . Html::tag(
         'section',
