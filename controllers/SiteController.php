@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
-use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, Partner};
+use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, Signup, Partner};
 
 class SiteController extends Controller
 {
@@ -83,6 +83,62 @@ class SiteController extends Controller
         $model = new UserLogin();
 
         return $this->render('login', compact('model'));
+    }
+
+    public function actionLogout() {
+        Yii::$app->user->logout();
+    }
+
+    public function actionSignup() {
+
+        if( null !== Yii::$app->request->get('lang') ) {
+            Yii::$app->language = Yii::$app->request->get('lang');
+        }
+
+        $model = new Signup();
+
+        if ($this->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                if ( $this->createOrder( $model ) )
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['thank-you-page', 'lang' => Yii::$app->language]));
+            } else {
+                Yii::$app->session->setFlash('signup', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Ошибка в заказе') . '</h4></div>');
+            }
+        }
+
+        return $this->render('signup', compact('model'));
+    }
+
+    private function createOrder( $model ) {
+
+        /*if( $model ) {
+
+            $order = new Order();
+
+            $order->name = $model->name;
+            $order->email = $model->email;
+            $order->phone = $model->phone;
+            $order->address = $model->address;
+            $order->business = $model->business;
+            $order->first_payment = $model->first_payment;
+            $order->contract_amount = $model->contract_amount;
+    
+            if( $order->save() )
+                return true;
+        }*/
+
+        return false;
+    }
+
+    private function isSignup( $model ) {
+        return $model->load(Yii::$app->request->post()) && $model->validate();
+    }
+
+    private function loginUser( $user ) {
+        if ( ! is_null($user) ) {
+            $user->login();
+            return $this->redirect(Yii::$app->urlManager->createUrl(['', 'lang' => Yii::$app->language]));
+        } 
     }
 
     public function actionPasswordRestore() {
