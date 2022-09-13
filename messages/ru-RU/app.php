@@ -89,6 +89,7 @@ return [
     'Введенный email содержит ошибки' => 'The email you entered contains errors',
     'Email не найден' => 'Email not found',
     'Пользователь с таким email не найден' => 'User with this email was not found',
+    'Пользователь с таким email уже существует' => 'User with this email already exists',
     'Пароль не может быть пустым' => 'Password cannot be empty',
     'Длина пароля не минее 8 символов' => 'Password length is at least 8 characters',
     'Неправильный логин или пароль' => 'Incorrect login or password',
@@ -101,4 +102,8 @@ return [
     'Далее' => 'Further',
     'Код не может быть пустым' => 'Code cannot be empty',
     'Введен неверный код' => 'Invalid code entered',
+    'Ошибка' => 'Error',
+    'Отправить заявку' => 'Submit',
+    'Создание нового аккаунта' => 'Create a new account',
+    'Оставьте свои данные и наш менеджер свяжется с вами' => 'Leave your details and our manager will contact you',
 ];
