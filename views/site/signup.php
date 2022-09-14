@@ -34,7 +34,7 @@ $this->title = Yii::t('app', 'Создание нового аккаунта');
             
             <div class="column">
                 <?php
-                echo $form->field($model, 'email', [
+                echo $form->field($model, 'name', [
                         'inputOptions' => [
                             'autofocus' => 'autofocus',
                             'autocomplete' => 'off',
@@ -45,29 +45,29 @@ $this->title = Yii::t('app', 'Создание нового аккаунта');
                     ])->label(Yii::t('app', 'Как вас зовут?'))
 
 
-                    . $form->field($model, 'password', [
+                    . $form->field($model, 'email', [
                         'inputOptions' => [
                             'autocomplete' => 'off',
                             'tabindex' => '2',
                             'placeholder' => 'Email',
                             'class'=>'input'
                         ]
-                    ])->passwordInput()->label(Yii::t('app', 'Ваш Email'))
+                    ])->label(Yii::t('app', 'Ваш Email'))
 
-                    . $form->field($model, 'password', [
+                    . $form->field($model, 'first_payment', [
                         'inputOptions' => [
                             'autocomplete' => 'off',
                             'tabindex' => '3',
                             'placeholder' => Yii::t('app', 'Введите сумму'),
                             'class'=>'input'
                         ]
-                    ])->passwordInput()->label(Yii::t('app', 'Первоначальный взнос'));
+                    ])->label(Yii::t('app', 'Первоначальный взнос'));
                 ?>
             </div>
 
             <div class="column">
                 <?php
-                echo $form->field($model, 'email', [
+                echo $form->field($model, 'address', [
                         'inputOptions' => [
                             'autofocus' => 'autofocus',
                             'autocomplete' => 'off',
@@ -78,20 +78,20 @@ $this->title = Yii::t('app', 'Создание нового аккаунта');
                     ])->label(Yii::t('app', 'Адрес проживания'))
 
 
-                    . $form->field($model, 'password', [
+                    . $form->field($model, 'phone', [
                         'inputOptions' => [
                             'autocomplete' => 'off',
                             'tabindex' => '5',
                             'placeholder' => '+7 (909) 760 90-90',
                             'class'=>'input'
                         ]
-                    ])->passwordInput()->label(Yii::t('app', 'Номер телефона'));
+                    ])->label(Yii::t('app', 'Номер телефона'));
                 ?>
             </div>
 
             <div class="column">
                 <?php
-                echo $form->field($model, 'email', [
+                echo $form->field($model, 'business', [
                         'inputOptions' => [
                             'autofocus' => 'autofocus',
                             'autocomplete' => 'off',
@@ -102,14 +102,14 @@ $this->title = Yii::t('app', 'Создание нового аккаунта');
                     ])->label(Yii::t('app', 'Вид деятельности'))
 
 
-                    . $form->field($model, 'password', [
+                    . $form->field($model, 'contract_amount', [
                         'inputOptions' => [
                             'autocomplete' => 'off',
                             'tabindex' => '7',
                             'placeholder' => Yii::t('app', 'Введите сумму'),
                             'class'=>'input'
                         ]
-                    ])->passwordInput()->label(Yii::t('app', 'Сумма контракта'));
+                    ])->label(Yii::t('app', 'Сумма контракта'));
                 ?>
             </div>
         </div>
