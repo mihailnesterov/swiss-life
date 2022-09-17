@@ -3,10 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
+use yii\filters\{AccessControl, VerbFilter};
+use yii\web\{Controller, NotFoundHttpException};
 
 use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, OrderAccount, Partner};
 
@@ -82,6 +80,18 @@ class SiteController extends Controller
         
         $model = new UserLogin();
 
+        if ($this->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->login()) {
+                if( Yii::$app->user->identity->role === 'admin' ) {
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
+                }
+                if( Yii::$app->user->identity->role === 'manager' ) {
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
+                }             
+                return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));  
+            }
+        }
+
         return $this->render('login', compact('model'));
     }
 
@@ -102,7 +112,7 @@ class SiteController extends Controller
                 if ( $model->save() )
                     return $this->redirect(Yii::$app->urlManager->createUrl(['thank-you-page', 'lang' => Yii::$app->language]));
             } else {
-                Yii::$app->session->setFlash('signup', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Ошибка в заказе') . '</h4></div>');
+                Yii::$app->session->setFlash('signup', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Ошибка в заявке') . '</h4></div>');
             }
         }
 

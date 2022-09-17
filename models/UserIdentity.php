@@ -116,8 +116,11 @@ class UserIdentity extends \yii\db\ActiveRecord  implements \yii\web\IdentityInt
 
     public function login()
     {
-        if ($this->validate()) {
+        if ($this->validate() && $this->getUser()->status === 1) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        }
+        else if ($this->validate() && $this->getUser()->status === 0) {
+            throw new \yii\web\BadRequestHttpException(Yii::t('app', "Учетная запись заблокирована. Обратитесь к администратору"));
         }
         else {
             return false;

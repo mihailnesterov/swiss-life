@@ -102,8 +102,9 @@ return [
     'Далее' => 'Further',
     'Код не может быть пустым' => 'Code cannot be empty',
     'Введен неверный код' => 'Invalid code entered',
-    'Ошибка' => 'Error',
+    'Ошибка в заявке' => 'Order error',
     'Отправить заявку' => 'Submit',
     'Создание нового аккаунта' => 'Create a new account',
     'Оставьте свои данные и наш менеджер свяжется с вами' => 'Leave your details and our manager will contact you',
+    'Учетная запись заблокирована. Обратитесь к администратору' => 'The account is blocked. Contact the administrator',
 ];
