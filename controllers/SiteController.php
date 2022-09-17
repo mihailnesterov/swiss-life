@@ -72,8 +72,9 @@ class SiteController extends Controller
         
         $this->view->title = Yii::$app->name;
         $partners = Partner::find()->asArray()->all();
+        $companyParams = Yii::$app->params['company'];
 
-        return $this->render('index', compact('model', 'partners'));
+        return $this->render('index', compact('model', 'partners', 'companyParams'));
     }
 
     public function actionLogin() {
@@ -110,7 +111,7 @@ class SiteController extends Controller
         if ($this->request->isPost) {
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ( $model->save() )
-                    return $this->redirect(Yii::$app->urlManager->createUrl(['thank-you-page', 'lang' => Yii::$app->language]));
+                    return $this->redirect(Yii::$app->urlManager->createUrl(['thank-you-page', 'id' => $model->id, 'lang' => Yii::$app->language]));
             } else {
                 Yii::$app->session->setFlash('signup', '<div class="flash error slide-in-right"><h4>' . Yii::t('app', 'Ошибка в заявке') . '</h4></div>');
             }
@@ -204,6 +205,10 @@ class SiteController extends Controller
         }
 
         return $this->render('password-reset', compact('model'));
+    }
+
+    public function actionThankYouPage($id) {
+        return $this->render('thank-you-page', compact('id'));
     }
 
     public function actionError() {
