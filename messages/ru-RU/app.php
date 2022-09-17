@@ -127,4 +127,6 @@ return [
     'Ваша заявка получена' => 'Your order received',
     'В ближайшее время наш менеджер свяжется с Вами' => 'Our manager will contact you soon',
     'Вернуться на главную страницу'	=> 'Go Home',
+    'ФИО не может быть пустым' => 'Full name cannot be empty',
+    'Телефон не может быть пустым' => 'Phone number cannot be empty'
 ];
