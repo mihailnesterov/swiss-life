@@ -191,9 +191,18 @@ echo Html::tag(
     . Html::tag(
         'section',
         Html::tag('h2', Yii::t('app', 'Связаться с нами'))
-        . Html::a('nsm@nsm-swissconsulting.com', 'mailto:nsm@nsm-swissconsulting.com')
-        . Html::a('nsm-invest@nsm-swissconsulting.com', 'mailto:nsm-invest@nsm-swissconsulting.com')
-        ,
+        . sprintf(
+            '%s',
+            implode(
+                '', 
+                array_map(
+                    function($email) {
+                        return Html::a($email, "mailto:{$email}");
+                    }, 
+                    $companyParams['emails']
+                )
+            )
+        ),
         ['id' => 'contacts', 'class' => 'contact-us wow slide-in-bck-bottom']
     
     ),
