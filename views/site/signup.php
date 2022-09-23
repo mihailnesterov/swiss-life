@@ -82,7 +82,7 @@ $this->title = Yii::t('app', 'Создание нового аккаунта');
                         'inputOptions' => [
                             'autocomplete' => 'off',
                             'tabindex' => '5',
-                            'placeholder' => '+7 (909) 760 90-90',
+                            'placeholder' => '+7 999 999-99-99',
                             'class'=>'input'
                         ]
                     ])->label(Yii::t('app', 'Номер телефона'));

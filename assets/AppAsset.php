@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/wow.min.js',
+        'js/jquery.maskedinput.min.js',
         'js/scripts.js'
     ];
     public $depends = [

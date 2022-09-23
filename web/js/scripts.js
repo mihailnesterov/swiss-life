@@ -30,5 +30,9 @@ $(function() {
             });
         }, 3000);
     }
+
+    if( $('#orderaccount-phone').length ) {
+        $('#orderaccount-phone').mask("+7 999 999-99-99");
+    }
     
 });
