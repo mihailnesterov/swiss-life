@@ -15,10 +15,11 @@ echo Html::tag(
         'section',
         Html::tag('h1', Html::encode(Yii::$app->name))
         . Html::tag('p', Yii::t('app', 'Мы создаем, подбираем и ребалансируем инвестиционный портфель, чтобы вы могли расслабиться!'), ['class' => 'wow slide-in-bck-bottom', 'data-wow-delay' => '.2s'])
-        . Html::a(Yii::t('app', 'Рассчитать доходность'), Url::to([Yii::$app->controller->route . '#calculate']), ['class' => 'btn btn-secondary wow slide-in-bck-bottom', 'data-wow-delay' => '.4s'])
+        . Html::a(Yii::t('app', 'Рассчитать доходность'), Url::to([Yii::$app->controller->route, '#' => 'calculate', 'lang' => Yii::$app->language]), ['class' => 'btn btn-secondary wow slide-in-bck-bottom', 'data-wow-delay' => '.4s'])
         ,
         ['class' => 'first-screen']
     )
+    . \app\widgets\Calculate::widget()
     . Html::tag(
         'section',
         Html::tag('h2', Yii::t('app', 'О нашей компании и ценностях'))
