@@ -16,11 +16,13 @@ class AppAsset extends AssetBundle
         'fonts/cormorant/stylesheet.css',
         'fonts/inter/stylesheet.css',
         'css/fontawesome.min.css',
+        'css/jquery-ui.min.css',
         'css/style.css'
     ];
     public $js = [
         'js/wow.min.js',
         'js/jquery.maskedinput.min.js',
+        'js/jquery-ui.min.js',
         'js/scripts.js'
     ];
     public $depends = [
