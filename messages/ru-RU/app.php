@@ -45,7 +45,7 @@ return [
     'Ответственность' => 'Responsibility',
     'Мы берем на себя ответственность за управление деньгами наших клиентов' => 'We take responsibility for managing our clients money',
     'Личная вовлеченность' => 'Personal Involvement',
-    'Мы инвестируем своё время и ресурсы в развитие бизнес проектов для максимаотной доходности' => 'We invest our time and resources in the development of business projects for maximum profitability',
+    'Мы инвестируем своё время и ресурсы в развитие бизнес проектов для максимальной доходности' => 'We invest our time and resources in the development of business projects for maximum profitability',
     'Честность' => 'Honesty',
     'Мы ценим прозрачность как по отношению к нашим клиентам, так и по отношению к нашим сотрудникам' => 'We value transparency both in relation to our customers and in relation to our employees',
     'Командная работа' => 'Teamwork',
