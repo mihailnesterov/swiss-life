@@ -170,6 +170,291 @@ a:hover {
     margin-bottom: 170px;
 }
 
+.calculate {
+    /*display: none;*/ /* hide calculate */
+    margin: 0 auto;
+    max-width: 1260px;   
+    background-color: var(--color-black);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 3.75rem 3.75rem 3.125rem 3.75rem;
+    margin-bottom: 2rem;
+    color: var(--color-light);
+    text-align: center;
+}
+
+.calculate h2 {
+    margin: 0 auto;
+    max-width: 740px;
+    margin-bottom: 1.875rem;
+    font-family: 'Cormorant';
+    text-align: center;
+    letter-spacing: -0.025em;
+}
+
+.calculate .subtitle {
+    margin: 0 auto;
+    max-width: 792px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 35px; /* or 175% */
+    text-align: center;
+    letter-spacing: -0.01em;
+    margin-bottom: 4.375rem;
+}
+
+.calculate h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;  /* or 125% */
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--color-light);
+}
+
+.calculate h4 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 35px; /* identical to box height, or 146% */
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--color-light);
+    margin-bottom: 1.25rem;
+}
+
+.calculate h5 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 35px; /* identical to box height, or 146% */
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+    color: var(--color-light);
+    margin-bottom: .35rem;
+}
+
+.calculate .goals {
+    text-align: center;
+}
+
+.calculate .goals h3 {
+    margin-bottom: 1.875rem;
+}
+
+.calculate .goals-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.875rem;
+}
+
+.calculate .goals-list a {
+    color: var(--color-gray-dark);
+    font-size: 20px;
+    line-height: 35px; /* identical to box height, or 175% */
+    letter-spacing: -0.01em;
+    transition: .3s;
+}
+
+.calculate .goals-list .active a {
+    color: var(--color-gold);
+    text-decoration: underline;
+}
+
+.calculate .row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: .5rem;
+}
+
+.calculate .row > * {
+    flex: 0 1 50%;
+    text-align: left;
+
+    margin-bottom: 2rem;
+}
+
+.calculate .row .investment {
+    padding-top: 1rem;
+}
+
+.calculate .row .results {
+    border: 1px var(--color-light) solid;
+    padding: 3rem 5rem;
+}
+
+.calculate .btn-group {
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1rem;
+}
+
+.calculate .btn-primary {
+    color: var(--color-black);
+}
+
+.calculate .investment-slider {
+    margin-bottom: 3.125rem;
+}
+
+.calculate .investment-slider-currency {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 0;
+}
+
+.calculate .investment-values {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    max-width: 231px;
+    margin-bottom: .25rem;
+}
+
+.calculate .investment-values p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 35px; /* identical to box height, or 175% */
+    letter-spacing: -0.01em;
+}
+
+.calculate .ui-slider-handle {
+    border-radius: 100px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--color-white);
+    width: .6rem;
+    height: .6rem;
+}
+
+.calculate .ui-slider-horizontal {
+    padding: 0;
+    margin: 0;
+    height: 1px;
+    border: 1px var(--color-gold) solid;
+    max-width: 231px;
+}
+
+.calculate .investment-style {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: .65rem;
+}
+
+.calculate .investment-style-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.calculate .investment-style-list li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 9px;
+}
+
+.calculate .investment-style-list a {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 35px; /* identical to box height, or 175% */
+    letter-spacing: -0.01em;
+    color: var(--color-gray-dark);
+}
+
+.calculate .investment-style-list .comment,
+.calculate .results-item .comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    background-color: var(--color-gray-dark);
+    color: var(--color-dark);
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 100px;
+}
+
+.calculate .investment-style-list .comment:hover,
+.calculate .results-item .comment:hover {
+    cursor: pointer;
+    opacity: .85;
+}
+
+.calculate .investment-style-list .active a,
+.calculate .investment-style-list a:hover {
+    color: var(--color-gold);
+    text-decoration: underline;
+}
+
+.calculate .results h3 {
+    margin-bottom: 1.85rem;
+}
+
+.calculate .results-item {
+    padding: 0;
+    margin-bottom: 1.85rem;
+}
+
+.calculate .results-item .results-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.calculate .results-item h4 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 35px; /* identical to box height, or 146% */
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+    margin-bottom: .3rem;
+}
+
+.calculate .results-item p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px; /* identical to box height, or 125% */
+    letter-spacing: -0.01em;
+    color: var(--color-gold);
+}
+
+.calculate .results-item p span {
+    margin: 0 .25rem;
+}
+
 .about {
     width: 100%;
     background: url(../images/bg-about.png) no-repeat center top;
@@ -553,6 +838,32 @@ input:-internal-autofill-selected,
     font-size: medium;
     padding-top: .8rem;
     padding-bottom: .8rem;
+}
+
+.btn-small {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    /*line-height: 35px;*/ /* identical to box height, or 175% */
+    letter-spacing: -0.01em;
+    padding: 0;
+    margin: 0;
+    width: 1.85rem;
+    height: 1.85rem;
+}
+
+.btn-secondary.btn-small {
+    color: var(--color-gold);
+    background-color: transparent;
+    border:  1px var(--color-gold) solid;
+}
+
+.btn-secondary.btn-small:hover,
+.btn-secondary.btn-small.active {
+    color: var(--color-black);
+    background-color: var(--color-gold);
+    border:  1px var(--color-gold) solid;
+    text-decoration: none;
 }
 
 .btn-lang {
