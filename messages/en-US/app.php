@@ -151,5 +151,5 @@ return [
     'Результаты' => 'Results',
     'Ожидаемый доход' => 'Expected income',
     'Ожидаемая доходность' => 'Expected return',
-    'Истоирческая доходность' => 'Historical returns',
+    'Историческая доходность' => 'Historical returns',
 ];
