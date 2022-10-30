@@ -6,7 +6,7 @@ use Yii;
 use yii\filters\{AccessControl, VerbFilter};
 use yii\web\{Controller, NotFoundHttpException};
 
-use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, OrderAccount, Partner};
+use app\models\{User, UserLogin, UserPasswordRestore, UserOneTimeCode, UserPasswordReset, OrderAccount, Partner, UserVisit};
 
 class SiteController extends Controller
 {
@@ -60,13 +60,16 @@ class SiteController extends Controller
 
         $model = new UserLogin();
 
-        if ( $this->isLogin($model) || !Yii::$app->user->isGuest) {  
+        if ( $this->isLogin($model) || !Yii::$app->user->isGuest) {
+
+            $this->createUserVisit();
+            
             if( Yii::$app->user->identity->role === 'admin' ) {
                 return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
             }
             if( Yii::$app->user->identity->role === 'manager' ) {
                 return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
-            }             
+            }
             return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));
         }
         
@@ -83,12 +86,15 @@ class SiteController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+                $this->createUserVisit();
+
                 if( Yii::$app->user->identity->role === 'admin' ) {
                     return $this->redirect(Yii::$app->urlManager->createUrl(['admin']));
                 }
                 if( Yii::$app->user->identity->role === 'manager' ) {
                     return $this->redirect(Yii::$app->urlManager->createUrl(['manager']));
-                }             
+                }
                 return $this->redirect(Yii::$app->urlManager->createUrl(['investor']));  
             }
         }
@@ -225,4 +231,10 @@ class SiteController extends Controller
         return $user->load( Yii::$app->request->post()) && $user->login();
     }
 
+    private function createUserVisit() {
+        $visit = new UserVisit();
+        $visit->user_id = Yii::$app->user->identity->id;
+        $visit->ip_address = Yii::$app->request->userIP === '::1' ? '127.0.0.1' : Yii::$app->request->userIP;
+        $visit->save();
+    }
 }
