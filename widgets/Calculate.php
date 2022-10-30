@@ -20,6 +20,30 @@ class Calculate extends Widget
     private $view = 'calculate';
 
     /**
+     * Initial input range
+     * @var array
+     */
+    private $initial = null;
+
+    /**
+     * Monthly input range
+     * @var array
+     */
+    private $monthly = null;
+
+    /**
+     * Term input range
+     * @var array
+     */
+    private $term = null;
+
+    /**
+     * Default currency
+     * @var array
+     */
+    private $currency = null;
+
+    /**
      * Investment goals
      * @var array
      */
@@ -50,12 +74,20 @@ class Calculate extends Widget
     public function run() {
         parent::run();
 
+        $this->initial = $this->getInputRangeParam( 'initial' );
+        $this->monthly = $this->getInputRangeParam( 'monthly' );
+        $this->term = $this->getInputRangeParam( 'term' );
+        $this->currency = $this->getDefaultCurrencyParam();
         $this->goals = $this->getInvestmentGoalsParam();
         $this->style = $this->getInvestmentStyleParam();
         $this->results = $this->getInvestmentResultsParam();
         $this->currencies = Currency::find()->asArray()->all();
         
         return $this->render($this->view, [
+            'initial' => $this->initial,
+            'monthly' => $this->monthly,
+            'term' => $this->term,
+            'currency' => $this->currency,
             'goals' => $this->goals,
             'style' => $this->style,
             'results' => $this->results,

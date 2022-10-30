@@ -36,18 +36,26 @@ echo Html::tag(
                     'div', 
                     Html::tag(
                         'p', 
-                        808800,
-                        ['id' => 'initial-investment-value']
+                        null,
+                        [
+                            'id' => 'initial-investment-value',
+                            'data' => [
+                                'min' => $initial['min'],
+                                'max' => $initial['max'],
+                                'step' => $initial['step'],
+                                'value' => $initial['value'],
+                            ]
+                        ]
                     )
                     . Html::ul(
                         $currencies, 
                         [
-                            'item' => function ($item, $index) {
+                            'item' => function ($item, $index) use($currency) {
                                 $options = [];
                                 
                                 $options['class'] = 'btn btn-secondary btn-small';
                                 
-                                if( $index === 0 ) {
+                                if( $currency === $item['sign'] ) {
                                     $options['class'] = 'btn btn-primary btn-small';
                                 }
                                 
@@ -77,18 +85,26 @@ echo Html::tag(
                     'div', 
                     Html::tag(
                         'p', 
-                        15000,
-                        ['id' => 'monthly-investment-value']
+                        null,
+                        [
+                            'id' => 'monthly-investment-value',
+                            'data' => [
+                                'min' => $monthly['min'],
+                                'max' => $monthly['max'],
+                                'step' => $monthly['step'],
+                                'value' => $monthly['value'],
+                            ]
+                        ]
                     )
                     . Html::ul(
                         $currencies, 
                         [
-                            'item' => function ($item, $index) {
+                            'item' => function ($item, $index) use($currency) {
                                 $options = [];
                                 
                                 $options['class'] = 'btn btn-secondary btn-small';
                                 
-                                if( $index === 0 ) {
+                                if( $currency === $item['sign'] ) {
                                     $options['class'] = 'btn btn-primary btn-small';
                                 }
                                 
@@ -113,6 +129,55 @@ echo Html::tag(
             )
             . Html::tag(
                 'section',
+                Html::tag('h4', Yii::t('app', 'Срок инвестиции'))
+                . Html::tag(
+                    'div', 
+                    Html::tag(
+                        'p', 
+                        null,
+                        [
+                            'id' => 'investment-term-value',
+                            'data' => [
+                                'min' => $term['min'],
+                                'max' => $term['max'],
+                                'step' => $term['step'],
+                                'value' => $term['value'],
+                            ]
+                        ]
+                    )
+                    . Html::ul(
+                        $currencies, 
+                        [
+                            'item' => function ($item, $index) use($currency) {
+                                $options = [];
+                                
+                                $options['class'] = 'btn btn-secondary btn-small';
+                                
+                                if( $currency === $item['sign'] ) {
+                                    $options['class'] = 'btn btn-primary btn-small';
+                                }
+                                
+                                return Html::button($item['sign'], $options);                                
+                            },
+                            'id' => 'investment-term-currency',
+                            'class' => 'investment-slider-currency'
+                        ],
+                    ),
+                    ['class' => 'investment-values']
+                )
+                . Html::tag(
+                    'div',
+                    Html::tag(
+                        'div',
+                        null,
+                        ['id' => 'investment-term-handle', 'class' => 'ui-slider-handle']
+                    ),
+                    ['id' => 'investment-term-slider']
+                ),
+                ['class' => 'investment-slider']
+            )
+            . Html::tag(
+                'section',
                 Html::tag('h4', Yii::t('app', 'Инвестиционный стиль'))
                 . Html::tag(
                     'div',
@@ -128,8 +193,8 @@ echo Html::tag(
                                 
                                 return Html::tag(
                                     'li', 
-                                    Html::a(Yii::t('app', $index), Url::to(['/', '#' => $index]))
-                                    . Html::tag('span', '?', ['title' => Yii::t('app', $item), 'class' => 'comment']),
+                                    Html::a(Yii::t('app', $index), Url::to(['/', '#' => $index]), ['data' => ['style' => $item]])
+                                    . Html::tag('span', '?', ['title' => Yii::t('app', $item) . '% ' . Yii::t('app', 'годовых'), 'class' => 'comment']),
                                     $options
                                 );
                             },
@@ -155,7 +220,7 @@ echo Html::tag(
                 )
                 . Html::tag(
                     'p', 
-                    $currencies[0]['sign'] . Html::tag('span', 892350)
+                    $currency . Html::tag('span', 0)
                     ,
                     ['id' => 'expected-income-value']
                 ),
@@ -171,7 +236,7 @@ echo Html::tag(
                 )
                 . Html::tag(
                     'p', 
-                    Html::tag('span', 7.93) . '%'
+                    Html::tag('span', 0) . '%'
                     ,
                     ['id' => 'expected-return-value']
                 ),
@@ -187,7 +252,7 @@ echo Html::tag(
                 )
                 . Html::tag(
                     'p', 
-                    Html::tag('span', 19.25) . '%'
+                    Html::tag('span', 0) . '%'
                     ,
                     ['id' => 'historical-returns-value']
                 ),
