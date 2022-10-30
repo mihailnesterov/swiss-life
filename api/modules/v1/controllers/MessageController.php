@@ -46,7 +46,8 @@ class MessageController extends BaseApiController
     public function actionNew()
     {
         return intval(\app\models\Message::find()
-            ->where(['isRead' => 0])
+            ->where(['receiver_id' => Yii::$app->user->identity->id])
+            ->AndWhere(['isRead' => 0])
             ->count()
         );
     }
