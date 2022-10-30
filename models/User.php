@@ -193,7 +193,8 @@ class User extends \yii\db\ActiveRecord
                 return \app\models\Transaction::find()
                     ->select([
                         new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"),
-                        "$currencyTable.shortName as currency"
+                        "$currencyTable.shortName as currency",
+                        "$currencyTable.sign as sign", 
                     ])
                     ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
                     ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
