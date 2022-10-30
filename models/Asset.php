@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $calculation Калькуляция
  * @property float|null $maximum Исторический максимум 
  * @property float|null $minimum Исторический минимум 
+ * @property float|null $profit Доходность
  * @property int $status Статус
  * @property string $created Дата создания актива
  *
@@ -44,7 +45,7 @@ class Asset extends \yii\db\ActiveRecord
             [['name', 'calculation'], 'required'],
             [['description'], 'string'],
             [['status'], 'boolean'],
-            [['maximum', 'minimum'], 'number'],
+            [['maximum', 'minimum', 'profit'], 'number'],
             [['created'], 'safe'],
             [['name', 'category', 'calculation'], 'string', 'max' => 255],
             [['excerpt'], 'string', 'max' => 512],
@@ -67,6 +68,7 @@ class Asset extends \yii\db\ActiveRecord
             'calculation' => 'Калькуляция',
             'maximum' => 'Исторический максимум', 
             'minimum' => 'Исторический минимум', 
+            'profit' => 'Доходность',
             'status' => 'Статус',
             'created' => 'Дата создания актива',
         ];

@@ -76,25 +76,41 @@ class Account extends \yii\db\ActiveRecord
             'balance' => function () {
                 return floatval(
                     $this->getTransactions()
-                        ->where(['transaction_type_id' => 1]) // 1 = депозит
-                        ->orWhere(['transaction_type_id' => 3]) // 3 = пополнение счета
-                        ->orWhere(['transaction_type_id' => 4]) // 4 = перевод
-                        ->orWhere(['transaction_type_id' => 8]) // 8 = кредит
+                        ->where(['in', 'transaction_type_id', [1,3,4,7,8,9,10]])
+                        // 1 = депозит
+                        // 3 = пополнение счета
+                        // 4 = перевод
+                        // 7 = инвестиция
+                        // 8 = кредит
+                        // 9 = погашение кредита
+                        // 10 = банковский перевод
+                        //->andWhere(['not', ['accepted' => null]])
+                        ->andWhere(["status" => 1])
                         ->sum('sum')
                 );
             },
             'profit' => function () {
                 return floatval(
                     $this->getTransactions()
-                    ->where(['transaction_type_id' => 4]) // 4 = перевод
-                    ->orWhere(['transaction_type_id' => 5]) // 5 = начисление прибыли
+                    ->where(['in', 'transaction_type_id', [4,5,9,10]])
+                    // 4 = перевод
+                    // 5 = начисление прибыли
+                    // 9 = погашение кредита
+                    // 10 = банковский перевод
+                    //->andWhere(['not', ['accepted' => null]])
+                    ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
             },
             'credit' => function () {
                 return floatval(
                     $this->getTransactions()
-                    ->where(['transaction_type_id' => 8]) // 8 = кредит
+                    ->where(['in', 'transaction_type_id', [8,9,10]])
+                    // 8 = кредит
+                    // 9 = погашение кредита
+                    // 10 = банковский перевод
+                    //->andWhere(['not', ['accepted' => null]])
+                    ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
             },
@@ -117,10 +133,12 @@ class Account extends \yii\db\ActiveRecord
                 $sumAll = $this->getTransactions()
                     ->sum('sum');
                 $countNotAccepted = $this->getTransactions()
-                    ->where('accepted IS NULL')
+                    //->where('accepted IS NULL')
+                    ->where(["status" => 0])
                     ->count();
                 $sumNotAccepted = $this->getTransactions()
-                    ->where('accepted IS NULL')
+                    //->where('accepted IS NULL')
+                    ->where(["status" => 0])
                     ->sum('sum');
                 
                 return compact( 

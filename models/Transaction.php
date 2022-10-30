@@ -97,6 +97,13 @@ class Transaction extends \yii\db\ActiveRecord
             'credit' => function () {
                 return $this->sum < 0 ? $this->sum : 0;
             },
+            'balance' => function () {
+                return $this::find()
+                    ->where(['<=', 'id', $this->id])
+                    ->andWhere(['account_id' => $this->account->id])
+                    ->andWhere(['status' => 1])
+                    ->sum('sum');
+            },
             'account' => function () {
                 return [
                     'id' => $this->account->id,

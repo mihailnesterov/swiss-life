@@ -36,6 +36,7 @@ use Yii;
  * @property UserDocument[] $userDocuments
  * @property UserPhoto[] $userPhotos
  * @property Transaction[] $managerTransactions
+ * @property UserVisit[] $userVisits
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -129,6 +130,13 @@ class User extends \yii\db\ActiveRecord
             'userStatus' => function () {
                 return $this->userStatus;
             },
+            'userVisits' => function () {
+                return \app\models\UserVisit::find()
+                    ->where(['user_id' => $this->id])
+                    ->orderBy(['created' => SORT_DESC])
+                    ->limit(5)
+                    ->all();
+            },
             'userAssets' => function () {
                 $transactionsTable = \app\models\Transaction::tableName();
                 $currencyTable = \app\models\Currency::tableName();
@@ -152,6 +160,7 @@ class User extends \yii\db\ActiveRecord
                     ->leftJoin($assetTable, "$assetTable.id = $transactionsTable.asset_id")
                     ->where(["$userTable.id" => $this->id])
                     ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->andWhere(["$transactionsTable.status" => 1])
                     ->asArray()
                     ->all();
             },
@@ -162,7 +171,7 @@ class User extends \yii\db\ActiveRecord
                 $accountTable = \app\models\Account::tableName();
                 return \app\models\Transaction::find()
                     ->select([
-                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"),
+                        new \yii\db\Expression("SUM($transactionsTable.sum * (-1)) AS `total`"),
                         "$currencyTable.sign", 
                         "$currencyTable.shortName as currency"
                     ])
@@ -170,7 +179,29 @@ class User extends \yii\db\ActiveRecord
                     ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
                     ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
                     ->where(["$accountTable.user_id" => $this->id])
+                    ->andWhere(["$transactionsTable.status" => 1])
                     ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->groupBy("$transactionsTable.currency_id")
+                    ->asArray()
+                    ->all();
+            },
+            'userLeverageTotal' => function () {
+                $transactionsTable = \app\models\Transaction::tableName();
+                $transactionTypeTable = \app\models\TransactionType::tableName();
+                $currencyTable = \app\models\Currency::tableName();
+                $accountTable = \app\models\Account::tableName();
+                return \app\models\Transaction::find()
+                    ->select([
+                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `total`"),
+                        "$currencyTable.shortName as currency"
+                    ])
+                    ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
+                    ->leftJoin($accountTable, "$accountTable.id = $transactionsTable.account_id")
+                    ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
+                    ->where(["$accountTable.user_id" => $this->id])
+                    ->andWhere(["$transactionsTable.status" => 1])
+                    //->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    ->andWhere(['in', "$transactionsTable.transaction_type_id", [8,9]])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -239,7 +270,7 @@ class User extends \yii\db\ActiveRecord
                     ->where(["$transactionsTable.manager_id" => $this->id])
                     ->andWhere(['>', "$transactionsTable.sum", 0])
                     ->andWhere(["$transactionsTable.status" => 1])
-                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    //->andWhere(['not', ["$transactionsTable.accepted" => null]])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -257,7 +288,7 @@ class User extends \yii\db\ActiveRecord
                     ->where(["$transactionsTable.manager_id" => $this->id])
                     ->andWhere(['<', "$transactionsTable.sum", 0])
                     ->andWhere(["$transactionsTable.status" => 1])
-                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    //->andWhere(['not', ["$transactionsTable.accepted" => null]])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -274,7 +305,7 @@ class User extends \yii\db\ActiveRecord
                     ->leftJoin($currencyTable, "$currencyTable.id = $transactionsTable.currency_id")
                     ->where(["$transactionsTable.manager_id" => $this->id])
                     ->andWhere(["$transactionsTable.status" => 1])
-                    ->andWhere(['not', ["$transactionsTable.accepted" => null]])
+                    //->andWhere(['not', ["$transactionsTable.accepted" => null]])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -295,6 +326,7 @@ class User extends \yii\db\ActiveRecord
                     ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
                     ->where(["$userTable.manager_id" => $this->id])
                     ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->andWhere(["$transactionsTable.status" => 1])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -315,6 +347,7 @@ class User extends \yii\db\ActiveRecord
                     ->leftJoin($userTable, "$userTable.id = $accountTable.user_id")
                     ->where(["$userTable.manager_id" => $this->id])
                     ->andWhere(["$transactionsTable.transaction_type_id" => 7])
+                    ->andWhere(["$transactionsTable.status" => 1])
                     ->groupBy("$transactionsTable.currency_id")
                     ->asArray()
                     ->all();
@@ -448,6 +481,16 @@ class User extends \yii\db\ActiveRecord
     public function getManagerTransactions() 
     { 
         return $this->hasMany(Transaction::className(), ['manager_id' => 'id']); 
+    }
+
+    /**
+    * Gets query for [[UserVisits]].
+    *
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUserVisits()
+    {
+        return $this->hasMany(UserVisit::className(), ['user_id' => 'id']);
     }
 
     /**
