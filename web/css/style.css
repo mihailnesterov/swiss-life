@@ -86,6 +86,7 @@ a:hover {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    width: 100%;
     height: 100px;
     overflow: hidden;
 }
@@ -121,7 +122,62 @@ a:hover {
     gap: 2rem;
 }
 
+.main-menu li a {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: .95rem;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    color: var(--color-gray);
+}
+
 .main-menu li.active a {
+    color: var(--color-gold);
+}
+
+.languages-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+}
+
+.languages-menu select {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: var(--color-light);
+    outline: 0;
+    border: 1px var(--color-light) solid;
+    padding: .65rem .15rem .65rem .35rem;
+    box-sizing: border-box;    
+}
+
+.languages-menu select:hover {
+    cursor: pointer;
+}
+
+.languages-menu select option {
+    background-color: var(--color-dark);
+}
+
+.languages-menu button {
+    padding: 0.2rem 0.5rem;
+    border: 1px var(--color-light) solid;
+    color: var(--color-light);
+}
+
+.languages-menu button.active {
+    border: 1px var(--color-gold) solid;
     color: var(--color-gold);
 }
 
@@ -131,6 +187,14 @@ a:hover {
     align-items: center;
     justify-content: flex-end;
     gap: 2rem;
+}
+
+.hamburger {
+    display: none;
+}
+
+#mobile-menu-layer {
+    display: none;
 }
 
 .main {
@@ -171,7 +235,6 @@ a:hover {
 }
 
 .calculate {
-    /*display: none;*/ /* hide calculate */
     margin: 0 auto;
     max-width: 1260px;   
     background-color: var(--color-black);
@@ -844,7 +907,6 @@ input:-internal-autofill-selected,
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    /*line-height: 35px;*/ /* identical to box height, or 175% */
     letter-spacing: -0.01em;
     padding: 0;
     margin: 0;
@@ -1101,6 +1163,144 @@ input:-internal-autofill-selected,
     color: var(--color-red);
 }
 
+@media (max-width: 1280.98px) {
+    .header {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background: transparent;
+    }
+    .logo figure {
+        gap: .785rem;
+    }
+    .logo figure img {
+        width: 50px;
+        height: 40px;
+    }
+    .logo figure figcaption {
+        font-size: 10px;
+        line-height: 10px;
+    }
+    .main-menu {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+    #mobile-menu-layer {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: inherit;
+        margin: 0;
+        padding: 0;
+        background-color: rgba(30, 27, 27, 0.65);
+    }
+    #mobile-menu-layer .aside {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2rem;
+        background-color: var(--color-black);
+        width: 260px;
+        max-width: 65%;
+        min-height: 100vh;
+        height: 100%;
+        padding: 1.9rem 2rem;
+    }
+    #mobile-menu-layer .aside .nav .main-menu li {
+        margin-bottom: .75rem;
+    }
+    #mobile-menu-layer .aside .nav .main-menu li a {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: .9rem;
+        line-height: 20px;
+        text-align: left;
+        letter-spacing: -0.025em;
+    }
+    #mobile-menu-layer .aside .languages-menu {
+        display: none;
+    }
+    #mobile-menu-layer .aside .btn.btn-secondary.btn-medium {
+        display: none;
+    }
+    .our-partners ul li {
+        padding: 4rem;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .languages-menu select {
+        font-size: 1rem;
+        padding: .5rem .12rem .5rem .25rem;
+    }
+}
+
+@media (max-width: 1024.98px) {
+    .main-menu li a {
+        font-size: .8rem;
+    }
+    .calculate .row .results {
+        padding: 3rem;
+    }
+    .about {
+        padding: 50px 2rem 100px 2rem;
+    }
+    .about p {
+        font-size: 18px;
+        line-height: 30px;
+    }
+    .about-list {
+        max-width: 980px;
+    }
+    .about-list__item {
+        flex: 0 1 30%;
+    }
+    .about-list__item h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .nsm-account h2 {
+        margin-bottom: 4rem;
+    }
+    .nsm-account-list {
+        gap: 2rem;
+    }
+    .nsm-account-list__item {
+        flex: 0 1 45%;
+        min-height: 380px;
+        padding: 2.5rem 2rem;
+    }
+    .nsm-account-list__item p:first-child {
+        margin-bottom: 2rem;
+    }
+    .create-account {
+        padding: 4rem 2rem;
+        margin-bottom: 80px;
+    }
+    .create-account h2 {
+        margin: 0 auto;
+        max-width: 740px;
+        font-size: 50px;
+        line-height: 45px;
+        margin-bottom: 2rem;
+    }
+    .our-partners ul li {
+        padding: 3rem;
+    }
+    .footer {
+        padding: 3rem 2rem;
+    }
+    .footer > * > * {
+        flex: 0 1 30%;
+        gap: .75rem;
+    }
+}
 
 @media (max-width: 991.98px) {
     .toTop {
@@ -1108,7 +1308,393 @@ input:-internal-autofill-selected,
         right: 19px;
         font-size: 4em;
     }
+    .languages-menu select option {
+        font-size: 1rem;
+    }
+    .first-screen h1 {
+        font-size: 60px;
+        line-height: 60px;
+        margin: 100px auto 50px auto;
+        max-width: 720px;
+    }
+    .calculate .row {
+        display: block;
+        align-items: unset;
+        justify-content: unset;
+        flex-wrap: unset;
+        gap: unset;
+    }
+    .calculate .investment-values {
+        max-width: 400px;
+    }
+    .calculate .ui-slider-horizontal {
+        max-width: 400px;
+    }
+    .about-list {
+        max-width: 760px;
+    }
+    .about-list__item {
+        flex: 0 1 45%;
+        max-width: 340px;
+    }
+    .nsm-account h2 {
+        margin: 0 auto;
+        margin-bottom: 5rem;
+        max-width: 640px;
+        font-size: 45px;
+    }
+    .nsm-account-list {
+        padding: 0 1rem;
+    }
+    .nsm-account-list__item {
+        flex: 0 1 45%;
+        max-width: unset;
+        min-height: 450px;
+        padding: 2.5rem 2rem;
+    }
+    .nsm-account-list__item p:first-child {
+        margin-bottom: 2.5rem;
+    }
+    .create-account {
+        margin-bottom: 100px;
+    }
+    .create-account h2 {
+        font-size: 50px;
+        line-height: 45px;
+        max-width: 640px;
+    }
+    .our-partners ul {
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    .our-partners ul li {
+        flex: 0 1 45%;
+        padding: 4rem;
+    }
+    .footer {
+        padding: 2rem;
+    }
+    .footer > * {
+        justify-content: center;
+        gap: 1rem;
+    }
+    .footer > * > * {
+        align-items: center;
+        flex: 1 1 100%;
+        gap: .75rem;
+    }
+    .footer > * > * > p {
+        font-size: .8rem;
+        max-width: 200px;
+        text-align: center;
+    }
+    .login {
+        margin: 0 auto;
+        max-width: unset;
+        padding: 1.5rem 2rem;
+        background-color: var(--color-dark);
+    }
+    .login h1 {
+        font-size: 45px;
+        line-height: 45px;
+        color: var(--color-light);
+        max-width: 620px;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+    }
+    .login h1.text-left,
+    .login h2.text-left {
+        text-align: center !important;
+    }
+    .toTop {
+        bottom: 19px;
+        right: 19px;
+        font-size: 3em;
+    }
 }
 @media (max-width: 767.98px) {
-
+    .languages-menu {
+        display: none;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    .languages-menu button {
+        padding: 0.15rem 0.25rem;
+        width: 31px;
+        height: 31px;
+    }
+    .languages-menu select {
+        font-size: 14px;
+    }
+    .header .auth .btn.btn-secondary.btn-medium {
+        display: none;
+        font-size: 14px;
+        padding: 0.687rem 1.5rem;
+    }
+    #mobile-menu-layer .aside .languages-menu {
+        display: flex;
+        justify-content: flex-start;
+    }
+    #mobile-menu-layer .aside .btn.btn-secondary.btn-medium {
+        display: block;
+        font-size: 14px;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding: 0.55rem 1rem;
+    }
+    .first-screen h1 {
+        font-size: 35px;
+        line-height: 35px;
+        margin: 80px auto 20px auto;
+    }
+    .first-screen p {
+        max-width: 330px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .first-screen a {
+        margin-bottom: 125px;
+        font-size: 14px;
+        line-height: 35px;
+        padding: 0.5rem 1.5rem;
+    }
+    .calculate {
+        padding: 2rem 2rem 1.5rem 2rem;
+        margin-bottom: 1.25rem;
+    }
+    .calculate h2 {
+        font-weight: 600;
+        font-size: 25px;
+        line-height: 25px;
+        max-width: 300px;
+        margin-bottom: 1.1rem;
+    }
+    .calculate .subtitle {
+        max-width: 328px;
+        font-size: 1rem;
+        line-height: 25px;
+        margin-bottom: 2rem;
+    }
+    .calculate h3 {
+        font-size: .95rem;
+        line-height: 25px;
+    }
+    .calculate h4 {
+        font-size: .9rem;
+        margin-bottom: 1.25rem;
+        line-height: 25px;
+        text-align: center;
+    }
+    .calculate .goals h3 {
+        margin-bottom: 1.25rem;
+    }
+    .calculate .goals-list {
+        margin-bottom: 1.5rem;
+    }
+    .calculate .goals-list li {
+        line-height: 1;
+    }
+    .calculate .goals-list a {
+        font-size: .95rem;
+        line-height: 1;
+    }
+    .calculate .row {
+        display: block;
+        align-items: unset;
+        justify-content: unset;
+        flex-wrap: unset;
+        gap: unset;
+    }
+    .calculate .row > * {
+        flex: unset;
+        text-align: center;
+        margin-bottom: 1.25rem;
+    }
+    .calculate .row .results {
+        padding: 3rem;
+        margin-bottom: 2rem;
+    }
+    .calculate .results-item:last-child {
+        margin-bottom: 0;
+    }
+    .calculate .results-item .results-item-header {
+        justify-content: center;
+        gap: .75rem;
+    }
+    .calculate .results-item h4 {
+        font-size: .95rem;
+        line-height: 30px;
+        margin-bottom: 0;
+    }
+    .calculate .results-item p {
+        font-size: 1.5rem;
+    }
+    .calculate .ui-slider-horizontal {
+        max-width: unset;
+    }
+    .calculate .investment-values {
+        max-width: unset;
+        margin-bottom: .25rem;
+    }
+    .calculate .investment-style-list a {
+        font-size: .95rem;
+        line-height: 1;
+    }
+    .calculate .investment-style-list .comment, .calculate .results-item .comment {
+        font-size: 11px;
+        width: 0.95rem;
+        height: 0.95rem;
+    }
+    .about {
+        width: 100%;
+        padding: 4rem 0 6rem 0;
+    }
+    .about h2 {
+        font-size: 25px;
+        line-height: 25px;
+        margin-bottom: .9rem;
+        max-width: 315px;
+    }
+    .about p {
+        font-size: .9rem;
+        line-height: 25px;
+    }
+    .about p.about-excerpt {
+        font-size: .9rem;
+        line-height: 20px;
+        margin-bottom: 40px;
+        max-width: 328px;
+    }
+    .about-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .about-list__item {
+        flex: 1;
+        max-width: 328px;
+    }
+    .about-list__item h3 {
+        font-size: .95rem;
+        line-height: 20px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+    .nsm-account {
+        padding: 0 2rem 4.7rem 2rem;
+    }
+    .nsm-account h2 {
+        font-size: 1.562rem;
+        line-height: 30px;
+        margin: 0 auto;
+        margin-bottom: 1.35rem;
+        max-width: 328px;
+    }
+    .nsm-account-list {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.56rem;
+    }
+    .nsm-account-list__item {
+        flex: 1 1 100%;
+        max-width: unset;
+        min-height: unset;
+        padding: 1.5rem;
+    }
+    .nsm-account-list__item h3 {
+        font-size: .95rem;
+        line-height: 20px;
+        margin-bottom: .625rem;
+    }
+    .nsm-account-list__item p {
+        font-size: .9rem;
+        line-height: 20px;
+        max-width: 298px;
+    }
+    .nsm-account-list__item p:first-child {
+        margin-bottom: 1rem;
+    }
+    .create-account {
+        padding: 1.875rem 1.5rem;
+        margin-bottom: 5rem;
+    }
+    .create-account h2 {
+        font-size: 25px;
+        line-height: 25px;
+        margin: 0 auto 1.25rem auto;
+        max-width: 328px;
+    }
+    .create-account p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 1.25rem;
+    }
+    .create-account .btn-group {     
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: .625rem;
+    }
+    .our-partners {
+        margin-bottom: 5rem;
+    }
+    .our-partners h2 {
+        font-size: 25px;
+        line-height: 25px;
+        letter-spacing: -0.025em;
+        margin-bottom: 1.25rem;
+    }
+    .our-partners ul {
+        gap: 1.5rem;
+        padding: 0 2rem;
+    }
+    .our-partners ul li {
+        flex: 1 1 100%;
+        padding: 3.125rem;
+    }
+    .contact-us {
+        gap: .5rem;
+        padding: 2rem;
+        margin-bottom: 80px;
+    }
+    .contact-us h2 {
+        font-size: 25px;
+        line-height: 25px;
+        margin-bottom: .5rem;
+    }
+    .contact-us a {
+        font-size: .9rem;
+        line-height: 25px;
+    }
+    .login h1 {
+        font-size: 35px;
+        line-height: 35px;
+        color: var(--color-light);
+        max-width: unset;
+        margin: 0;
+        margin-bottom: 2rem;
+    }
+    .login h2.text-left {
+        line-height: 25px;
+    }
+    .login-list {
+        display: block;
+        align-items: unset;
+        justify-content: unset;
+        flex-wrap: unset;
+        gap: unset;
+    }
+    .form-submit-group {
+        margin: 0;
+    }
+    .toTop {
+        bottom: 19px;
+        right: 19px;
+        font-size: 2.5em;
+    }
 }
