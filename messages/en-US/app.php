@@ -152,4 +152,6 @@ return [
     'Ожидаемый доход' => 'Expected income',
     'Ожидаемая доходность' => 'Expected return',
     'Историческая доходность' => 'Historical returns',
+    'Срок инвестиции' => 'Investment term',
+    'годовых' => 'annual',
 ];
