@@ -19,6 +19,25 @@ trait ConfigParamsTrait {
     }
 
     /**
+     * Get calculate input range param.
+     * 
+     * @param string
+     * @return array
+     */
+    public function getInputRangeParam( $input ) {
+        return Yii::$app->params['calculate'][$input];
+    }
+
+    /**
+     * Get calculate default currency param.
+     * 
+     * @return array
+     */
+    public function getDefaultCurrencyParam() {
+        return Yii::$app->params['calculate']['currency'];
+    }
+
+    /**
      * Get calculate investment goals param.
      * 
      * @return array
