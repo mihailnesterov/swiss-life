@@ -41,7 +41,7 @@
 
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="viewport" content="ya-title=#4e69a2,ya-dock=fade">
+        <!--<meta name="viewport" content="ya-title=#4e69a2,ya-dock=fade">-->
 
         <?= $this->registerLinkTag(['rel' => 'apple-touch-icon', 'sizes' => '76x76', 'href' => 'favicon/apple-touch-icon.png']) ?>
         <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => 'favicon/favicon-32x32.png']) ?>
