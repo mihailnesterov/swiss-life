@@ -13,7 +13,7 @@ use Yii;
  * @property int|null $asset_id id актива 
  * @property int $currency_id id валюты
  * @property int $transaction_type_id id типа транзакции
- * @property int $sum Сумма транзакции
+ * @property float $sum Сумма транзакции
  * @property string|null $description Описание
  * @property int $status Статус
  * @property string|null $accepted Дата принятия
@@ -43,7 +43,8 @@ class Transaction extends \yii\db\ActiveRecord
     {
         return [
             [['account_id', 'manager_id', 'currency_id', 'transaction_type_id', 'sum'], 'required'],
-            [['account_id', 'manager_id', 'asset_id', 'currency_id', 'transaction_type_id', 'sum', 'status'], 'integer'],
+            [['account_id', 'manager_id', 'asset_id', 'currency_id', 'transaction_type_id', 'status'], 'integer'],
+            [['sum'], 'number'],
             [['accepted', 'rejected', 'created'], 'safe'],
             [['description'], 'string', 'max' => 512],
             [['account_id'], 'exist', 'skipOnError' => true, 'targetClass' => Account::className(), 'targetAttribute' => ['account_id' => 'id']],
