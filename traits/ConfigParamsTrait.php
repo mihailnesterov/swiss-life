@@ -67,7 +67,7 @@ trait ConfigParamsTrait {
     /**
      * Get repay credit percent param.
      * 
-     * @return array
+     * @return double
      */
     public function getRepayCreditPercentParam() {
         return Yii::$app->params['credit']['repay']['monthly'];
