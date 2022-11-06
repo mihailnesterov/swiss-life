@@ -295,8 +295,6 @@ const TransferForm = () => {
                 (loading || sending) ?
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
-                
-                    <h3><Trans>Перевод средств другому пользователю</Trans></h3>
 
                     <fieldset>
 
@@ -354,6 +352,7 @@ const TransferForm = () => {
                             <input 
                                 id="transfer-sum"
                                 type='number' 
+                                min='0'
                                 className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`${t({
                                     id: 'Сумма', 
@@ -388,9 +387,8 @@ const TransferForm = () => {
                         {
                             currencySelected && 
                             currencySelected.sign && 
-                            profit &&
                             <h3>
-                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Доступно для перевода</Trans>:</small> <span className={profit ? null : 'text-red'}>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -399,7 +397,7 @@ const TransferForm = () => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
+                        <small className='text-red'><Trans>Сумма превышает максимально доступную</Trans></small>
                     }
                     
                     {
@@ -413,6 +411,7 @@ const TransferForm = () => {
                             (
                                 inputValue === '' || 
                                 inputValue === 0 || 
+                                inputValue === '0' ||
                                 inputSearchValue === '' || 
                                 !users || 
                                 users.length !== 1 ||
