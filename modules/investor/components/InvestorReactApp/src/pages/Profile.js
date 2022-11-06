@@ -1,16 +1,12 @@
 import React from 'react';
-import PageLayout from '../layouts/PageLayout';
+import PageLayoutWithoutTitle from '../layouts/PageLayoutWithoutTitle';
 import ProfilePage from '../components/profile';
-import { t } from '@lingui/macro';
 
 const Profile = () => {
     return (
-        <PageLayout title={t({
-            id: 'Мой профиль', 
-            message: 'Мой профиль'
-        })}>
+        <PageLayoutWithoutTitle>
             <ProfilePage />
-        </PageLayout>
+        </PageLayoutWithoutTitle>
     )
 }
 

@@ -6,8 +6,8 @@ import { t } from '@lingui/macro';
 const Transfer = () => {
     return (
         <PageLayout title={t({
-            id: 'Перевод средств', 
-            message: 'Перевод средств'
+            id: 'Внутренний перевод', 
+            message: 'Внутренний перевод'
         })}>
             <TransferPage />
         </PageLayout>
