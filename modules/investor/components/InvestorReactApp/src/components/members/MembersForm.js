@@ -133,8 +133,6 @@ const MembersForm = () => {
 
                     </fieldset>
 
-                    <hr />
-
                     <button 
                         type='submit' 
                         disabled={

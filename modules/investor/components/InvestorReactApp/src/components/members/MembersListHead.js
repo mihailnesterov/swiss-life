@@ -4,14 +4,14 @@ import { Trans } from '@lingui/macro';
 const MembersListHead = () => {
 
     return (
-        <div>
-            <h4><Trans>№</Trans></h4>
-            <h4><Trans>ФИО</Trans></h4>
-            <h4>Email</h4>
-            <h4><Trans>Активен</Trans></h4>
-            <h4><Trans>Верифицирован</Trans></h4>
-            <h4><Trans>Статус</Trans></h4>
-        </div>
+        <tr>
+            <th><Trans>№</Trans></th>
+            <th><Trans>ФИО</Trans></th>
+            <th><Trans>Email</Trans></th>
+            <th><Trans>Активен</Trans></th>
+            <th><Trans>Верифицирован</Trans></th>
+            <th><Trans>Статус</Trans></th>
+        </tr>
     )
 }
 

@@ -11,16 +11,20 @@ const MembersList = (props) => {
     return (
         <div className='members-list'>
             <MembersForm />
-            <MembersListHead />
-            <div>
-                {
-                    loading ?
-                    <Spinner size={2} /> :
-                    members &&
-                    members.length > 0 &&
-                    members.map((item,i) => <MembersListItem key={item.id} num={i} item={item} />)
-                }
-            </div>
+            <table>
+                <thead>
+                    <MembersListHead />
+                </thead>
+                <tbody>
+                    {
+                        loading ?
+                        <Spinner size={2} /> :
+                        members &&
+                        members.length > 0 &&
+                        members.map((item,i) => <MembersListItem key={item.id} num={i} item={item} />)
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }
