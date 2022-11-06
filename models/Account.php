@@ -76,15 +76,11 @@ class Account extends \yii\db\ActiveRecord
             'balance' => function () {
                 return floatval(
                     $this->getTransactions()
-                        ->where(['in', 'transaction_type_id', [1,3,4,7,8,9,10]])
+                        ->where(['in', 'transaction_type_id', [1,3,8,9]])
                         // 1 = депозит
                         // 3 = пополнение счета
-                        // 4 = перевод
-                        // 7 = инвестиция
                         // 8 = кредит
                         // 9 = погашение кредита
-                        // 10 = банковский перевод
-                        //->andWhere(['not', ['accepted' => null]])
                         ->andWhere(["status" => 1])
                         ->sum('sum')
                 );
@@ -97,7 +93,6 @@ class Account extends \yii\db\ActiveRecord
                     // 5 = начисление прибыли
                     // 9 = погашение кредита
                     // 10 = банковский перевод
-                    //->andWhere(['not', ['accepted' => null]])
                     ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
@@ -109,7 +104,6 @@ class Account extends \yii\db\ActiveRecord
                     // 8 = кредит
                     // 9 = погашение кредита
                     // 10 = банковский перевод
-                    //->andWhere(['not', ['accepted' => null]])
                     ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
@@ -133,11 +127,9 @@ class Account extends \yii\db\ActiveRecord
                 $sumAll = $this->getTransactions()
                     ->sum('sum');
                 $countNotAccepted = $this->getTransactions()
-                    //->where('accepted IS NULL')
                     ->where(["status" => 0])
                     ->count();
                 $sumNotAccepted = $this->getTransactions()
-                    //->where('accepted IS NULL')
                     ->where(["status" => 0])
                     ->sum('sum');
                 
