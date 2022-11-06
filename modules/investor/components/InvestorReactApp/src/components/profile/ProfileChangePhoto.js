@@ -1,13 +1,19 @@
 import React, {useState, useEffect} from 'react';
+import { useActions } from '../../hooks/useActions';
+import GoBackBtn from '../common/buttons/GoBackBtn';
 import UploadImageFile from '../common/form/UploadImageFile';
+import Spinner from '../common/loader/Spinner';
 import {uploadFile} from '../../api/file';
 import {setUserPhoto} from '../../api/user';
+import {setPageTitle} from '../../utils/navbar';
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import { Trans, t } from '@lingui/macro';
 
 const ProfileChangePhoto = (props) => {
 
     const {user} = props;
+
+    const {fetchUserAuthorizedExpanded} = useActions();
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -21,6 +27,7 @@ const ProfileChangePhoto = (props) => {
         }
     }, [user]);
     
+    const [loading, setLoading] = useState(false);
     const [isImageChanged, setImageChanged] = useState(false);
 
     const handleSubmitForm = e => {
@@ -31,6 +38,7 @@ const ProfileChangePhoto = (props) => {
             const {data, name, ext} = selectedFile;
             uploadFile({data, name, ext})
                 .then(file => {
+                    setLoading(true);
                     setUserPhoto({
                         user_id: user.id,
                         file_id: file.data.id,
@@ -43,7 +51,11 @@ const ProfileChangePhoto = (props) => {
                             id: 'Ошибка при сохранении фото!', 
                             message: 'Ошибка при сохранении фото!'
                         }), err))
-                        .finally(() => setImageChanged(false));
+                        .finally(() => {
+                            fetchUserAuthorizedExpanded();
+                            setImageChanged(false);
+                            setLoading(false);
+                        });
                 })
                 .catch(err => getToastError(t({
                     id: 'Ошибка при загрузке файла!', 
@@ -53,20 +65,50 @@ const ProfileChangePhoto = (props) => {
     };
 
     return (
-        <div className='form-container'>
-            <form onSubmit={handleSubmitForm}>
-                <h3><Trans>Изменить фото</Trans></h3>
-                <fieldset>
-                    <UploadImageFile 
-                        name="fileName"
-                        selectedFile={selectedFile}
-                        setSelectedFile={setSelectedFile}
-                        setImageChanged={setImageChanged}
-                    />
-                </fieldset>
-                <button disabled={isImageChanged ? false : true} type='submit'><Trans>Сохранить</Trans></button>
-            </form>
-        </div>
+        <>
+            <div
+                onClick={() => setPageTitle(t({
+                    id: 'Мой профиль', 
+                    message: 'Мой профиль'
+                }))}
+            >
+                <GoBackBtn
+                    url='profile'
+                    title={t({
+                        id: 'Вернуться в профиль', 
+                        message: 'Вернуться в профиль'
+                    })}
+                />
+            </div>
+            <div>
+                <h1><Trans>Изменить фото</Trans></h1>
+            </div>
+            {
+                loading ?
+                <Spinner size={2} /> :
+                <div className='form-container'>                
+                    <form onSubmit={handleSubmitForm}>
+                        <fieldset>
+                            <UploadImageFile 
+                                name="fileName"
+                                selectedFile={selectedFile}
+                                setSelectedFile={setSelectedFile}
+                                setImageChanged={setImageChanged}
+                            />
+                        </fieldset>
+                        <fieldset>
+                            <button 
+                                type='submit'
+                                disabled={isImageChanged ? false : true}
+                                className='btn btn-gold'
+                            >
+                                <Trans>Сохранить</Trans>
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            }
+        </>
     )
 }
 
