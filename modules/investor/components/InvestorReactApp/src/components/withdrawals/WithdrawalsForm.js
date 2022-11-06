@@ -141,14 +141,13 @@ const WithdrawalsForm = () => {
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
                 
-                    <h3><Trans>Заявка на вывод средств</Trans></h3>
-
                     <fieldset>
                         <label htmlFor="withdrawal-sum">
                             <span><Trans>Сумма</Trans></span>
                             <input 
                                 id="withdrawal-sum"
                                 type='number' 
+                                min='0'
                                 className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
@@ -179,10 +178,9 @@ const WithdrawalsForm = () => {
                         }
                         {
                             currencySelected && 
-                            currencySelected.sign && 
-                            profit &&
+                            currencySelected.sign &&
                             <h3>
-                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Доступно для вывода</Trans>:</small> <span className={profit ? null : 'text-red'}>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -191,12 +189,12 @@ const WithdrawalsForm = () => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
+                        <small className='text-red'><Trans>Сумма превышает максимально доступную</Trans></small>
                     }
 
                     <button 
                         type='submit' 
-                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
+                        disabled={((inputValue === '' || inputValue === 0 || inputValue === '0') || (inputValue > profit)) ? true : false}
                     ><Trans>Отправить заявку</Trans></button>
 
                 </form>
