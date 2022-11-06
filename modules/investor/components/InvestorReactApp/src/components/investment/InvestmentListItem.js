@@ -9,22 +9,29 @@ const InvestmentListItem = (props) => {
 
     return (
         <div>
-            {
-                item.assetFiles && 
-                item.assetFiles.length > 0 &&
-                <Link to={`${BASE_URL}/investment/${item.id}`}>
-                    <img 
-                        src={item.assetFiles[0].url} 
-                        alt={item.assetFiles[0].name} 
-                    />
-                </Link>
-            }
             <div>
                 <h3>{item.name}</h3>
                 <p>{item.excerpt}</p>
+                {
+                    (item.maximum || item.minimum) &&
+                    <div>
+                        {
+                            item.maximum &&
+                            <p><small><Trans>Исторический максимум</Trans>: {item.maximum.replace('.', ',')}%</small></p>
+                        }
+                        {
+                            item.minimum &&
+                            <p><small><Trans>Исторический минимум</Trans>: {item.minimum.replace('.', ',')}%</small></p>
+                        }
+                    </div>
+                }
+            </div>
+            <div>
                 <p><Trans>Стоимость</Trans>: <b>{item.calculation}</b></p>
-                <Link className='btn btn-more mr-1' to={`${BASE_URL}/investment/${item.id}`}><Trans>Подробнее...</Trans></Link>
-                <Link className='btn btn-red' to={`${BASE_URL}/invest/${item.id}`}><Trans>Инвестировать</Trans></Link>
+                <div>
+                    <Link className='btn btn-default' to={`${BASE_URL}/investment/${item.id}`}><Trans>Подробнее</Trans></Link>
+                    <Link className='btn btn-gold' to={`${BASE_URL}/invest/${item.id}`}><Trans>Инвестировать</Trans></Link>
+                </div>
             </div>
         </div>
     )

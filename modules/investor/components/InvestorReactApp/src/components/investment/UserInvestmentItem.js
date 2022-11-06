@@ -10,7 +10,7 @@ const UserInvestmentItem = (props) => {
         <div>
             <p><Trans>Объект</Trans>: <b>{item.name}</b></p>
             <p><Trans>Дата</Trans>: <b>{getDateToString(item.created)}</b></p>
-            <p><Trans>Сумма</Trans>: <b>{item.sum} {item.sign}</b></p>
+            <p><Trans>Сумма</Trans>: <b>{item.sum > 0 ? item.sum : (item.sum * (-1))} {item.sign}</b></p>
         </div>
     )
 }

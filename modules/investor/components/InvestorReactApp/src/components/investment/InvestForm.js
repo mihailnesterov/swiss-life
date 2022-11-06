@@ -4,6 +4,7 @@ import { useActions } from '../../hooks/useActions';
 import Spinner from '../common/loader/Spinner';
 import {createMessage} from '../../api/message';
 import FormSent from '../common/form/FormSent';
+import BtnLink from '../common/buttons/BtnLink';
 import { Trans, t } from '@lingui/macro';
 
 const InvestForm = (props) => {
@@ -138,33 +139,20 @@ const InvestForm = (props) => {
 
     return (
         <div className='form-container'>
-            <h3>{asset.name}</h3>
-            <div className='invest-info'>
-                <div>
-                    {
-                        asset.assetFiles &&
-                        asset.assetFiles.length > 0 &&
-                        <img src={asset.assetFiles[0].url} alt={asset.assetFiles[0].name} />
-                    }
-                    <div>
-                        <p>{asset.description}</p>
-                        <p><Trans>Калькуляция</Trans>: <b>{asset.calculation}</b></p>
-                    </div>
-                </div>
-                
-                
-            </div>
             {
                 (loading || sending) ?
                 <Spinner size={2} /> :
                 <form onSubmit={onSubmitHandler}>
+                    
+                    <h2>{asset.name}</h2>
 
                     <fieldset>
                         <label htmlFor="invest-sum">
                             <span><Trans>Сумма инвестиций</Trans></span>
                             <input 
                                 id="invest-sum"
-                                type='number' 
+                                type='number'
+                                min='0'
                                 className={inputValue > profit ? 'text-red' : null}
                                 placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
@@ -195,10 +183,9 @@ const InvestForm = (props) => {
                         }
                         {
                             currencySelected && 
-                            currencySelected.sign && 
-                            profit &&
+                            currencySelected.sign &&
                             <h3>
-                                <small><Trans>Накопленные средства</Trans>:</small> <span>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Доступно для инвестирования</Trans>:</small> <span className={profit ? null : 'text-red'}>{currencySelected.sign} {profit}</span>
                             </h3>
                         }
                     </fieldset>
@@ -207,13 +194,23 @@ const InvestForm = (props) => {
 
                     {
                         (inputValue > profit) &&
-                        <small className='text-red'><Trans>Сумма превышает накопленные средства</Trans></small>
+                        <small className='text-red'><Trans>Сумма превышает максимально доступную</Trans></small>
                     }
 
-                    <button 
-                        type='submit' 
-                        disabled={((inputValue === '' || inputValue === 0) || (inputValue > profit)) ? true : false}
-                    ><Trans>Отправить заявку</Trans></button>
+                    <fieldset>
+                        <button 
+                            type='submit' 
+                            disabled={((inputValue === '' || inputValue === 0 || inputValue === '0') || (inputValue > profit)) ? true : false}
+                        ><Trans>Отправить заявку</Trans></button>
+                        <BtnLink
+                            title={t({
+                                id: 'Подробнее', 
+                                message: 'Подробнее'
+                            })}
+                            resource={`investment/${asset.id}`}
+                            className="btn btn-default"
+                        />
+                    </fieldset>
 
                 </form>
             }

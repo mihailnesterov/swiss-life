@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import { useActions } from '../../hooks/useActions';
 import { Trans } from '@lingui/macro';
 
@@ -8,11 +8,18 @@ const AssetCategoriesFilter = (props) => {
 
     const {fetchAssets} = useActions();
 
+    const [active, setActive] = useState(null);
+
+    useMemo(() => {
+        setActive('Все');
+    }, []);
+
     const setActiveCategory = (item) => {
         if ( item === 'Все' )
             fetchAssets();
         else
             fetchAssets({'category':item});
+        setActive(item);
     }
 
     return (
@@ -20,6 +27,7 @@ const AssetCategoriesFilter = (props) => {
             <ul>
                 <li>
                     <button
+                        className={active === 'Все' ? 'active' : null}
                         onClick={() => setActiveCategory('Все')}
                     ><Trans>Все</Trans></button>
                 </li>
@@ -27,6 +35,7 @@ const AssetCategoriesFilter = (props) => {
                     categories.map(item => 
                         <li key={item}>
                             <button 
+                                className={active === item ? 'active' : null}
                                 onClick={() => setActiveCategory(item)}
                             >{item}</button>
                         </li>

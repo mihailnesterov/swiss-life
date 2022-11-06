@@ -5,7 +5,6 @@ import Pagination from '../common/pagination';
 import InvestmentListItem from './InvestmentListItem';
 import Spinner from '../common/loader/Spinner';
 import AssetCategoriesFilter from './AssetCategoriesFilter';
-import { Trans } from '@lingui/macro';
 
 const InvestmentList = () => {
 
@@ -20,30 +19,32 @@ const InvestmentList = () => {
     },[]);
 
     return (
-        loading ?
-        <Spinner size={2} /> :
-        
-        <div className='investment-list'>
-            <h2><Trans>Объекты инвестирования</Trans></h2>
-            {
-                assetCategories &&
-                assetCategories.length > 0 &&
-                <AssetCategoriesFilter categories={assetCategories} />
-            }
-            <div>
-                {
-                    assets &&
-                    assets.length > 0 &&
-                    assets.map(item => <InvestmentListItem key={item.id} item={item} />)
-                }
+        <>
+        {
+            assetCategories &&
+            assetCategories.length > 0 &&
+            <AssetCategoriesFilter categories={assetCategories} />
+        }
+        {
+            loading ?
+            <Spinner size={2} /> :
+            <div className='investment-list'>
+                <div>
+                    {
+                        assets &&
+                        assets.length > 0 &&
+                        assets.map(item => <InvestmentListItem key={item.id} item={item} />)
+                    }
+                </div>
+                <Pagination 
+                    id={null} 
+                    links={links} 
+                    meta={meta} 
+                    fetchData={fetchAssets} 
+                />
             </div>
-            <Pagination 
-                id={null} 
-                links={links} 
-                meta={meta} 
-                fetchData={fetchAssets} 
-            />
-        </div>
+        }
+        </>
     )
 }
 
