@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import Partners from './Partners';
-import UserInfo from '../user/UserInfo';
 import UserStat from '../user/UserStat';
-import { Trans } from '@lingui/macro';
+import Spinner from '../common/loader/Spinner';
 
 const HomePage = () => {
     
@@ -11,26 +9,17 @@ const HomePage = () => {
 
     return (
         <div className='homepage'>
-            <div>
-                {
-                    loading ? 
-                    <Trans>Загрузка профиля...</Trans> : 
-                    user && 
-                    <UserInfo user={user} />
-                }
-            </div>
-            <div>
-                {
-                    user && 
-                    user.accounts && 
-                    user.userAssetsTotal &&
-                    <UserStat 
-                        stat={user.accounts} 
-                        assetsStat={user.userAssetsTotal} 
-                    />
-                }
-                <Partners />
-            </div>
+            {loading ? <Spinner size={2} /> :
+                user && 
+                user.accounts && 
+                user.userAssetsTotal &&
+                user.userLeverageTotal &&
+                <UserStat 
+                    stat={user.accounts} 
+                    assetsStat={user.userAssetsTotal} 
+                    leverageStat={user.userLeverageTotal} 
+                />
+            }
         </div>
     )
 }

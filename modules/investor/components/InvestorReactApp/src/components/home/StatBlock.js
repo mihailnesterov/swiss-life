@@ -1,15 +1,19 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
 
 const StatBlock = (props) => {
     
-    const {title, titleBg, icon, blockBg, balance, currencySign} = props;
+    const {title, stat} = props;
 
     return (
-        <div className={`stat-block ${blockBg}`}>
-            <h3 className={titleBg}>{icon} {title}</h3>
-            <p><Trans>Текущий баланс</Trans></p>
-            <h2>{currencySign} {balance}</h2>
+        <div className="stat-block">
+            <h3>{title}</h3>
+            <p>
+                {
+                    stat
+                        .filter(item => item.balance > 0)
+                        .map(item => <span>{item.sign}&nbsp;{item.balance}&emsp;</span>)
+                }
+            </p>
         </div>
     )
 }
