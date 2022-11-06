@@ -8,10 +8,9 @@ const MessageEnvelope = (props) => {
     const {isRead, setRead} = props;
 
     return (
-        <FontAwesomeIcon 
-            size='2x' 
+        <FontAwesomeIcon  
             className={isRead === 1 ? 'text-green' : 'text-red'} 
-            icon={solid('envelope')} 
+            icon={solid('circle')} 
             onClick={setRead}
             title={`${isRead === 1 ? 
                 t({

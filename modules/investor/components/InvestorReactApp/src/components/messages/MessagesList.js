@@ -1,85 +1,75 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import { useActions } from '../../hooks/useActions';
 import MessagesListItem from './MessagesListItem';
 import Spinner from '../common/loader/Spinner';
 import Pagination from '../common/pagination';
-import {getMessages} from '../../api/message';
-import { Trans } from '@lingui/macro';
+import MessagesTools from './MessagesTools';
 
-const MessagesList = () => {
+const MessagesList = (props) => {
 
-    const {user} = useSelector( state => state.user);
+    const {user, active} = props;
 
-    const [messages, setMessages] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [meta, setMeta] = useState(null);
-    const [links, setLinks] = useState(null);
-    const [isActive, setActive] = useState(1);
+    const {messages, links, meta, loading} = useSelector( state => state.messages);
+
+    const {fetchMessages} = useActions();
+
+    const [params, setParams] = useState(null);
 
     useEffect(() => {
-        getMessagesIn();
-    },[user]);
+        if( user && user.id && active ) {
+            
+            const _params = {
+                'sort': '-created,-isRead',
+                'per-page':'10'
+            };
 
-    const getMessagesIn = useCallback(() => {
-        if(user && user.id) {
-            setLoading(true);
-            getMessages({
-                'receiver_id': user.id,
-                'sort': '-created,-isRead'
-            })
-            .then(res => {
-                setMessages(res.data.messages);
-                setMeta(res.data._meta);
-                setLinks(res.data._links);
-            })
-            .catch(err => console.log(err))
-            .finally(() => setLoading(false));
-        }
-        setActive(1);
-    },[user]);
+            if( active === 'in' ) {
+                _params.receiver_id = user.id;
+            } else if( active === 'out' ) {
+                _params.sender_id = user.id;
+            }
 
-    const getMessagesOut = useCallback(() => {
-        if(user && user.id) {
-            setLoading(true);
-            getMessages({
-                'sender_id': user.id,
-                'sort': '-created,-isRead'
-            })
-            .then(res => {
-                setMessages(res.data.messages);
-                setMeta(res.data._meta);
-                setLinks(res.data._links);
-            })
-            .catch(err => console.log(err))
-            .finally(() => setLoading(false));
+            if( _params.receiver_id || _params.sender_id ) {
+                setParams(_params);
+            }
         }
-        setActive(2);
-    },[user]);
+    },[user, active]);
+
+    useEffect(() => {
+        if( params ) {
+            fetchMessages(params);
+        }
+    },[params]);
+
+    const [selectedMessages, setSelectedMessages] = useState([]);
+
+    const selectMessage = (messageId, checked) => {
+        if( checked ) {
+            setSelectedMessages([...selectedMessages, messageId]);
+        } else {
+            setSelectedMessages(selectedMessages.filter(id => id !== messageId));
+        }
+    }
+
+    const [updating, setUpdating] = useState(false);
 
     return (
         <div className='messages-list'>
-            <div>
-                <h3><Trans>Список сообщений</Trans> {meta && meta.totalCount && ` (${meta.totalCount})`}</h3>
-                <div>
-                    <button 
-                        className={isActive === 1 ? 'active' : null} 
-                        onClick={getMessagesIn}
-                    ><Trans>Входящие</Trans></button>
-                    <button 
-                        className={isActive === 2 ? 'active' : null} 
-                        onClick={getMessagesOut}
-                    ><Trans>Исходящие</Trans></button>
-                </div>
-            </div>
-            <div>
-                {
-                    loading ?
-                    <Spinner size={2} /> :
-                    messages && 
-                    messages.length > 0 &&
-                    messages.map(item => <MessagesListItem key={item.id} item={item} />)
-                }
-            </div>
+            <MessagesTools 
+                selectedMessages={selectedMessages} 
+                setSelectedMessages={setSelectedMessages}
+                setUpdating={setUpdating} 
+            />
+            <table>
+                <tbody>
+                    {
+                        (loading || updating) ?
+                        <Spinner size={2} /> :
+                        messages.map(item => <MessagesListItem key={item.id} item={item} selectMessage={selectMessage} />)
+                    }
+                </tbody>
+            </table>
             {
                 links && 
                 meta &&
@@ -87,14 +77,10 @@ const MessagesList = () => {
                     id={null} 
                     links={links} 
                     meta={meta} 
-                    params={{
-                        'sender_id': user.id,
-                        'sort': '-created,-isRead'
-                    }}
-                    fetchData={getMessages}
+                    params={params}
+                    fetchData={fetchMessages}
                 />
             }
-            
     </div>
     )
 }
