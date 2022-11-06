@@ -1,20 +1,20 @@
-$font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+//$font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family: "Inter Regular", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-// common
-$light:         #E5E5E5;
-$white:         #FFFFFF;
-$gray:          #C7C6C7;
-$red:           rgb(240, 80, 80);
-// primary
-$black:         #0F1F2F;
-$dark:          #222836;
+$light:     #F8F8F8;
+$white:     #FFFFFF;
+$gray:      #BFBFBF;
+$gray-dark: #AAAAAA;
+$black:     #090909;
+$dark:      #131313;
+$gold:      #CEA15D;
+$gold-light:#A48962;
+$bronze:    #965B1D;
+$red:       #C10A0A;
+$red-dark:  #AD0E0E;
+$green:     #47BB1E;
 $blue:          #4A7197;
 $blue-light:    #5E7B97;
-// secondary 1
-$gold:          #A47F49;
-$gold-light:    #A48962;
-// secondary 2
-$green:         #44987A;
 $green-light:   #5A9882;
 // secondary 3
 $purple:        #555099;
