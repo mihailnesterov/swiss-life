@@ -7,11 +7,12 @@ const FormSent = (props) => {
     return(
         <div className='form-sent'>
             <h3>{header}</h3>
-            {text}
-            <button onClick={onOk}>Ок</button>
+            <div>
+                <p>{text}</p>
+                <button onClick={onOk}>Ок</button>
+            </div>
         </div>
     )
 }
-
 
 export default FormSent;
