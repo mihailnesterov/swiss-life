@@ -1,50 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from "react-redux";
 import { useActions } from '../../hooks/useActions';
-import Logo from './logo';
-import CompanyName from './CompanyName';
 import LangSwitcher from './LangSwitcher';
+import Hamburger from './Hamburger';
 import UserMailBox from './UserMailBox';
 import UserMenu from './UserMenu';
+import Logo from './logo';
 
 const Header = () => {
     
-    const {company} = useSelector( state => state.company);
     const {user} = useSelector( state => state.user);
     
-    const {fetchCompany, fetchUserAuthorizedExpanded} = useActions();
-    
-    const [companyName, setCompanyName] = useState(null);
+    const {fetchUserAuthorizedExpanded} = useActions();
 
     useEffect(() => {
         fetchUserAuthorizedExpanded();
-        fetchCompany();
     },[]);
-
-    useEffect(() => {
-        if(company.length > 0 && company[0].name) {
-            setCompanyName(company[0].name);
-        }
-        return () => setCompanyName(null);
-    }, [company]);
 
     return (
         <header className='header'>
+            <Logo />
             <div>
-                <Logo />
-                { companyName && user && <CompanyName name={companyName} /> }
+                {
+                    user &&
+                    <>
+                        <LangSwitcher user={user} />
+                        <UserMailBox newMessages={user.newMessages} />
+                        <UserMenu user={user}/>
+                    </>
+                }
+                <Hamburger />
             </div>
-            {
-                companyName && user &&
-                <div>
-                    <LangSwitcher user={user} />
-                    <UserMailBox newMessages={user.newMessages} />
-                    <UserMenu user={user}/>
-                </div>
-            }
         </header>
     )
 }
-
 
 export default Header;

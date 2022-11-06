@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import { useSelector } from "react-redux";
 import {useActions} from '../../hooks/useActions';
 import { useLingui } from "@lingui/react";
-import LangSwitcherButton from './LangSwitcherButton';
 import {setLanguage} from '../../api/user';
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import { t } from "@lingui/macro";
@@ -19,10 +18,10 @@ const LangSwitcher = (props) => {
     }, []);
 
     const handleSwitchLanguage = e => {
-        setLanguage(user.id, {lang_id:Number(e.target.dataset.langId)})
+        setLanguage(user.id, {lang_id:Number(e.target.value)})
             .then(res => {
-                i18n.activate(e.target.textContent);
-                window.localStorage.setItem('_swiss_life_lang', e.target.textContent);
+                i18n.activate(e.target.options[e.target.selectedIndex].text);
+                window.localStorage.setItem('_swiss_life_lang', e.target.options[e.target.selectedIndex].text);
                 
                 getToastSuccess(t({
                     id: 'Язык переключен', 
@@ -41,14 +40,21 @@ const LangSwitcher = (props) => {
                 i18n.locale &&
                 languages && 
                 languages.length > 0 &&
-                languages.map(
-                    lang => <LangSwitcherButton 
-                        key={lang.id}
-                        lang={lang}
-                        locale={i18n.locale}
-                        handleSwitchLanguage={handleSwitchLanguage}
-                    />
-                )
+                <select 
+                    id="languages-switcher"
+                    onChange={handleSwitchLanguage}>
+                    {
+                        languages.map(lang => 
+                            <option 
+                                key={lang.id} 
+                                value={lang.id}
+                                selected={i18n.locale === lang.locale ? true: null}
+                            >
+                                {lang.locale}
+                            </option>
+                        )
+                    }
+                </select>
             }
         </div>
     )
