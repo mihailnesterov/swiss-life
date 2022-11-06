@@ -8,6 +8,9 @@ import * as TransactionActionCreators from './transaction';
 import * as ContractActionCreators from './contract';
 import * as NavbarActionCreators from './navbar';
 import * as LanguagesActionCreators from './language';
+import * as SeminarActionCreators from './seminar';
+import * as MessageActionCreators from './message';
+import * as MobileMenuActionCreators from './mobileMenu';
 
 // собираем вместе все action creators
 const ActionCreators = {
@@ -20,7 +23,10 @@ const ActionCreators = {
     ...TransactionActionCreators,
     ...ContractActionCreators,
     ...NavbarActionCreators,
-    ...LanguagesActionCreators
+    ...LanguagesActionCreators,
+    ...SeminarActionCreators,
+    ...MessageActionCreators,
+    ...MobileMenuActionCreators
 }
 
 export default ActionCreators;

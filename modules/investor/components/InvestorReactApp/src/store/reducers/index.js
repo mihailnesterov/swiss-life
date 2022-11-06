@@ -9,6 +9,9 @@ import { transactionReducer } from "./transactionReducer";
 import { contractReducer } from "./contractReducer";
 import { navbarReducer } from "./navbarReducer";
 import { languageReducer } from "./languageReducer";
+import { seminarReducer } from "./seminarReducer";
+import { messageReducer } from "./messageReducer";
+import { mobileMenuReducer } from "./mobileMenuReducer";
 
 export const rootReducer = combineReducers({
     company: companyReducer,
@@ -20,5 +23,8 @@ export const rootReducer = combineReducers({
     transactions: transactionReducer,
     contracts: contractReducer,
     navbar: navbarReducer,
-    languages: languageReducer
+    languages: languageReducer,
+    seminars: seminarReducer,
+    messages: messageReducer,
+    mobileMenu: mobileMenuReducer
 });
