@@ -1,70 +1,81 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import StatBlock from '../home/StatBlock';
+import BtnLink from '../common/buttons/BtnLink';
 import { t } from '@lingui/macro';
 
 const UserStat = (props) => {
     
-    const {stat, assetsStat} = props;
+    const {stat, assetsStat, leverageStat} = props;
 
     return (
-        <div>
+        <div>                
             {
                 stat.length > 0 &&
-                stat.map(item => 
-                    <div key={item.id}>
-                        <StatBlock 
-                            title={t({
-                                id: 'Сумма контракта', 
-                                message: 'Сумма контракта'
-                            })}
-                            titleBg='bg-blue-light'
-                            icon={<FontAwesomeIcon icon={solid('wallet')} />}
-                            blockBg='bg-blue'
-                            balance={item.contractSum}
-                            currencySign={item.currency.sign}
-                        />
-                        <StatBlock 
-                            title={t({
-                                id: 'Внесённая сумма', 
-                                message: 'Внесённая сумма'
-                            })}
-                            titleBg='bg-green-light'
-                            icon={<FontAwesomeIcon icon={solid('coins')} />}
-                            blockBg='bg-green'
-                            balance={item.balance}
-                            currencySign={item.currency.sign}
-                        />
-                        <StatBlock 
-                            title={t({
-                                id: 'Накопленные средства', 
-                                message: 'Накопленные средства'
-                            })}
-                            titleBg='bg-purple-light'
-                            icon={<FontAwesomeIcon icon={solid('money-check')} />}
-                            blockBg='bg-purple'
-                            balance={item.profit}
-                            currencySign={item.currency.sign}
-                        />
-                    </div>
-                )
-            }
-            <div>
-            {
-                assetsStat.length > 0 &&
-                assetsStat.map(item => 
+                <div>
                     <StatBlock 
-                        key={item.currency}
-                        title={`${t({id: 'Инвестированные средства', message: 'Инвестированные средства'})} (${item.sign})`}
-                        titleBg='bg-gold-light'
-                        icon={<FontAwesomeIcon icon={solid('chart-line')} />}
-                        blockBg='bg-gold'
-                        balance={item.total}
-                        currencySign={item.sign}
+                        title={t({
+                            id: 'Контрактная сумма', 
+                            message: 'Контрактная сумма'
+                        })}
+                        stat={stat.map(item => {
+                            return {balance: item.contractSum, sign: item.currency.sign}
+                        })}
                     />
-                )
+                    <StatBlock 
+                        title={t({
+                            id: 'Сумма инвестиций', 
+                            message: 'Сумма инвестиций'
+                        })}
+                        stat={assetsStat.map(item => {
+                            return {balance: item.total, sign: item.sign}
+                        })}
+                    />
+                    <StatBlock 
+                        title={t({
+                            id: 'Текущий баланс', 
+                            message: 'Текущий баланс'
+                        })}
+                        stat={stat.map(item => {
+                            return {balance: item.balance, sign: item.currency.sign}
+                        })}
+                    />
+                    <StatBlock 
+                        title={t({
+                            id: 'Кредитный баланс', 
+                            message: 'Кредитный баланс'
+                        })}
+                        stat={leverageStat.map(item => {
+                            return {balance: item.total, sign: item.sign}
+                        })}
+                    />
+                    <StatBlock 
+                        title={t({
+                            id: 'Накопленные средства', 
+                            message: 'Накопленные средства'
+                        })}
+                        stat={stat.map(item => {
+                            return {balance: item.profit, sign: item.currency.sign}
+                        })}
+                    />
+                </div>
             }
+           <div>
+                <BtnLink
+                    title={t({
+                        id: 'Кредитное плечо', 
+                        message: 'Кредитное плечо'
+                    })}
+                    resource="credit"
+                    className="btn btn-gold"
+                />
+                <BtnLink
+                    title={t({
+                        id: 'Открыть счет', 
+                        message: 'Открыть счет'
+                    })}
+                    resource="add-account"
+                    className="btn btn-default"
+                />
             </div>
         </div>        
     )
