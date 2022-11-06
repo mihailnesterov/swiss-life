@@ -16,11 +16,14 @@ const NewsList = () => {
     },[]);
 
     return (
+        loading ?
+        <Spinner size={2} /> :
+
         <div className='news-list'>
             <div>
                 {
-                    loading ?
-                    <Spinner size={2} /> :
+                    news && 
+                    news.length > 0 && 
                     news.map(item => <NewsListItem key={item.id} item={item} />)
                 }
             </div>
@@ -34,6 +37,5 @@ const NewsList = () => {
         </div>
     )
 }
-
 
 export default NewsList;
