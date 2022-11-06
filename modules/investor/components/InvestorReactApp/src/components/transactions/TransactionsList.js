@@ -5,7 +5,6 @@ import Pagination from '../common/pagination';
 import TransactionItem from './TransactionItem';
 import TransactionsHead from './TransactionsHead';
 import Spinner from '../common/loader/Spinner';
-import { Trans } from '@lingui/macro';
 
 const TransactionsList = (props) => {
 
@@ -23,15 +22,18 @@ const TransactionsList = (props) => {
 
     return (
         <div className='transactions-list'>
-            <h3><Trans>Список финансовых операций</Trans></h3>
-            <TransactionsHead />
-            <div>
-                {
-                    loading ?
-                    <Spinner size={2} /> :
-                    transactions.map(item => <TransactionItem key={item.id} item={item} />)
-                }
-            </div>
+            <table>
+                <thead>
+                    <TransactionsHead />
+                </thead>
+                <tbody>
+                    {
+                        loading ?
+                        <Spinner size={2} /> :
+                        transactions.map(item => <TransactionItem key={item.id} item={item} />)
+                    }
+                </tbody>
+            </table>
             <Pagination 
                 id={user.id} 
                 links={links} 
