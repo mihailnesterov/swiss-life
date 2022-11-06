@@ -1,4 +1,4 @@
-// Contract API
+// Seminar API
 import API, {setHeaders, credentials} from './index';
 
 const URL = `/seminars`;
