@@ -1,16 +1,14 @@
 import React from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './components/header';
 import Main from './components/main';
-import Footer from './components/footer';
+import MobileMenu from './components/mobile/MobileMenu';
 
 const App = () => {
     return (
-        <div>
-           <Header />
+        <div className='wrapper'>
            <Main />
-           <Footer />
+           <MobileMenu />
             <ToastContainer 
                 autoClose={3000} 
                 transition={Slide}
