@@ -15,7 +15,7 @@ const NewsList = () => {
     const {fetchNews} = useActions();
 
     useEffect(() => {
-        fetchNews();
+        fetchNews({'per-page':'8'});
     },[]);
 
     return (
@@ -35,7 +35,8 @@ const NewsList = () => {
             <Pagination 
                 id={null} 
                 links={links} 
-                meta={meta} 
+                meta={meta}
+                params={{'per-page':'8'}}
                 fetchData={fetchNews} 
             />
         </div>
