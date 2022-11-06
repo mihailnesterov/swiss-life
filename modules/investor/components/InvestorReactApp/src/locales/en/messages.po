@@ -13,6 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/members/MembersListHead.js:10
+#: src/components/user/UserForm.js:94
+#: src/components/user/UserForm.js:98
+msgid "Email"
+msgstr "Email"
+
 #: src/components/members/MembersForm.js:124
 msgid "Email пользователя"
 msgstr "User Email"
@@ -21,7 +27,15 @@ msgstr "User Email"
 msgid "add.account.message"
 msgstr "client ID: {0}, name: {1}, currency: {2}"
 
-#: src/components/withdrawals/CreditForm.js:128
+#: src/components/banktransfer/BankTransferForm.js:120
+msgid "add.bank.transfer.sender.to.manager.request"
+msgstr "Sender full name: {0}, sender email: {1}, receiver full name: {receiverFullName}, card number/IBAN: {cardNumber}, amount: {2} {inputValue}, sender account number: {3}, accumulated funds: {4} {profit}"
+
+#: src/components/repaycredit/RepayCreditForm.js:123
+msgid "add.credit.repay.request"
+msgstr "client ID: {0}, full name: {1}, amount: {2} {inputValue}, account number: {3}, max available: {4} {balance}"
+
+#: src/components/credit/CreditForm.js:129
 msgid "add.credit.request"
 msgstr "client ID: {0}, full name: {1}, amount: {2} {inputValue}, account number: {3}, max available: {4} {mostAccessibleSum}"
 
@@ -31,13 +45,13 @@ msgstr "Sender full name: {0}, receiver full name: {1}, sender email: {2}, amoun
 
 #: src/components/transfer/TransferForm.js:189
 msgid "add.transfer.sender.to.manager.request"
-msgstr "Sender full name: {0}, receiver full name: {1}, sender email: {2}, amount: {3} {inputValue}, sender account number: {4}, accumuladet funds: {5} {profit}"
+msgstr "Sender full name: {0}, receiver full name: {1}, sender email: {2}, amount: {3} {inputValue}, sender account number: {4}, accumulated funds: {5} {profit}"
 
 #: src/components/withdrawals/WithdrawalsForm.js:82
 msgid "add.withdrawals.request"
 msgstr "client ID: {0}, full name: {1}, amount: {2} {inputValue}, account number: {3}, accumulated funds: {4} {profit}"
 
-#: src/components/investment/InvestForm.js:84
+#: src/components/investment/InvestForm.js:85
 msgid "asset.invest.request"
 msgstr "client ID: {0}, full name: {1}, asset: {2}, amount of investment: {3} {inputValue}, account: {4}, accumulated funds: {5} {profit}"
 
@@ -45,91 +59,125 @@ msgstr "client ID: {0}, full name: {1}, asset: {2}, amount of investment: {3} {i
 msgid "member.registration.request"
 msgstr "member ID: {0}, member full name: {1}, invited user full name: {inputMemberNameValue}, invited user email: {inputMemberEmailValue}"
 
-#: src/components/user/UserForm.js:82
+#: src/components/user/UserForm.js:107
+#: src/components/user/UserForm.js:111
 msgid "Адрес"
 msgstr "Address"
 
-#: src/pages/InvestmentItemPage.js:29
+#: src/components/investment/InvestmentItem.js:43
 msgid "Актив"
 msgstr "Asset"
 
 #: src/components/members/MembersListHead.js:11
-#: src/components/user/UserInfo.js:26
+#: src/components/user/UserInfo.js:43
 msgid "Активен"
 msgstr "Active"
 
+#: src/components/transactions/TransactionsHead.js:13
+msgid "Баланс"
+msgstr "Balance"
+
+#: src/components/banktransfer/BankTransferForm.js:106
+#: src/pages/BankTransfer.js:8
+msgid "Банковский перевод"
+msgstr "Bank transfer"
+
 #: src/components/account/AddAccountForm.js:138
-#: src/components/investment/InvestForm.js:130
+#: src/components/investment/InvestForm.js:131
 #: src/components/members/MembersForm.js:86
 #: src/components/withdrawals/WithdrawalsForm.js:128
 msgid "В ближайшее время наш менеджер свяжется с Вами"
 msgstr "Our manager contact you soon"
 
 #: src/components/account/AddAccountForm.js:113
-#: src/components/investment/InvestForm.js:104
+#: src/components/banktransfer/BankTransferForm.js:147
+#: src/components/credit/CreditForm.js:155
+#: src/components/investment/InvestForm.js:105
 #: src/components/members/MembersForm.js:65
+#: src/components/repaycredit/RepayCreditForm.js:149
 #: src/components/transfer/TransferForm.js:238
-#: src/components/withdrawals/CreditForm.js:154
 #: src/components/withdrawals/WithdrawalsForm.js:102
 msgid "В случае повторной ошибки обратитесь к менеджеру по телефону или электронной почте."
 msgstr "In case of a repeated error, contact the manager by phone or e-mail."
 
-#: src/components/news/NewsItem.js:15
-msgid "В список новостей"
-msgstr "Go to news"
-
-#: src/components/investment/InvestmentItem.js:16
-msgid "В список объектов"
-msgstr "Go to assets"
-
-#: src/components/investment/InvestForm.js:179
-#: src/components/transactions/TransactionsHead.js:12
-#: src/components/transfer/TransferForm.js:371
-#: src/components/withdrawals/CreditForm.js:217
-#: src/components/withdrawals/WithdrawalsForm.js:163
+#: src/components/banktransfer/BankTransferForm.js:241
+#: src/components/credit/CreditForm.js:217
+#: src/components/investment/InvestForm.js:167
+#: src/components/repaycredit/RepayCreditForm.js:211
+#: src/components/transfer/TransferForm.js:370
+#: src/components/withdrawals/WithdrawalsForm.js:162
 msgid "Валюта"
 msgstr "Currency"
 
-#: src/components/transfer/TransferForm.js:311
+#: src/components/transfer/TransferForm.js:309
 msgid "Введите ФИО или email"
 msgstr "Enter name or email"
+
+#: src/components/banktransfer/BankTransferForm.js:197
+msgid "Введите ФИО получателя"
+msgstr "Enter receiver full name"
+
+#: src/components/banktransfer/BankTransferForm.js:211
+msgid "Введите номер карты или IBAN"
+msgstr "Enter card number or IBAN"
 
 #: src/components/common/form/InputPassword.js:20
 msgid "Введите пароль"
 msgstr "Enter password"
 
 #: src/components/members/MembersListHead.js:12
-#: src/components/user/UserInfo.js:38
+#: src/components/user/UserInfo.js:55
 msgid "Верифицирован"
 msgstr "Verified"
 
-#: src/components/common/buttons/GoBackBtn.js:17
+#: src/components/profile/ProfileChangePassword.js:52
+#: src/components/profile/ProfileChangePhoto.js:77
+msgid "Вернуться в профиль"
+msgstr "Back to profile"
+
+#: src/components/common/buttons/GoBackBtn.js:20
 msgid "Вернуться в список"
 msgstr "Go back"
 
-#: src/components/transactions/TransactionsHead.js:13
+#: src/components/investment/InvestmentItem.js:36
+msgid "Вернуться к выбору объектов"
+msgstr "Back to asset selection"
+
+#: src/components/news/NewsItem.js:35
+msgid "Вернуться ко всем новостям"
+msgstr "Back to all news"
+
+#: src/components/transactions/TransactionsHead.js:9
 msgid "Вид операции"
 msgstr "Transaction type"
 
-#: src/components/user/UserStat.js:29
-msgid "Внесённая сумма"
-msgstr "Deposit amount"
+#: src/pages/Transfer.js:8
+msgid "Внутренний перевод"
+msgstr "Inner transfer"
 
-#: src/components/investment/AssetCategoriesFilter.js:24
+#: src/components/seminars/SeminarItem.js:24
+msgid "Время"
+msgstr "Time"
+
+#: src/components/investment/AssetCategoriesFilter.js:32
 msgid "Все"
 msgstr "All"
 
-#: src/components/transactions/TransactionsStatList.js:11
+#: src/components/transactions/TransactionsStatList.js:12
 msgid "Всего операций"
 msgstr "Transactions total"
 
-#: src/components/messages/MessagesList.js:67
+#: src/components/messages/MessagesMenu.js:12
 msgid "Входящие"
 msgstr "Incoming"
 
+#: src/components/credit/CreditForm.js:268
+msgid "Вы не можете брать кредит"
+msgstr "You cannot get credit"
+
 #: src/components/members/YouCanNotAddMembers.js:8
 msgid "Вы не можете добавлять подписчиков"
-msgstr "You cannot add users"
+msgstr "You cannot add members"
 
 #: src/components/account/AddAccountForm.js:154
 msgid "Выберите валюту и отправьте заявку"
@@ -144,29 +192,31 @@ msgstr "Choose a photo"
 msgid "Вывод средств"
 msgstr "Withdrawals"
 
-#: src/components/header/UserMenu.js:61
-msgid "Выход"
+#: src/components/header/UserMenu.js:98
+msgid "Выйти из аккаунта"
 msgstr "Logout"
 
 #: src/components/investment/UserInvestmentItem.js:12
+#: src/components/seminars/SeminarItem.js:23
+#: src/components/transactions/TransactionsHead.js:8
 msgid "Дата"
 msgstr "Date"
 
-#: src/components/transactions/TransactionsHead.js:16
-msgid "Дата открытия"
-msgstr "Opening date"
+#: src/components/user/UserVisits.js:16
+msgid "Дата и время"
+msgstr "Date and time"
 
-#: src/components/transactions/TransactionsHead.js:17
-msgid "Дата проведения"
-msgstr "Confirmation date"
-
-#: src/components/user/UserInfo.js:70
+#: src/components/user/UserInfo.js:91
 msgid "Дата регистрации"
 msgstr "Registration date"
 
-#: src/components/transactions/TransactionsHead.js:9
+#: src/components/transactions/TransactionsHead.js:11
 msgid "Дебет"
 msgstr "Debit"
+
+#: src/components/user/UserInfo.js:34
+msgid "Добавить фото"
+msgstr "Add photo"
 
 #: src/pages/Contracts.js:8
 msgid "Договоры"
@@ -176,32 +226,53 @@ msgstr "Contracts"
 msgid "Документы"
 msgstr "Documents"
 
-#: src/components/home/index.js:17
-msgid "Загрузка профиля..."
-msgstr "Profile loading..."
+#: src/components/withdrawals/WithdrawalsForm.js:183
+msgid "Доступно для вывода"
+msgstr "Available for withdrawal"
 
-#: src/components/withdrawals/CreditForm.js:181
+#: src/components/investment/InvestForm.js:188
+msgid "Доступно для инвестирования"
+msgstr "Available for investment"
+
+#: src/components/banktransfer/BankTransferForm.js:262
+#: src/components/transfer/TransferForm.js:391
+msgid "Доступно для перевода"
+msgstr "Available for transfer"
+
+#: src/components/repaycredit/RepayCreditForm.js:232
+msgid "Доступно для погашения кредита"
+msgstr "Available for credit repayment"
+
+#: src/components/investment/InvestmentItem.js:69
+msgid "Доходность"
+msgstr "Profit"
+
+#: src/components/seminars/SeminarItem.js:20
+msgid "Записаться"
+msgstr "Sign up"
+
+#: src/components/credit/CreditForm.js:182
+#: src/components/repaycredit/RepayCreditForm.js:176
 msgid "Заявка будет рассмотрена в ближайшее время, о резаультатах рассмотрения заявки можете уточнить у администрации сайта"
 msgstr "Your request will be considered as soon as possible. You can contact the site administration to know the request results."
 
+#: src/components/banktransfer/BankTransferForm.js:116
+msgid "Заявка на банковский перевод"
+msgstr "Bank transfer request"
+
+#: src/components/banktransfer/BankTransferForm.js:174
+msgid "Заявка на банковский перевод отправлена"
+msgstr "Bank transfer request sent"
+
 #: src/components/withdrawals/WithdrawalsForm.js:78
-#: src/components/withdrawals/WithdrawalsForm.js:144
 msgid "Заявка на вывод средств"
 msgstr "Withdrawal request"
 
-#: src/components/investment/InvestForm.js:80
+#: src/components/investment/InvestForm.js:81
 msgid "Заявка на инвестирование в актив"
 msgstr "Asset investment request"
 
-#: src/components/withdrawals/CreditForm.js:89
-#~ msgid "Заявка на кредит"
-#~ msgstr "Credit request"
-
-#: src/components/withdrawals/CreditForm.js:197
-msgid "Заявка на кредитное плечо"
-msgstr "Credit request"
-
-#: src/components/withdrawals/CreditForm.js:177
+#: src/components/credit/CreditForm.js:178
 msgid "Заявка на кредитное плечо отправлена"
 msgstr "Credit request sent"
 
@@ -209,26 +280,33 @@ msgstr "Credit request sent"
 msgid "Заявка на открытие счета"
 msgstr "Account openning request"
 
+#: src/components/repaycredit/RepayCreditForm.js:172
+msgid "Заявка на погашение кредита отправлена"
+msgstr "Credit repay request sent"
+
 #: src/components/members/MembersForm.js:41
 msgid "Заявка на регистрацию пользователя от представителя"
 msgstr "User registration request from member"
 
 #: src/components/account/AddAccountForm.js:134
-#: src/components/investment/InvestForm.js:126
+#: src/components/banktransfer/BankTransferForm.js:170
+#: src/components/investment/InvestForm.js:127
 #: src/components/members/MembersForm.js:82
 #: src/components/withdrawals/WithdrawalsForm.js:124
 msgid "Заявка отправлена"
 msgstr "Your request has been sent"
 
-#: src/components/profile/ProfileChangePassword.js:36
+#: src/components/profile/ProfileChangePassword.js:59
 msgid "Изменить пароль"
 msgstr "Change password"
 
-#: src/components/profile/ProfileChangePhoto.js:58
+#: src/components/profile/ProfileChangePhoto.js:84
+#: src/components/user/UserInfo.js:20
 msgid "Изменить фото"
 msgstr "Change photo"
 
-#: src/components/user/UserForm.js:52
+#: src/components/user/UserForm.js:55
+#: src/components/user/UserForm.js:59
 msgid "Имя"
 msgstr "First name"
 
@@ -236,81 +314,90 @@ msgstr "First name"
 msgid "Инвестирование"
 msgstr "Investment"
 
-#: src/components/user/UserStat.js:59
-msgid "Инвестированные средства"
-msgstr "Invested funds"
-
-#: src/components/investment/InvestmentItem.js:40
-#: src/components/investment/InvestmentListItem.js:27
+#: src/components/investment/InvestmentItem.js:71
+#: src/components/investment/InvestmentListItem.js:33
 msgid "Инвестировать"
 msgstr "Invest"
 
-#: src/pages/InvestPage.js:29
+#: src/pages/InvestPage.js:24
 msgid "Инвестировать в актив"
 msgstr "Invest in an asset"
 
-#: src/components/messages/MessagesList.js:71
+#: src/components/investment/InvestmentListItem.js:20
+msgid "Исторический максимум"
+msgstr "Historic high"
+
+#: src/components/investment/InvestmentListItem.js:24
+msgid "Исторический минимум"
+msgstr "Historic low"
+
+#: src/components/messages/MessagesMenu.js:13
 msgid "Исходящие"
 msgstr "Outgoing"
 
-#: src/pages/Home.js:11
+#: src/pages/Home.js:8
 msgid "Кабинет инвестора"
 msgstr "Investor's homepage"
 
-#: src/components/investment/InvestForm.js:151
-msgid "Калькуляция"
-msgstr "Calculation"
+#: src/components/user/UserStat.js:16
+msgid "Контрактная сумма"
+msgstr "Contract amount"
 
-#: src/components/transactions/TransactionsHead.js:10
+#: src/components/transactions/TransactionsHead.js:12
+#: src/pages/Credit.js:8
 msgid "Кредит"
 msgstr "Credit"
 
-#: src/components/withdrawals/CreditForm.js:124
+#: src/components/credit/CreditForm.js:125
+#: src/components/user/UserStat.js:64
 msgid "Кредитное плечо"
-msgstr "Leverage"
+msgstr "Credit"
 
-#: src/components/user/UserForm.js:46
+#: src/components/user/UserStat.js:43
+msgid "Кредитный баланс"
+msgstr "Credit balance"
+
+#: src/components/user/UserForm.js:51
 msgid "Личные данные"
 msgstr "Personal data"
 
-#: src/components/user/UserForm.js:28
+#: src/components/user/UserForm.js:32
 msgid "Личные данные сохранены!"
 msgstr "Personal data saved!"
 
-#: src/components/withdrawals/CreditForm.js:239
-msgid "Максимально доступная сумма"
-msgstr "Max available"
+#: src/components/credit/CreditForm.js:238
+msgid "Максимальная сумма кредитного плеча"
+msgstr "Maximum credit amount"
 
 #: src/components/investment/UserInvestmentsList.js:23
 msgid "Мои инвестиции"
 msgstr "My investments"
 
-#: src/components/header/UserMenu.js:59
-#: src/pages/Profile.js:8
+#: src/components/header/UserMenu.js:91
+#: src/components/profile/ProfileChangePassword.js:45
+#: src/components/profile/ProfileChangePhoto.js:70
+#: src/components/profile/index.js:15
 msgid "Мой профиль"
 msgstr "My profile"
 
-#: src/components/transactions/TransactionsStatList.js:26
+#: src/components/transactions/TransactionsStatList.js:36
 msgid "На рассмотрении"
 msgstr "Review"
 
-#: src/components/transactions/TransactionsStatList.js:18
-#: src/components/transactions/TransactionsStatList.js:33
+#: src/components/transactions/TransactionsStatList.js:23
+#: src/components/transactions/TransactionsStatList.js:47
 msgid "На сумму"
 msgstr "Amount"
 
-#: src/components/transfer/TransferForm.js:307
+#: src/components/transfer/TransferForm.js:305
 msgid "Найти получателя"
 msgstr "Find transfer receiver"
 
-#: src/components/investment/InvestForm.js:201
-#: src/components/transfer/TransferForm.js:393
-#: src/components/user/UserStat.js:40
-#: src/components/withdrawals/WithdrawalsForm.js:185
+#: src/components/user/UserStat.js:52
 msgid "Накопленные средства"
 msgstr "Accumulated funds"
 
-#: src/components/withdrawals/CreditForm.js:114
+#: src/components/credit/CreditForm.js:115
 msgid "Начисление кредитных средств"
 msgstr "Getting a credit"
 
@@ -318,11 +405,11 @@ msgstr "Getting a credit"
 msgid "Наши партнеры"
 msgstr "Our partners"
 
-#: src/components/user/UserInfo.js:42
+#: src/components/user/UserInfo.js:59
 msgid "Не верифицирован"
 msgstr "Not verified"
 
-#: src/components/transfer/TransferForm.js:345
+#: src/components/transfer/TransferForm.js:343
 msgid "Не найдено..."
 msgstr "Not found..."
 
@@ -330,76 +417,81 @@ msgstr "Not found..."
 msgid "Новости"
 msgstr "News"
 
+#: src/components/banktransfer/BankTransferForm.js:207
+msgid "Номер карты / IBAN"
+msgstr "Card number / IBAN"
+
+#: src/components/header/UserMenu.js:43
+msgid "Номер счета"
+msgstr "Account number"
+
 #: src/components/investment/UserInvestmentItem.js:11
 msgid "Объект"
 msgstr "Asset"
 
-#: src/components/investment/InvestmentList.js:27
-msgid "Объекты инвестирования"
-msgstr "Assets"
-
-#: src/components/transactions/TransactionsHead.js:14
+#: src/components/investment/InvestmentItem.js:67
+#: src/components/transactions/TransactionsHead.js:10
 msgid "Описание"
 msgstr "Description"
 
-#: src/components/user/UserInfo.js:30
+#: src/components/user/UserInfo.js:47
 msgid "Отключен"
 msgstr "Disabled"
 
-#: src/components/documents/DocumentsListItem.js:14
-msgid "Открыть"
-msgstr "Open"
-
 #: src/components/common/buttons/AddAccountBtn.js:15
+#: src/components/user/UserInfo.js:100
+#: src/components/user/UserStat.js:72
 #: src/pages/AddAccountPage.js:8
 msgid "Открыть счет"
 msgstr "Add account"
 
 #: src/components/account/AddAccountForm.js:180
-#: src/components/investment/InvestForm.js:216
-#: src/components/members/MembersForm.js:148
-#: src/components/withdrawals/CreditForm.js:254
-#: src/components/withdrawals/WithdrawalsForm.js:200
+#: src/components/investment/InvestForm.js:204
+#: src/components/members/MembersForm.js:146
+#: src/components/withdrawals/WithdrawalsForm.js:198
 msgid "Отправить заявку"
 msgstr "Submit"
 
-#: src/components/profile/ProfileChangePhoto.js:48
+#: src/components/profile/ProfileChangePhoto.js:60
 msgid "Ошибка при загрузке файла!"
 msgstr "Loading file error!"
 
-#: src/components/header/LangSwitcher.js:32
+#: src/components/header/LangSwitcher.js:31
 msgid "Ошибка при изменении языка"
 msgstr "Language changing error"
 
+#: src/components/banktransfer/BankTransferForm.js:140
 #: src/components/transfer/TransferForm.js:231
 msgid "Ошибка при отправке перевода!"
 msgstr "Transfer sending error!"
 
 #: src/components/account/AddAccountForm.js:106
-#: src/components/investment/InvestForm.js:97
+#: src/components/credit/CreditForm.js:148
+#: src/components/investment/InvestForm.js:98
 #: src/components/members/MembersForm.js:58
-#: src/components/withdrawals/CreditForm.js:147
+#: src/components/repaycredit/RepayCreditForm.js:142
 #: src/components/withdrawals/WithdrawalsForm.js:95
 msgid "Ошибка при подаче заявки!"
 msgstr "Request error!"
 
-#: src/components/user/UserForm.js:32
+#: src/components/user/UserForm.js:36
 msgid "Ошибка при сохранении личных данных!"
 msgstr "Personal data saving error!"
 
-#: src/components/profile/ProfileChangePassword.js:23
+#: src/components/profile/ProfileChangePassword.js:30
 msgid "Ошибка при сохранении пароля!"
 msgstr "Password saving error!"
 
-#: src/components/profile/ProfileChangePhoto.js:42
+#: src/components/profile/ProfileChangePhoto.js:50
 msgid "Ошибка при сохранении фото!"
 msgstr "Photo saving error!"
 
-#: src/components/profile/ProfileChangePassword.js:19
+#: src/components/profile/ProfileChangePassword.js:26
 msgid "Пароль сохранен!"
 msgstr "Password saved!"
 
-#: src/components/transfer/TransferForm.js:424
+#: src/components/banktransfer/BankTransferForm.js:277
+#: src/components/transfer/TransferForm.js:423
 msgid "Перевести"
 msgstr "Transfer"
 
@@ -411,12 +503,7 @@ msgstr "Transfer sent"
 msgid "Перевод отправлен получателю"
 msgstr "Transfer sent to receiver"
 
-#: src/pages/Transfer.js:8
-msgid "Перевод средств"
-msgstr "Transfer"
-
 #: src/components/transfer/TransferForm.js:185
-#: src/components/transfer/TransferForm.js:299
 msgid "Перевод средств другому пользователю"
 msgstr "Transfer to another user"
 
@@ -433,13 +520,29 @@ msgstr "Transfer to user"
 msgid "Перейти на сайт"
 msgstr "Go to website"
 
+#: src/components/credit/CreditForm.js:256
+#: src/components/credit/CreditForm.js:276
+#: src/components/repaycredit/RepayCreditForm.js:249
+#: src/pages/RepayCredit.js:8
+msgid "Погасить кредит"
+msgstr "Repay credit"
+
+#: src/components/repaycredit/RepayCreditForm.js:109
+#: src/components/repaycredit/RepayCreditForm.js:119
+msgid "Погашение кредита"
+msgstr "Repay credit"
+
 #: src/pages/Members.js:8
 msgid "Подписчики"
 msgstr "Members"
 
+#: src/components/investment/InvestForm.js:206
+#: src/components/investment/InvestmentListItem.js:32
+msgid "Подробнее"
+msgstr "More"
+
 #: src/components/home/Partners.js:52
-#: src/components/investment/InvestmentListItem.js:26
-#: src/components/news/NewsListItem.js:29
+#: src/components/news/NewsListItem.js:25
 msgid "Подробнее..."
 msgstr "More..."
 
@@ -447,31 +550,41 @@ msgstr "More..."
 msgid "Показать пароль"
 msgstr "Show password"
 
-#: src/components/transfer/TransferForm.js:407
+#: src/components/transfer/TransferForm.js:405
 msgid "Получатель не имеет открытых счетов в выбранной валюте"
 msgstr "Receiver doesn't have open account in the selected currency"
 
-#: src/components/messages/MessageEnvelope.js:17
+#: src/components/credit/CreditForm.js:254
+msgid "Получить кредит"
+msgstr "Submit"
+
+#: src/components/messages/MessageEnvelope.js:16
 msgid "Пометить как непрочитанное"
 msgstr "Mark as unread"
 
-#: src/components/messages/MessageEnvelope.js:21
+#: src/components/messages/MessageEnvelope.js:20
 msgid "Пометить как прочитанное"
 msgstr "Mark as read"
 
 #: src/components/account/AddAccountForm.js:112
-#: src/components/investment/InvestForm.js:103
+#: src/components/credit/CreditForm.js:154
+#: src/components/investment/InvestForm.js:104
 #: src/components/members/MembersForm.js:64
-#: src/components/withdrawals/CreditForm.js:153
+#: src/components/repaycredit/RepayCreditForm.js:148
 #: src/components/withdrawals/WithdrawalsForm.js:101
 msgid "Попробуйте оформить заявку еще раз."
 msgstr "Please try to apply again."
 
+#: src/components/banktransfer/BankTransferForm.js:146
 #: src/components/transfer/TransferForm.js:237
 msgid "Попробуйте оформить перевод еще раз."
 msgstr "Please, try transfer again."
 
-#: src/components/user/UserInfo.js:52
+#: src/components/user/UserVisits.js:11
+msgid "Последние визиты"
+msgstr "Last visits"
+
+#: src/components/user/UserInfo.js:69
 msgid "Представитель"
 msgstr "Member"
 
@@ -479,49 +592,58 @@ msgstr "Member"
 msgid "Пригласить пользователя"
 msgstr "Invite user"
 
-#: src/components/transfer/TransferForm.js:342
+#: src/components/transfer/TransferForm.js:340
 msgid "Продолжайте поиск..."
 msgstr "Keep searching..."
+
+#: src/components/messages/MessagesTools.js:54
+msgid "Прочитано"
+msgstr "Read"
 
 #: src/components/common/buttons/GeneratePasswordBtn.js:18
 msgid "Сгенерировать пароль"
 msgstr "Generate password"
 
-#: src/components/contracts/ContractsListItem.js:12
-#: src/components/documents/DocumentsListItem.js:17
+#: src/pages/Seminars.js:8
+msgid "Семинары и тренинги"
+msgstr "Seminars and trainings"
+
+#: src/components/contracts/ContractsListItem.js:16
+#: src/components/documents/DocumentsListItem.js:23
 msgid "Скачать"
 msgstr "Download"
+
+#: src/components/messages/MessagesListItem.js:61
+msgid "Скачать вложенный файл"
+msgstr "Download attached file"
 
 #: src/components/common/buttons/ShowPasswordBtn.js:18
 msgid "Скрыть пароль"
 msgstr "Hide password"
 
-#: src/pages/Messages.js:8
+#: src/components/user/UserForm.js:124
+msgid "Сменить пароль"
+msgstr "Change password"
+
+#: src/pages/MessagesIn.js:11
+#: src/pages/MessagesOut.js:11
 msgid "Сообщения"
 msgstr "Messages"
 
-#: src/components/profile/ProfileChangePassword.js:44
-#: src/components/profile/ProfileChangePhoto.js:67
-#: src/components/user/UserForm.js:92
+#: src/components/profile/ProfileChangePassword.js:78
+#: src/components/profile/ProfileChangePhoto.js:105
+#: src/components/user/UserForm.js:122
 msgid "Сохранить"
 msgstr "Save"
 
-#: src/components/messages/MessagesList.js:62
-msgid "Список сообщений"
-msgstr "Messages list"
-
-#: src/components/transactions/TransactionsList.js:26
-msgid "Список финансовых операций"
-msgstr "Transactions list"
-
 #: src/components/members/MembersListHead.js:13
-#: src/components/transactions/TransactionsHead.js:15
-#: src/components/user/UserInfo.js:64
+#: src/components/transactions/TransactionsHead.js:14
+#: src/components/user/UserInfo.js:80
 msgid "Статус"
 msgstr "Status"
 
-#: src/components/investment/InvestmentItem.js:39
-#: src/components/investment/InvestmentListItem.js:25
+#: src/components/investment/InvestmentItem.js:70
+#: src/components/investment/InvestmentListItem.js:30
 msgid "Стоимость"
 msgstr "Cost"
 
@@ -529,56 +651,74 @@ msgstr "Cost"
 msgid "Страница не найдена..."
 msgstr "Page not found..."
 
-#: src/components/investment/InvestForm.js:169
+#: src/components/banktransfer/BankTransferForm.js:222
+#: src/components/banktransfer/BankTransferForm.js:228
+#: src/components/credit/CreditForm.js:207
+#: src/components/investment/InvestForm.js:157
 #: src/components/investment/UserInvestmentItem.js:13
-#: src/components/transactions/TransactionsHead.js:11
-#: src/components/transfer/TransferForm.js:353
-#: src/components/transfer/TransferForm.js:358
-#: src/components/withdrawals/CreditForm.js:207
-#: src/components/withdrawals/WithdrawalsForm.js:148
-#: src/components/withdrawals/WithdrawalsForm.js:153
+#: src/components/repaycredit/RepayCreditForm.js:201
+#: src/components/transfer/TransferForm.js:351
+#: src/components/transfer/TransferForm.js:357
+#: src/components/withdrawals/WithdrawalsForm.js:146
+#: src/components/withdrawals/WithdrawalsForm.js:152
 msgid "Сумма"
 msgstr "Amount"
 
-#: src/components/investment/InvestForm.js:164
+#: src/components/investment/InvestForm.js:151
+#: src/components/user/UserStat.js:25
 msgid "Сумма инвестиций"
 msgstr "Investment amount"
 
-#: src/components/user/UserStat.js:18
-msgid "Сумма контракта"
-msgstr "Contract amount"
-
-#: src/components/withdrawals/CreditForm.js:201
+#: src/components/credit/CreditForm.js:201
+#: src/components/repaycredit/RepayCreditForm.js:194
+#: src/components/repaycredit/RepayCreditForm.js:233
 msgid "Сумма кредита"
 msgstr "Credit amount"
 
-#: src/components/withdrawals/CreditForm.js:248
+#: src/components/banktransfer/BankTransferForm.js:271
+#: src/components/credit/CreditForm.js:247
+#: src/components/investment/InvestForm.js:197
+#: src/components/repaycredit/RepayCreditForm.js:242
+#: src/components/transfer/TransferForm.js:400
+#: src/components/withdrawals/WithdrawalsForm.js:192
 msgid "Сумма превышает максимально доступную"
 msgstr "Maximum available amount exceeded"
 
-#: src/components/investment/InvestForm.js:210
-#: src/components/transfer/TransferForm.js:402
-#: src/components/withdrawals/WithdrawalsForm.js:194
-msgid "Сумма превышает накопленные средства"
-msgstr "Accumulated amount exceeded"
+#: src/components/user/UserInfo.js:96
+msgid "Счета"
+msgstr "Accounts"
 
-#: src/components/home/StatBlock.js:11
+#: src/components/user/UserStat.js:34
 msgid "Текущий баланс"
 msgstr "Current balance"
 
-#: src/components/user/UserForm.js:72
+#: src/components/user/UserForm.js:81
+#: src/components/user/UserForm.js:85
 msgid "Телефон"
 msgstr "Phone"
+
+#: src/components/messages/MessagesTools.js:66
+msgid "Удалить"
+msgstr "Delete"
+
+#: src/components/messages/MessagesTools.js:14
+#~ msgid "Удалить выбранные сообщения?"
+#~ msgstr "Delete selected messages?"
 
 #: src/components/members/MembersListHead.js:9
 msgid "ФИО"
 msgstr "Full name"
 
+#: src/components/banktransfer/BankTransferForm.js:193
+msgid "ФИО получателя"
+msgstr "Receiver full name"
+
 #: src/components/members/MembersForm.js:110
 msgid "ФИО пользователя"
 msgstr "User full name"
 
-#: src/components/user/UserForm.js:62
+#: src/components/user/UserForm.js:68
+#: src/components/user/UserForm.js:72
 msgid "Фамилия"
 msgstr "Last name"
 
@@ -586,11 +726,11 @@ msgstr "Last name"
 msgid "Финансовые операции"
 msgstr "Transactions"
 
-#: src/components/profile/ProfileChangePhoto.js:38
+#: src/components/profile/ProfileChangePhoto.js:46
 msgid "Фото сохранено!"
 msgstr "Photo saved!"
 
-#: src/components/header/LangSwitcher.js:27
+#: src/components/header/LangSwitcher.js:26
 msgid "Язык переключен"
 msgstr "Language changed"
 
@@ -599,6 +739,5 @@ msgid "счет №"
 msgstr "account #"
 
 #: src/components/members/MembersListHead.js:8
-#: src/components/transactions/TransactionsHead.js:8
 msgid "№"
 msgstr "#"
