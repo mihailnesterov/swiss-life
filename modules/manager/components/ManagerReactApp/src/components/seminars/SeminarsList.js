@@ -36,7 +36,6 @@ const SeminarsList = () => {
                 id={null} 
                 links={links} 
                 meta={meta} 
-                params={{'per-page':'8'}}
                 fetchData={fetchSeminars} 
             />
         </div>
