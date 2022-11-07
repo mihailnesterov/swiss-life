@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import { useSelector } from "react-redux";
+import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import {updateContract, createContract} from '../../api/contract';
@@ -10,22 +9,10 @@ const ContractForm = (props) => {
 
     const {contract} = props;
 
-    //const {company} = useSelector( state => state.company);
-
     const navigate = useNavigate();
 
     const [params, setParams] = useState(null);
     const [saving, setSaving] = useState(false);
-
-    /*useEffect(() => {
-        if(company && company.id) {
-            setParams({
-                'company_id': company.id,
-                ...params
-            });
-        }
-    }, [company]);*/
-
 
     const handleChangeForm = e => {
         const name = e.target.name;
