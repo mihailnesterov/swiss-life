@@ -78,8 +78,9 @@ const AutocompleteAsset = (props) => {
                         <ul>
                             {
                                 assets &&
-                                assets.length > 0 ?
-                                assets.map(item => 
+                                assets.assets &&
+                                assets.assets.length > 0 ?
+                                assets.assets.map(item => 
                                     <li 
                                         key={item.id}
                                         onClick={() => handleSelectAsset(item)}
