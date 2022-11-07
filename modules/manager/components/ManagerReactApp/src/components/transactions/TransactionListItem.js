@@ -13,12 +13,6 @@ const TransactionListItem = (props) => {
 
     const {fetchManagerAuthorizedTransactions} = useActions();
 
-    const onSuccessHandler = () => {
-        fetchManagerAuthorizedTransactions({
-            'sort':'-created'
-        });
-    }
-
     return (
         <div>
             <div>
@@ -74,7 +68,7 @@ const TransactionListItem = (props) => {
                     id={item.id}
                     title={`Удалить финансовую операцию:\n №${item.id} от ${getDateTimeToString(item.created)}`}
                     onDelete={deleteTransaction}
-                    onSuccess={onSuccessHandler}
+                    onSuccess={fetchManagerAuthorizedTransactions}
                     successMsg='Операция удалена!'
                     errorMsg='Ошибка при удалении финансовой операции!'
                 />
