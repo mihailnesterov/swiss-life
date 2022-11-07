@@ -15,14 +15,8 @@ const TransactionsList = () => {
     const {fetchManagerAuthorizedTransactions} = useActions();
 
     useEffect(() => {
-        fetchData();
+        fetchManagerAuthorizedTransactions();
     },[]);
-
-    const fetchData = () => {
-        fetchManagerAuthorizedTransactions({
-            'sort':'-created'
-        });
-    }
 
     return (
         <div className='transactions-list'>
@@ -42,7 +36,7 @@ const TransactionsList = () => {
                 id={null} 
                 links={links} 
                 meta={meta} 
-                fetchData={fetchData} 
+                fetchData={fetchManagerAuthorizedTransactions} 
             />
         </div>
     )
