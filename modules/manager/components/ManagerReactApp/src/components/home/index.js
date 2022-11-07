@@ -49,15 +49,15 @@ const HomePage = () => {
                         stat={[
                             {
                                 'Дебет': user.transactionsDebitSum.map(
-                                    (item,i) => <span key={i}>{item.total} {item.sign}</span>)
+                                    (item,i) => <span key={i}>{item.sign}{item.total} </span>)
                             },
                             {
                                 'Кредит': user.transactionsCreditSum.map(
-                                    (item,i) => <span key={i}>{item.total} {item.sign}</span>)
+                                    (item,i) => <span key={i}>{item.sign}{item.total * (-1)} </span>)
                             },
                             {
                                 'Итого': user.transactionsTotalSum.map(
-                                    (item,i) => <span key={i}>{item.total} {item.sign}</span>)
+                                    (item,i) => <span key={i}>{item.sign}{item.total} </span>)
                             },
                         ]} 
                     />
@@ -73,11 +73,11 @@ const HomePage = () => {
                         stat={[
                             {
                                 'Количество взносов': user.assetsTotalCount.map(
-                                    (item,i) => <span key={i}>{item.count} ({item.sign}) </span>)
+                                    (item,i) => <span key={i}>({item.sign}){item.count} </span>)
                             },
                             {
                                 'Сумма инвестиций': user.assetsTotalSum.map(
-                                    (item,i) => <span key={i}>{item.total} {item.sign}</span>)
+                                    (item,i) => <span key={i}>{item.sign}{item.total * (-1)} </span>)
                             }
                         ]} 
                     />
