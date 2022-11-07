@@ -345,6 +345,7 @@
         @extend %page-members;
         @extend %page-contracts;
         @extend %page-partners;
+        @extend %page-seminars;
     }
 }
 
@@ -895,11 +896,9 @@
         }
         &:nth-child(10) {
             flex: 3;
+            text-align: center;
         }
         &:nth-child(11) {
-            flex: 3;
-        }
-        &:nth-child(12) {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -1036,6 +1035,148 @@
             text-align: center;
         }
         &:nth-child(6) {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            flex: 2;
+            text-align: right;
+        }
+    }
+}
+
+%page-seminars {
+    .page-seminars {
+        @extend %seminars-list;
+        @extend %form-container;
+        @extend %upload-image-file;
+    }
+}
+
+%seminars-list {
+    .seminars-list {
+        & > * {
+            &:nth-child(1) {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                color: $gold-light;
+                margin-bottom: 1rem;
+                & a,
+                & button {
+                    @include button($purple, $white); 
+                }
+            }
+
+            &:nth-child(2) {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                gap: 1.5rem;
+                background-color: $black;
+                padding: 0.75rem;
+                color: $gold-light;
+                
+                & > * {
+                    &:nth-child(2),
+                    &:nth-child(3),
+                    &:nth-child(4) {
+                        text-align: center;
+                    }
+                }
+                
+                @extend %seminars-table;
+            }
+
+            &:nth-child(3) {
+                & > * {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                    gap: 1.5rem;
+                    border-bottom: 2px $purple solid;
+                    padding: 0.75rem;
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+
+                    & > * {
+                        &:nth-child(1) {
+                            & img,
+                            & svg {
+                                &:hover {
+                                    opacity: 0.85;
+                                }
+                            }
+                        }
+                        &:nth-child(2) {
+                            & > a {
+                                color: $white;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3;
+                                        line-clamp: 3; 
+                                -webkit-box-orient: vertical;
+                                &:hover {
+                                    opacity: 0.85;
+                                }
+                            }
+                        }
+                        &:nth-child(3),
+                        &:nth-child(4) {
+                            & > p {
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3;
+                                        line-clamp: 3; 
+                                -webkit-box-orient: vertical;
+                            }
+                        }
+                    }
+
+                    @extend %seminars-table;
+                }
+            }
+        }
+        
+        @extend %pagination;
+    }
+}
+
+%seminars-table {
+    & > * {
+        color: $light;
+        &:nth-child(1) {
+            flex: 2;
+        }
+        &:nth-child(2) {
+            flex: 4;
+            text-align: center;
+        }
+        &:nth-child(3) {
+            flex: 5;
+        }
+        &:nth-child(4) {
+            flex: 3;
+            text-align: center;
+        }
+        &:nth-child(5) {
+            flex: 2;
+            text-align: center;
+        }
+        &:nth-child(6) {
+            flex: 4;
+            text-align: center;
+        }
+        &:nth-child(7) {
             display: flex;
             align-items: center;
             justify-content: flex-end;
