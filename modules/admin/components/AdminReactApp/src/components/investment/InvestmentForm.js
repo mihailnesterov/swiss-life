@@ -138,6 +138,32 @@ const InvestmentForm = (props) => {
                     </div>
                 </fieldset>
 
+                <fieldset className='column'>
+                    <label htmlFor="maximum">
+                        <p><small>Исторический максимум</small></p>
+                        <input 
+                            name="maximum"
+                            type="text"
+                            placeholder='0.00'
+                            defaultValue={asset.maximum}
+                            autoComplete='off'
+                        />
+                    </label>
+                </fieldset>
+
+                <fieldset className='column'>
+                    <label htmlFor="minimum">
+                        <p><small>Исторический минимум</small></p>
+                        <input 
+                            name="minimum"
+                            type="text"
+                            placeholder='0.00'
+                            defaultValue={asset.minimum}
+                            autoComplete='off'
+                        />
+                    </label>
+                </fieldset>
+
             </div>
             <hr />
             <fieldset>
