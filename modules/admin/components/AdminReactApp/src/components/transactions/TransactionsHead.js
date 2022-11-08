@@ -14,8 +14,7 @@ const TransactionsHead = () => {
             <h4>Вид операции</h4>
             <h4>Описание</h4>
             <h4>Статус</h4>
-            <h4>Дата открытия</h4>
-            <h4>Дата проведения</h4>
+            <h4>Дата</h4>
             <h4><FontAwesomeIcon icon={solid('gear')} /></h4>
         </div>
     )

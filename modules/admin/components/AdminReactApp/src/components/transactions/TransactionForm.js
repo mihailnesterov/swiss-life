@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {getToastSuccess, getToastError} from '../../utils/toasts';
 import {updateTransaction, createTransaction} from '../../api/transaction';
 import Spinner from '../common/loader/Spinner';
-import {getDateTimeLocal} from '../../utils/dates';
 import AutocompleteAsset from '../common/autocomplete/AutocompleteAsset';
 import AutocompleteCurrency from '../common/autocomplete/AutocompleteCurrency';
 import AutocompleteTransactionType from '../common/autocomplete/AutocompleteTransactionType';
@@ -99,6 +98,14 @@ const TransactionForm = (props) => {
                         userId={userId}
                         setCurrency={setCurrency}
                     />
+                    <div className='checkbox'>
+                        <input  
+                            name="status"
+                            type="checkbox"
+                            defaultChecked={transaction.status} 
+                        />
+                        <label htmlFor="status">Статус</label>
+                    </div>
                 </fieldset>
 
                 <fieldset className='column'>
@@ -131,37 +138,6 @@ const TransactionForm = (props) => {
                         setParams={setParams}
                         params={params}
                     />
-                </fieldset>
-
-                <fieldset className='column'>
-                    <label htmlFor="accepted">
-                        <p><small>Дата принятия</small></p>
-                        <input 
-                            name="accepted"
-                            type="datetime-local"
-                            placeholder='Дата принятия'
-                            defaultValue={transaction.accepted ? getDateTimeLocal(transaction.accepted) : null}
-                            autoComplete='off'
-                        />
-                    </label>
-                    <label htmlFor="rejected">
-                        <p><small>Дата отмены</small></p>
-                        <input 
-                            name="rejected"
-                            type="datetime-local"
-                            placeholder='Дата отмены'
-                            defaultValue={transaction.rejected ? getDateTimeLocal(transaction.rejected) : null}
-                            autoComplete='off'
-                        />
-                    </label>
-                    <div className='checkbox'>
-                        <input  
-                            name="status"
-                            type="checkbox"
-                            defaultChecked={transaction.status} 
-                        />
-                        <label htmlFor="status">Статус</label>
-                    </div>
                 </fieldset>
 
                 <fieldset className='column'>

@@ -66,9 +66,6 @@ const TransactionListItem = (props) => {
                 {getDateTimeToString(item.created)}
             </div>
             <div>
-                {item.accepted && getDateTimeToString(item.accepted)}
-            </div>
-            <div>
                 <EditBtn 
                     id={item.id}
                     type='transactions'
