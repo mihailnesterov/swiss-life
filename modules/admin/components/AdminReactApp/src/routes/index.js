@@ -21,6 +21,8 @@ import Contracts from '../pages/Contracts';
 import ContractItemPage from '../pages/ContractItemPage';
 import Partners from '../pages/Partners';
 import PartnerItemPage from '../pages/PartnerItemPage';
+import Seminars from '../pages/Seminars';
+import SeminarItemPage from '../pages/SeminarItemPage';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -46,6 +48,8 @@ export const RouteNames = Enum({
     CONTRACTS_ITEM_PAGE: `${BASE_URL}/contracts/:id`,
     PARTNERS: `${BASE_URL}/partners`,
     PARTNERS_ITEM_PAGE: `${BASE_URL}/partners/:id`,
+    SEMINARS: `${BASE_URL}/seminars`,
+    SEMINARS_ITEM_PAGE: `${BASE_URL}/seminars/:id`,
     LOGOUT: `${BASE_URL}/logout`,
 });
 
@@ -59,15 +63,17 @@ export const investorRoutes = [
     {id: 7, path: RouteNames.INVESTMENT, element: Investment, navbar: true, icon: <FontAwesomeIcon icon={solid('briefcase')} />, title: "Активы"},
     {id: 8, path: RouteNames.NEWS, element: News, navbar: true, icon: <FontAwesomeIcon icon={solid('newspaper')} />, title: "Новости"},
     {id: 9, path: RouteNames.MESSAGES, element: Messages, navbar: true, icon: <FontAwesomeIcon icon={solid('envelope')} />, title: "Сообщения"},
-    {id: 10, path: RouteNames.PARTNERS, element: Partners, navbar: true, icon: <FontAwesomeIcon icon={solid('handshake')} />, title: "Партнеры"},
-    {id: 11, path: RouteNames.PARTNERS_ITEM_PAGE, element: PartnerItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('handshake')} />, title: "Партнер"},
-    {id: 12, path: RouteNames.CONTRACTS, element: Contracts, navbar: true, icon: <FontAwesomeIcon icon={solid('file-contract')} />, title: "Договоры"},
-    {id: 13, path: RouteNames.CONTRACTS_ITEM_PAGE, element: ContractItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('file-contract')} />, title: "Договор"},
-    {id: 14, path: RouteNames.PROFILE, element: Profile, navbar: false, icon: <FontAwesomeIcon icon={solid('user-tie')} />, title: "Мой профиль"},
-    {id: 15, path: RouteNames.ERROR404, element: Error404, navbar: false, title: "404 ошибка"},
-    {id: 16, path: RouteNames.NEWS_ITEM_PAGE, element: NewsItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('newspaper')} />, title: "Новость"},
-    {id: 17, path: RouteNames.INVESTMENT_ITEM_PAGE, element: InvestmentItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('briefcase')} />, exact: true, title: "Объект инвестирования"},
-    {id: 18, path: RouteNames.USERS_ITEM_PAGE, element: UserItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Пользователь"},
-    {id: 19, path: RouteNames.ADMINS_ITEM_PAGE, element: AdminItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Администратор"},
-    {id: 20, path: RouteNames.MANAGERS_ITEM_PAGE, element: ManagerItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Менеджер"},
+    {id: 10, path: RouteNames.SEMINARS, element: Seminars, navbar: true, icon: <FontAwesomeIcon icon={solid('chalkboard-user')} />, title: "Семинары"},
+    {id: 11, path: RouteNames.SEMINARS_ITEM_PAGE, element: SeminarItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('chalkboard-user')} />, title: "Семинар"},
+    {id: 12, path: RouteNames.PARTNERS, element: Partners, navbar: true, icon: <FontAwesomeIcon icon={solid('handshake')} />, title: "Партнеры"},
+    {id: 13, path: RouteNames.PARTNERS_ITEM_PAGE, element: PartnerItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('handshake')} />, title: "Партнер"},
+    {id: 14, path: RouteNames.CONTRACTS, element: Contracts, navbar: true, icon: <FontAwesomeIcon icon={solid('file-contract')} />, title: "Договоры"},
+    {id: 15, path: RouteNames.CONTRACTS_ITEM_PAGE, element: ContractItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('file-contract')} />, title: "Договор"},
+    {id: 16, path: RouteNames.PROFILE, element: Profile, navbar: false, icon: <FontAwesomeIcon icon={solid('user-tie')} />, title: "Мой профиль"},
+    {id: 17, path: RouteNames.ERROR404, element: Error404, navbar: false, title: "404 ошибка"},
+    {id: 18, path: RouteNames.NEWS_ITEM_PAGE, element: NewsItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('newspaper')} />, title: "Новость"},
+    {id: 19, path: RouteNames.INVESTMENT_ITEM_PAGE, element: InvestmentItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('briefcase')} />, exact: true, title: "Объект инвестирования"},
+    {id: 20, path: RouteNames.USERS_ITEM_PAGE, element: UserItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Пользователь"},
+    {id: 21, path: RouteNames.ADMINS_ITEM_PAGE, element: AdminItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Администратор"},
+    {id: 22, path: RouteNames.MANAGERS_ITEM_PAGE, element: ManagerItemPage, navbar: false, icon: <FontAwesomeIcon icon={solid('user')} />, title: "Менеджер"},
 ];
