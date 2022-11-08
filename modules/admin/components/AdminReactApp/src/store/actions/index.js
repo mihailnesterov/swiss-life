@@ -13,6 +13,7 @@ import * as TransactionActionCreators from './transaction';
 import * as ContractActionCreators from './contract';
 import * as NavbarActionCreators from './navbar';
 import * as LanguagesActionCreators from './language';
+import * as SeminarsActionCreators from './seminar';
 
 // собираем вместе все action creators
 const ActionCreators = {
@@ -30,7 +31,8 @@ const ActionCreators = {
     ...TransactionActionCreators,
     ...ContractActionCreators,
     ...NavbarActionCreators,
-    ...LanguagesActionCreators
+    ...LanguagesActionCreators,
+    ...SeminarsActionCreators
 }
 
 export default ActionCreators;
