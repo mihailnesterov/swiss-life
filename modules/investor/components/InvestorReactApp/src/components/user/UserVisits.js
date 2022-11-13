@@ -20,7 +20,7 @@ const UserVisits = (props) => {
                     {
                         user.userVisits && 
                         user.userVisits.length > 0 && 
-                        user.userVisits.map(item => <UserVisitItem item={item}/>)
+                        user.userVisits.map((item,i) => <UserVisitItem key={i} item={item}/>)
                     }
                 </tbody>
             </table>
