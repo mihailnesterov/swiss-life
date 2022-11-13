@@ -21,7 +21,10 @@ class UserVisitController extends BaseApiController
     public function prepareUserVisitDataProvider()
     {
         return new \yii\data\ActiveDataProvider([
-            'query' => $this->modelClass::find()->orderBy(['created' => SORT_DESC])
+            'query' => $this->modelClass::find()
+                ->select(['user_id','ip_address','created'])
+                ->distinct()
+                ->orderBy(['created' => SORT_DESC])
         ]);
     }
 }
