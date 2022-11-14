@@ -20,7 +20,8 @@ const InvestForm = (props) => {
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
     const [currencyName, setCurrencyName] = useState(null);
-    const [profit, setProfit] = useState(0);
+    //const [profit, setProfit] = useState(0);
+    const [balance, setBalance] = useState(0);
 
     useEffect(() => {
         if(user.accounts && user.accounts.length > 0) {
@@ -28,21 +29,24 @@ const InvestForm = (props) => {
             user.accounts.forEach(item => 
                 _currencies.push({
                     ...item.currency, 
-                    ...{profit: item.profit},
+                    //...{profit: item.profit},
+                    ...{balance: item.balance},
                     ...{account: item.number}
                 })
             );
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                setProfit(_currencies[0].profit); 
+                //setProfit(_currencies[0].profit);
+                setBalance(_currencies[0].balance); 
             }
         }
 
         return () => {
             setCurrencies(null);
             setCurrencySelected(null);
-            setProfit(0);
+            //setProfit(0);
+            setBalance(0);
         }
     }, [user]);
 
@@ -51,13 +55,15 @@ const InvestForm = (props) => {
             const _currencySelected = currencies.filter(item => item.shortName === currencyName);
             if(_currencySelected.length > 0) {
                 setCurrencySelected(_currencySelected[0]);
-                setProfit(_currencySelected[0].profit); 
+                //setProfit(_currencySelected[0].profit);
+                setBalance(_currencySelected[0].balance);
             }
         }
 
         return () => {
             setCurrencySelected(null);
-            setProfit(0);
+            //setProfit(0);
+            setBalance(0);
         }
     }, [currencyName]);
     
@@ -85,7 +91,7 @@ const InvestForm = (props) => {
                 text: t({
                     id: 'asset.invest.request', 
                     message: `id клиента: ${user.id}, ФИО: ${user.fullName}, актив: ${asset.name}, 
-                    сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма накопленных средств: ${currencySelected.sign} ${profit}`
+                    сумма инвестиций: ${currencySelected.sign} ${inputValue}, № счета: ${currencySelected.account}, сумма текущего баланса: ${currencySelected.sign} ${balance}`
                 })
             })
                 .then(res => {
@@ -153,7 +159,7 @@ const InvestForm = (props) => {
                                 id="invest-sum"
                                 type='number'
                                 min='0'
-                                className={inputValue > profit ? 'text-red' : null}
+                                className={inputValue > balance ? 'text-red' : null}
                                 placeholder={`${t({id: 'Сумма', message: 'Сумма'})} ${currencySelected && currencySelected.sign && currencySelected.sign}`}
                                 value={inputValue}
                                 onChange={onChangeHandler}
@@ -185,7 +191,7 @@ const InvestForm = (props) => {
                             currencySelected && 
                             currencySelected.sign &&
                             <h3>
-                                <small><Trans>Доступно для инвестирования</Trans>:</small> <span className={profit ? null : 'text-red'}>{currencySelected.sign} {profit}</span>
+                                <small><Trans>Доступно для инвестирования</Trans>:</small> <span className={balance ? null : 'text-red'}>{currencySelected.sign} {balance}</span>
                             </h3>
                         }
                     </fieldset>
@@ -193,14 +199,14 @@ const InvestForm = (props) => {
                     <hr />
 
                     {
-                        (inputValue > profit) &&
+                        (inputValue > balance) &&
                         <small className='text-red'><Trans>Сумма превышает максимально доступную</Trans></small>
                     }
 
                     <fieldset>
                         <button 
                             type='submit' 
-                            disabled={((inputValue === '' || inputValue === 0 || inputValue === '0') || (inputValue > profit)) ? true : false}
+                            disabled={((inputValue === '' || inputValue === 0 || inputValue === '0') || (inputValue > balance)) ? true : false}
                         ><Trans>Отправить заявку</Trans></button>
                         <BtnLink
                             title={t({
@@ -211,7 +217,6 @@ const InvestForm = (props) => {
                             className="btn btn-default"
                         />
                     </fieldset>
-
                 </form>
             }
         </div>
