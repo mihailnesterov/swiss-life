@@ -23,6 +23,15 @@ const UserStat = (props) => {
                     />
                     <StatBlock 
                         title={t({
+                            id: 'Сумма депозита', 
+                            message: 'Сумма депозита'
+                        })}
+                        stat={stat.map(item => {
+                            return {balance: item.depositSum, sign: item.currency.sign}
+                        })}
+                    />
+                    <StatBlock 
+                        title={t({
                             id: 'Сумма инвестиций', 
                             message: 'Сумма инвестиций'
                         })}
