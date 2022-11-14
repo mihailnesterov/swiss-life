@@ -20,7 +20,6 @@ const InvestForm = (props) => {
     const [currencies, setCurrencies] = useState(null);
     const [currencySelected, setCurrencySelected] = useState(null);
     const [currencyName, setCurrencyName] = useState(null);
-    //const [profit, setProfit] = useState(0);
     const [balance, setBalance] = useState(0);
 
     useEffect(() => {
@@ -28,8 +27,7 @@ const InvestForm = (props) => {
             const _currencies = [];
             user.accounts.forEach(item => 
                 _currencies.push({
-                    ...item.currency, 
-                    //...{profit: item.profit},
+                    ...item.currency,
                     ...{balance: item.balance},
                     ...{account: item.number}
                 })
@@ -37,7 +35,6 @@ const InvestForm = (props) => {
             setCurrencies(_currencies);
             if(_currencies.length > 0) {
                 setCurrencySelected(_currencies[0]);
-                //setProfit(_currencies[0].profit);
                 setBalance(_currencies[0].balance); 
             }
         }
@@ -45,7 +42,6 @@ const InvestForm = (props) => {
         return () => {
             setCurrencies(null);
             setCurrencySelected(null);
-            //setProfit(0);
             setBalance(0);
         }
     }, [user]);
@@ -55,14 +51,12 @@ const InvestForm = (props) => {
             const _currencySelected = currencies.filter(item => item.shortName === currencyName);
             if(_currencySelected.length > 0) {
                 setCurrencySelected(_currencySelected[0]);
-                //setProfit(_currencySelected[0].profit);
                 setBalance(_currencySelected[0].balance);
             }
         }
 
         return () => {
             setCurrencySelected(null);
-            //setProfit(0);
             setBalance(0);
         }
     }, [currencyName]);
