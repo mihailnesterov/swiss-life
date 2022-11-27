@@ -73,7 +73,7 @@ const UserAccounts = (props) => {
 
     const handleChangeForm = e => {
         const name = e.target.name;
-        const value = e.target.name === 'currency_id' ? Number(e.target.value) : e.target.value;
+        const value = e.target.name === 'currency_id' ? parseInt(e.target.value) : e.target.value;
         const excludeFields = ['currencies'];
         
         if(excludeFields.filter(item => item === name).length > 0) {
@@ -93,7 +93,11 @@ const UserAccounts = (props) => {
     return (
         <form onSubmit={handleSubmitForm} onChange={handleChangeForm}>
             <h3>Счета</h3>
-            <AccountsList accounts={accounts} />
+            {
+                accounts &&
+                accounts.length > 0 &&
+                <AccountsList accounts={accounts} />
+            }
             {
                 !isOpenAccount && 
                 <AccountOpenBtn 
@@ -113,7 +117,6 @@ const UserAccounts = (props) => {
                             currency={currency}
                             setCurrency={setCurrency}
                         />
-                        {/**/}
                         <AccountNumber 
                             accountNumber={accountNumber}
                             setAccountNumber={setAccountNumber}

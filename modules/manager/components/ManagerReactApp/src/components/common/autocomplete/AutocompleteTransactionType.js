@@ -80,7 +80,7 @@ const AutocompleteTransactionType = (props) => {
                             {
                                 transactionTypes &&
                                 transactionTypes.length > 0 ?
-                                transactionTypes.map(item => 
+                                transactionTypes.filter(item => item.id !== 1).map(item => 
                                     <li 
                                         key={item.id}
                                         onClick={() => handleSelectTransactionTypeId(item)}
