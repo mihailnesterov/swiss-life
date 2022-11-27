@@ -3,7 +3,6 @@ import {getTransactionTypes, getTransactionType} from '../../../api/transactionT
 
 const AutocompleteTransactionType = (props) => {
 
-    //const {transactionTypeId, setResult} = props;
     const {transaction, setParams, params} = props;
 
     const [transactionType, setTransactionType] = useState(null);
@@ -96,7 +95,7 @@ const AutocompleteTransactionType = (props) => {
                             {
                                 transactionTypes &&
                                 transactionTypes.length > 0 ?
-                                transactionTypes.map(item => 
+                                transactionTypes.filter(item => item.id !== 1).map(item => 
                                     <li 
                                         key={item.id}
                                         onClick={() => handleSelectTransactionTypeId(item)}
