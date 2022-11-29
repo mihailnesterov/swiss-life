@@ -74,11 +74,38 @@ trait ConfigParamsTrait {
     }
 
     /**
-     * Get assets profit percent param.
+     * Get investment profit percent param.
      * 
-     * @return int
+     * @return float
      */
-    public function getAssetsProfitPercentParam() {
-        return Yii::$app->params['assets']['profit']['monthly'];
+    public function getInvestmentProfitPercentParam() {
+        return Yii::$app->params['investment']['profit']['monthly'];
+    }
+
+    /**
+     * Get investment profit excluded user IDs param.
+     * 
+     * @return array
+     */
+    public function getInvestmentProfitExcludedUserIdsParam() {
+        return Yii::$app->params['investment']['profit']['exclude_user_ids'];
+    }
+
+    /**
+     * Get account debit percent param.
+     * 
+     * @return float
+     */
+    public function getAccountDebitPercentParam() {
+        return Yii::$app->params['account']['debit']['monthly'];
+    }
+
+    /**
+     * Get account debit excluded user IDs param.
+     * 
+     * @return array
+     */
+    public function getAccountDebitExcludedUserIdsParam() {
+        return Yii::$app->params['account']['debit']['exclude_user_ids'];
     }
 }
