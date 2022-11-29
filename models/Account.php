@@ -73,37 +73,39 @@ class Account extends \yii\db\ActiveRecord
         );
 
         return array_merge($fields, [
-            'balance' => function () {
+            'balance' => function () { // текущий баланс
                 return floatval(
                     $this->getTransactions()
-                        ->where(['in', 'transaction_type_id', [1,3,8,9]])
+                        ->where(['in', 'transaction_type_id', [1,3,7,8,9]])
                         // 1 = депозит
                         // 3 = пополнение счета
+                        // 7 = инвестиция в актив
                         // 8 = кредит
                         // 9 = погашение кредита
                         ->andWhere(["status" => 1])
                         ->sum('sum')
                 );
             },
-            'profit' => function () {
+            'profit' => function () { // накопленные средства
                 return floatval(
                     $this->getTransactions()
-                    ->where(['in', 'transaction_type_id', [4,5,9,10]])
+                    ->where(['in', 'transaction_type_id', [2,4,5,6,9,10]])
+                    // 2 = комиссия за обслуживание
                     // 4 = перевод
                     // 5 = начисление прибыли
+                    // 6 = вывод средств
                     // 9 = погашение кредита
                     // 10 = банковский перевод
                     ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
             },
-            'credit' => function () {
+            'credit' => function () { // кредитный баланс
                 return floatval(
                     $this->getTransactions()
-                    ->where(['in', 'transaction_type_id', [8,9,10]])
+                    ->where(['in', 'transaction_type_id', [8,9]])
                     // 8 = кредит
                     // 9 = погашение кредита
-                    // 10 = банковский перевод
                     ->andWhere(["status" => 1])
                     ->sum('sum')
                 );
