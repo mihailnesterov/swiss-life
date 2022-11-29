@@ -33,7 +33,7 @@ class CreditController extends Controller
                     ])
                     ->leftJoin($accountTable, "$accountTable.id = account_id")
                     ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
-                    ->where(['in', "$transactionsTable.transaction_type_id", [8,9]])
+                    ->where(['in', "$transactionsTable.transaction_type_id", [8]])
                     ->andWhere(["$transactionsTable.status" => 1])
                     ->groupBy(["user_id", "account_id", "manager_id", "currency_id"])
                     ->asArray()
