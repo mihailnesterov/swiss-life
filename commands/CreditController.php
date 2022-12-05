@@ -20,39 +20,43 @@ class CreditController extends Controller
         $transactionsTable = \app\models\Transaction::tableName();
         $transactionTypeTable = \app\models\TransactionType::tableName();
         $accountTable = \app\models\Account::tableName();
-        
-        return array_values(
-            array_filter(
-                \app\models\Transaction::find()
-                    ->select([
-                        "$accountTable.user_id as user_id",
-                        "$transactionsTable.account_id as account_id",
-                        "$transactionsTable.manager_id as manager_id",
-                        "$transactionsTable.currency_id as currency_id",
-                        new \yii\db\Expression("SUM($transactionsTable.sum) AS `credit`")
-                    ])
-                    ->leftJoin($accountTable, "$accountTable.id = account_id")
-                    ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
-                    ->where(['in', "$transactionsTable.transaction_type_id", [8]])
-                    ->andWhere(["$transactionsTable.status" => 1])
-                    ->groupBy(["user_id", "account_id", "manager_id", "currency_id"])
-                    ->asArray()
-                    ->all(),
-                function($item) {
-                    return $item['credit'] > 0;
-                }
-            )
-        ); 
+        $userTable = \app\models\User::tableName();
+
+        // получить процент из конфигурационного файла
+        $percent = $this->getRepayCreditPercentParam();
+
+        return \app\models\Transaction::find()
+            ->select([
+                "$accountTable.user_id as user_id",
+                "$transactionsTable.account_id as account_id",
+                "$userTable.manager_id as manager_id",
+                "$transactionsTable.currency_id as currency_id",
+                new \yii\db\Expression("SUM($transactionsTable.sum) AS `credit`"),
+                new \yii\db\Expression("ROUND(SUM($transactionsTable.sum)/100*{$percent}*(-1), 2) AS `repay`")
+            ])
+            ->leftJoin($accountTable, "$accountTable.id = account_id")
+            ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
+            ->leftJoin($userTable, "$userTable.id = user_id")
+            ->where(['in', "$transactionsTable.transaction_type_id", [8]])
+            ->andWhere(["$transactionsTable.status" => 1])
+            ->groupBy(["user_id", "account_id", "manager_id", "currency_id"])
+            ->orderBy(["user_id" => SORT_ASC])
+            ->asArray()
+            ->all();
     }
 
-    // получить сумму накопленных средств (profit) на счете
-    private function getAccountProfitSum( $account_id ) {
+    // получить суммы уже существующих погашений по кредитам (transaction_type_id === 9)
+    private function getPaidCreditSums() {
         return \app\models\Transaction::find()
-                ->where(['in', 'transaction_type_id', [4,5,9,10]])
-                ->andWhere(["status" => 1])
-                ->andWhere(["account_id" => $account_id])
-                ->sum('sum'); // если sum == 0 - накопленные средства (profit) отсутствуют
+                ->select(['account_id', 'currency_id', 'SUM(sum) as sum'])
+                ->where(['transaction_type_id' => 9])
+                ->andWhere(['status' => 1])
+                ->groupBy(['account_id', 'currency_id'])
+                ->orderBy(["account_id" => SORT_ASC])
+                ->asArray()
+                ->all();
     }
+    
 
     public function actionIndex()
     {
@@ -68,43 +72,76 @@ class CreditController extends Controller
     public function actionRepayMonthly()
     {        
         // получить список кредитных транзакций
-        $creditTransactions = array_map(
+        $creditTransactions = $this->getCreditTransactions();
+        // получить суммы уже существующих погашений
+        $paidCreditSums = $this->getPaidCreditSums();
+        // получить IDs счетов уже существующих погашений
+        $paidCreditSumsAccountsIds = array_unique(array_map(
             function($item) {
-                return array_merge(
-                    $item, 
-                    ['repay' => round(($item['profit'] / 100 * $this->getRepayCreditPercentParam()), 2)] 
-                );
+                return $item['account_id'];
             },
-            array_filter(
-                array_map(
-                    function($item) {
-                        $profit = $this->getAccountProfitSum( $item['account_id'] );        
-                        return array_merge(
-                            $item, 
-                            ['profit' => isset($profit) ? $profit : 0] 
-                        );
-                    },
-                    $this->getCreditTransactions()
-                ),
-                function($item) {
-                    // получить только тех, у кого есть накопленные средства (profit)
-                    return $item['profit'] > 0;
-                }
-            )
-        );
+            $paidCreditSums
+        ));
 
-        // создать транзакции погашения кредитного плеча для каждого кредита > 0
+        // создать транзакции погашения кредитного плеча для каждого кредита
         foreach($creditTransactions as $transaction) {
-            $model = new \app\models\Transaction();
-            $model->account_id = $transaction['account_id'];
-            $model->manager_id = $transaction['manager_id'];
-            $model->currency_id = $transaction['currency_id'];
-            $model->transaction_type_id = 9;
-            $model->sum = ((-1) * $transaction['repay']);
-            $model->description = 'Погашение кредита';
-            $model->save();
-        }
 
+            /**
+             * в переменной сохранить остаток кредита,
+             * далее она может быть скорректирована на сумму уже существующих погашений
+             */
+            $creditBalance = floatval($transaction['credit']);
+
+            /**
+             * в переменной сохранить сумму погашения, 
+             * далее она может быть скорректирована, если по кредиту уже были погашения
+             * в зависимости от разницы остатка кредита и сумм погашения
+             */
+            $repaySum = floatval($transaction['repay']);
+            
+            // проверить - если погашения уже были
+            if( in_array($transaction['account_id'], $paidCreditSumsAccountsIds) ) {
+                
+                // получить сумму предыдущих погашений по счету транзакции
+                $paidSumByTransactionAccount = array_values(array_filter(
+                    $paidCreditSums,
+                    function($item) use($transaction) {
+                        return $item['account_id'] === $transaction['account_id'];
+                    }
+                ));
+            }
+
+             // создать транзакцию если остаток по кредиту > 0:
+             if( $creditBalance > 0 ) {
+
+                // если суммы погашений уже были - массив будет не пустым
+                if( ! empty($paidSumByTransactionAccount) ) {
+                    // скорректировать остаток по кредиту на сумму уже существующих погашений
+                    $creditBalance = floatval(abs($transaction['credit']) - abs($paidSumByTransactionAccount[0]['sum']));
+
+                    /**
+                     * если разность остатка по кредиту и суммы погашений < 0, тогда 
+                     * скорректровать сумму погашения, т.е. сделать ее равной остатку по кредиту
+                     */
+                    if( $creditBalance - abs($paidSumByTransactionAccount[0]['sum']) < 0 ) {
+                        $repaySum = round($creditBalance, 2);
+                    }
+                }
+
+                // создать транзакции погашения, с учетом корректировок $repaySum
+                $model = new \app\models\Transaction();
+                $model->account_id = $transaction['account_id'];
+                $model->manager_id = $transaction['manager_id'];
+                $model->currency_id = $transaction['currency_id'];
+                $model->transaction_type_id = 9; // 9 - Погашение клиентом полученного кредита
+                $model->sum = $repaySum;
+                $model->description = 'Погашение кредита';
+                $model->save();
+                
+            }
+            
+        }
+        
         echo "Monthly repay credit action success...\n";
 
         return ExitCode::OK;
