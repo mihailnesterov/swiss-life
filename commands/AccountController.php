@@ -2,6 +2,10 @@
 
 /* 
  * Account commands controller
+ * 
+ * Deprecated!
+ * 
+ * Не используется, т.к. функционал списания за обслуживание счета был перенесен в InvestmentController.php
  */
 
 namespace app\commands;
@@ -23,7 +27,7 @@ class AccountController extends Controller
         $userTable = \app\models\User::tableName();
         
         // получить процент из конфигурационного файла
-        $percent = $this->getAccountDebitPercentParam();
+        $percent = $this->getUsingAccountDebitPercentParam();
         // получить массив исключаемых id пользователей из конфигурационного файла
         $exclude_user_ids = $this->getAccountDebitExcludedUserIdsParam();
 
@@ -31,7 +35,7 @@ class AccountController extends Controller
             ->select([
                 "$accountTable.user_id as user_id",
                 "$transactionsTable.account_id as account_id",
-                "$transactionsTable.manager_id as manager_id",
+                "$userTable.manager_id as manager_id",
                 "$transactionsTable.currency_id as currency_id",
                 new \yii\db\Expression("SUM($transactionsTable.sum) AS `accumulated`"),
                 new \yii\db\Expression("ROUND(SUM($transactionsTable.sum)/100*{$percent}*(-1), 2) AS `debit`")
@@ -40,7 +44,6 @@ class AccountController extends Controller
             ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
             ->leftJoin($userTable, "$userTable.id = user_id")
             ->where(['in', "$transactionsTable.transaction_type_id", [2,4,5,6,9,10]])
-            ->andWhere(['>', "$transactionsTable.sum", 0])
             ->andWhere(["$transactionsTable.status" => 1])
             ->andWhere(['in', "$userTable.role", ['user']])
             ->andWhere(['not in', "user_id", $exclude_user_ids])
