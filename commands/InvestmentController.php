@@ -22,8 +22,9 @@ class InvestmentController extends Controller
         $accountTable = \app\models\Account::tableName();
         $userTable = \app\models\User::tableName();
         
-        // получить процент из конфигурационного файла
-        $percent = $this->getInvestmentProfitPercentParam();
+        // получить проценты начисления и списания из конфигурационного файла
+        $profitPercent = $this->getInvestmentProfitPercentParam();
+        $debitPercent = $this->getUsingAccountDebitPercentParam();
         // получить массив исключаемых id пользователей из конфигурационного файла
         $exclude_user_ids = $this->getInvestmentProfitExcludedUserIdsParam();
 
@@ -31,10 +32,11 @@ class InvestmentController extends Controller
             ->select([
                 "$accountTable.user_id as user_id",
                 "$transactionsTable.account_id as account_id",
-                "$transactionsTable.manager_id as manager_id",
+                "$userTable.manager_id as manager_id",
                 "$transactionsTable.currency_id as currency_id",
                 new \yii\db\Expression("SUM($transactionsTable.sum)*(-1) AS `invested`"),
-                new \yii\db\Expression("ROUND(SUM($transactionsTable.sum)*(-1)/100*{$percent}, 2) AS `profit`")
+                new \yii\db\Expression("ROUND(SUM($transactionsTable.sum)*(-1)/100*{$profitPercent}, 2) AS `profit`"),
+                new \yii\db\Expression("ROUND(SUM(($transactionsTable.sum)/100*{$profitPercent})/100*{$debitPercent}, 2) AS `debit`")
             ])
             ->leftJoin($accountTable, "$accountTable.id = account_id")
             ->leftJoin($transactionTypeTable, "$transactionTypeTable.id = $transactionsTable.transaction_type_id")
@@ -64,19 +66,36 @@ class InvestmentController extends Controller
         // получить список инвестиционных транзакций
         $itvestmentTransactions = $this->getItvestmentTransactions();
 
+        // получить процент списания за обслуживание счета из конфигурационного файла
+        $debitPercent = $this->getUsingAccountDebitPercentParam();
+
         // создать транзакции начисления прибыли
         foreach($itvestmentTransactions as $transaction) {
-            $model = new \app\models\Transaction();
-            $model->account_id = $transaction['account_id'];
-            $model->manager_id = $transaction['manager_id'];
-            $model->currency_id = $transaction['currency_id'];
-            $model->transaction_type_id = 5; // 5 - Начисление суммы прибыли на счет клиента
-            $model->sum = abs($transaction['profit']);
-            $model->description = 'PROFIT';
-            $model->save();
+            
+            // транзакция начисления прибыли
+            $profit = new \app\models\Transaction();
+            $profit->account_id = $transaction['account_id'];
+            $profit->manager_id = $transaction['manager_id'];
+            $profit->currency_id = $transaction['currency_id'];
+            $profit->transaction_type_id = 5; // 5 - Начисление суммы прибыли на счет клиента
+            $profit->sum = abs($transaction['profit']);
+            $profit->description = 'PROFIT';
+            $profit->save();
+
+            // транзакция списания за обслуживание счета
+            $debit = new \app\models\Transaction();
+            $debit->account_id = $transaction['account_id'];
+            $debit->manager_id = $transaction['manager_id'];
+            $debit->currency_id = $transaction['currency_id'];
+            $debit->transaction_type_id = 2; // 2 - Оплата клиентом суммы за обслуживание счета
+            $debit->sum = (-1) * abs($transaction['debit']);
+            $debit->description = "Комиссия за обслуживание счета ({$debitPercent}% от суммы прибыли по инвестициям)";
+            $debit->save();
+
+            unset($profit, $debit);
         }
 
-        echo "Monthly profit investment action success...\n";
+        echo "Monthly profit investment and debit for using account action success...\n";
 
         return ExitCode::OK;
     }
