@@ -92,16 +92,18 @@ trait ConfigParamsTrait {
     }
 
     /**
-     * Get account debit percent param.
+     * Get using account debit percent param.
      * 
      * @return float
      */
-    public function getAccountDebitPercentParam() {
+    public function getUsingAccountDebitPercentParam() {
         return Yii::$app->params['account']['debit']['monthly'];
     }
 
     /**
      * Get account debit excluded user IDs param.
+     * 
+     * Deprecated!
      * 
      * @return array
      */
